@@ -52,7 +52,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WowDotNetAPI">
-      <HintPath>..\..\..\..\..\Desktop\WowApi\Explorers\bin\Debug\WowDotNetAPI.dll</HintPath>
+      <HintPath>Assembly References\WowDotNetAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
