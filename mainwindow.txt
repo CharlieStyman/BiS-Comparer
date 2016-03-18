@@ -1,0 +1,49 @@
+<Window x:Class="BiSComparer.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:BiSComparer"
+		xmlns:util="clr-namespace:Wpf.Util"
+		mc:Ignorable="d"
+		Title="Best In Slot Comparer" Height="350" Width="525">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Button Grid.Row="0"
+				Content="Find Needed Items"
+				Width="Auto"
+				Command="{Binding LoadBiSListsCommand}"/>
+		<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+			<ItemsControl ItemsSource="{Binding CharInfos}"  Name="itemsControl">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Vertical">
+							<Expander IsExpanded="True">
+								<Expander.Header>
+									<TextBlock Text="{Binding Character}"/>
+								</Expander.Header>
+								<ListView Name="listView"
+										  ItemsSource="{Binding ItemsNeeded}"
+										  GridViewColumnHeader.Click="ItemsNeededViewClick">
+									<ListView.View>
+										<GridView>
+											<GridViewColumn Header="Slot" Width="Auto" DisplayMemberBinding="{Binding Slot}" util:GridViewSort.PropertyName="Slot"/>
+											<GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" util:GridViewSort.PropertyName="Name"/>
+											<GridViewColumn Header="Source" Width="Auto" DisplayMemberBinding="{Binding Source}" util:GridViewSort.PropertyName="Source"/>
+											<GridViewColumn Header="ILevel" Width="Auto" DisplayMemberBinding="{Binding Ilevel}" util:GridViewSort.PropertyName="Ilevel"/>
+										</GridView>
+									</ListView.View>
+								</ListView>
+							</Expander>
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</Window>
