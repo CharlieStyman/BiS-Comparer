@@ -102,12 +102,14 @@ namespace BiSComparer
 				string slot = itemElement.Attributes["Slot"].Value;
 				obtained = Convert.ToBoolean(resetObtained ? "false" : itemElement.Attributes["Obtained"].Value);
 
+				bool isTier = Constants.IsItemTierPiece(source, slot);
+
 				if (resetObtained)
 				{
 					SetObtained(name, charName, false, ref xmlDoc);
 				}
 
-				Item item = new Item(slot, name, source, Constants.GetMinimumIlevel(difficulty, source), obtained, isWf:false);
+				Item item = new Item(slot, name, source, Constants.GetMinimumIlevel(difficulty, source, isTier), obtained, isWf:false);
 
 				items.Add(item);
 			}

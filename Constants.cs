@@ -64,26 +64,10 @@ namespace BiSComparer
 
 		#endregion
 
-		public static int GetMinimumIlevel(string raidDifficulty, string source)
+		public static int GetMinimumIlevel(string raidDifficulty, string source, bool isTier)
 		{
 			int iLevel = 0;
-			if (source == s_hellfireAssault || source == s_ironReaver || source == s_kormrok || source == s_hellfireHighCouncil)
-			{
-				switch (raidDifficulty)
-				{
-					case "Mythic":
-						iLevel = 720;
-						break;
-					case "Heroic":
-						iLevel = 705;
-						break;
-					default:
-						iLevel = 690;
-						break;
-				}
-			}
-
-			if (source == s_kilrogg || source == s_gorefiend || source == s_iskar || source == s_socrethar || source == s_trash)
+			if (isTier)
 			{
 				switch (raidDifficulty)
 				{
@@ -98,51 +82,116 @@ namespace BiSComparer
 						break;
 				}
 			}
-
-			if (source == s_zakuun || source == s_xhulHorac || source == s_tyrantVelhari || source == s_mannoroth)
+			else
 			{
-				switch (raidDifficulty)
+
+				if (source == s_hellfireAssault || source == s_ironReaver || source == s_kormrok || source == s_hellfireHighCouncil)
 				{
-					case "Mythic":
-						iLevel = 730;
-						break;
-					case "Heroic":
-						iLevel = 715;
-						break;
-					default:
-						iLevel = 700;
-						break;
+					switch (raidDifficulty)
+					{
+						case "Mythic":
+							iLevel = 720;
+							break;
+						case "Heroic":
+							iLevel = 705;
+							break;
+						default:
+							iLevel = 690;
+							break;
+					}
 				}
-			}
 
-			if (source == s_archimonde)
-			{
-				switch (raidDifficulty)
+				if (source == s_kilrogg || source == s_gorefiend || source == s_iskar || source == s_socrethar || source == s_trash)
 				{
-					case "Mythic":
-						iLevel = 735;
-						break;
-					case "Heroic":
-						iLevel = 720;
-						break;
-					default:
-						iLevel = 705;
-						break;
+					switch (raidDifficulty)
+					{
+						case "Mythic":
+							iLevel = 725;
+							break;
+						case "Heroic":
+							iLevel = 710;
+							break;
+						default:
+							iLevel = 695;
+							break;
+					}
 				}
-			}
 
-			if (source == s_quest)
-			{
-				return iLevel = 735;
-			}
+				if (source == s_zakuun || source == s_xhulHorac || source == s_tyrantVelhari || source == s_mannoroth)
+				{
+					switch (raidDifficulty)
+					{
+						case "Mythic":
+							iLevel = 730;
+							break;
+						case "Heroic":
+							iLevel = 715;
+							break;
+						default:
+							iLevel = 700;
+							break;
+					}
+				}
 
-			if (source == s_mythicDungeon)
-			{
-				return iLevel = 725;
+				if (source == s_archimonde)
+				{
+					switch (raidDifficulty)
+					{
+						case "Mythic":
+							iLevel = 735;
+							break;
+						case "Heroic":
+							iLevel = 720;
+							break;
+						default:
+							iLevel = 705;
+							break;
+					}
+				}
+
+				if (source == s_quest)
+				{
+					return iLevel = 735;
+				}
+
+				if (source == s_mythicDungeon)
+				{
+					return iLevel = 725;
+				}
 			}
 
 			return iLevel;
+		}
 
+		public static bool IsItemTierPiece(string source, string slot)
+		{
+			bool isTier = false;
+			if (slot == s_headSlot && source == s_kormrok)
+			{
+				isTier = true;
+			}
+
+			if (slot == s_legsSlot && source == s_gorefiend)
+			{
+				isTier = true;
+			}
+
+			if (slot == s_handsSlot && source == s_socrethar)
+			{
+				isTier = true;
+			}
+
+			if (slot == s_shoulderSlot && source == s_xhulHorac)
+			{
+				isTier = true;
+			}
+
+			if (slot == s_chestSlot && source == s_mannoroth)
+			{
+				isTier = true;
+			}
+
+			return isTier;
 		}
 
 		public static bool IsWarforged(List<int> BonusIDs)

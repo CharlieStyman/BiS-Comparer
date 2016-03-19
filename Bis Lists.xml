@@ -239,7 +239,7 @@
       <Item Slot="Legs" Name="Legplates of Iron Wrath" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Stompers of Brazen Terror " Source="Kilrogg Deadeye" Obtained="True" />
       <Item Slot="Finger1" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="False" />
-      <Item Slot="Finger2" Name="Band of Enthralling Delusion" Source="Shadow-Lord Iskar" Obtained="False" />
+      <Item Slot="Finger2" Name="Band of Enthralling Delusion" Source="Shadow-Lord Iskar" Obtained="True" />
       <Item Slot="Trinket1" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
       <Item Slot="Trinket2" Name="Worldbreaker's Resolve" Source="Fel Lord Zakuun" Obtained="False" />
       <Item Slot="MainHand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
@@ -281,19 +281,19 @@
       <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
     </Character>
     <Character Name="Ferlína">
-      <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="True" />
-      <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="True" />
+      <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="False" />
+      <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="False" />
       <Item Slot="Shoulder" Name="Shoulderplates of the Ceaseless Vigil" Source="Xhul'horac" Obtained="False" />
-      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="True" />
-      <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="True" />
+      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="False" />
+      <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="False" />
       <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="False" />
-      <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="True" />
+      <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="False" />
       <Item Slot="Waist" Name="Annihilan's Waistplate " Source="Mannoroth" Obtained="False" />
-      <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="True" />
-      <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="True" />
+      <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="False" />
+      <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
       <Item Slot="Finger1" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
-      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="True" />
-      <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="True" />
+      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="False" />
+      <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
       <Item Slot="Trinket2" Name="Libram of Vindication" Source="Archimonde" Obtained="False" />
       <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
       <Item Slot="Offhand" Name="Soulwarped Tower Shield" Source="Socrethar" Obtained="False" />
