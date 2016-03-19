@@ -9,6 +9,12 @@ namespace BiSComparer
 {
 	public class CharInfo
 	{
+		public CharInfo(string name, ObservableCollection<Item> bisItems)
+		{
+			CharName = name;
+			BisItems = bisItems;
+		}
+
 		public string CharName { get; set; }
 
 		public ObservableCollection<Item> BisItems { get; set; }

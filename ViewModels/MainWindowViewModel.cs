@@ -8,20 +8,17 @@ using System.Windows.Threading;
 using System.Threading;
 using System.Windows;
 
-namespace BiSComparer
+namespace BiSComparer.ViewModels
 {
-	public class BiSComparerViewModel : INotifyPropertyChanged
+	public class MainWindowViewModel : INotifyPropertyChanged
 	{
-		public BiSComparerViewModel()
+		public MainWindowViewModel()
 		{
-			m_bisComparerModel = new BiSComparerModel(this);
+			BiSComparerModel = new BiSComparerModel(this);
 			LoadBiSListsCommand = new SimpleCommand { ExecuteDelegate = X => LoadBiSLists() };
-			SaveAndReloadCommand = new SimpleCommand
-			{
-				ExecuteDelegate = X => SaveAndReloadBiS(),
-				CanExecuteDelegate = X => CanSaveAndReloadBiS()
-			};
 		}
+
+		public BiSComparerModel BiSComparerModel { get; private set; }
 
 		public ObservableCollection<CharInfo> CharInfos
 		{
@@ -45,46 +42,6 @@ namespace BiSComparer
 				{
 					m_bossInfos = value;
 					OnPropertyChanged(new PropertyChangedEventArgs("BossInfos"));
-				}
-			}
-		}
-
-		public event EventHandler SelectedCharacterChanged;
-
-		public CharInfo SelectedCharacter
-		{
-			get { return m_selectedCharacter; }
-			set
-			{
-				if (m_selectedCharacter != value)
-				{
-					m_selectedCharacter = value;
-					OnPropertyChanged(new PropertyChangedEventArgs("SelectedCharacter"));
-
-					if (SelectedCharacterChanged != null)
-					{
-						SelectedCharacterChanged(this, EventArgs.Empty);
-					}
-				}
-			}
-		}
-
-		public event EventHandler SelectedBossChanged;
-
-		public BossInfo SelectedBoss
-		{
-			get { return m_selectedBoss; }
-			set
-			{
-				if (m_selectedBoss != value)
-				{
-					m_selectedBoss = value;
-					OnPropertyChanged(new PropertyChangedEventArgs("SelectedBoss"));
-
-					if (SelectedBossChanged != null)
-					{
-						SelectedBossChanged(this, EventArgs.Empty);
-					}
 				}
 			}
 		}
@@ -160,19 +117,31 @@ namespace BiSComparer
 				}).Start();
 		}
 
-		private void PopulateCharInfosAndBossInfos(string BisFilePath)
+		public void PopulateCharInfosAndBossInfos(string BisFilePath)
 		{
 			if (!string.IsNullOrEmpty(BisFilePath))
 			{
 				// Rearrange char infos to be ordered by number of items still needed.
-				IEnumerable<CharInfo> charInfos = m_bisComparerModel.GetCharInfos(BisFilePath).OrderByDescending(o => o.ItemsNeededCount);
+				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath).OrderByDescending(o => o.ItemsNeededCount);
 				CharInfos = new ObservableCollection<CharInfo>(charInfos);
 
 				// Rearrange boss infos to be ordered by number of items still needed.
-				IEnumerable<BossInfo> bossInfos = m_bisComparerModel.GetBossInfos(CharInfos).OrderByDescending(o => o.ItemsNeededCount);
+				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos).OrderByDescending(o => o.ItemsNeededCount);
 				BossInfos = new ObservableCollection<BossInfo>(bossInfos);
 			}
 		}
+
+
+		public void SaveAndReloadBiS()
+		{
+			new Thread(delegate ()
+			{
+				BiSComparerModel.SaveBiSList(BisFilePath, CharInfos);
+				PopulateCharInfosAndBossInfos(BisFilePath);
+			}).Start();
+		}
+
+
 		public void UpdateProgressBar(string charName, double numberOfCharacters)
 		{
 			if (ProgressVisibility != Visibility.Visible)
@@ -194,23 +163,6 @@ namespace BiSComparer
 			ProgressText = "";
 		}
 
-
-		public SimpleCommand SaveAndReloadCommand { get; set; }
-
-		private bool CanSaveAndReloadBiS()
-		{
-			return (!string.IsNullOrEmpty(BisFilePath));
-		}
-
-		private void SaveAndReloadBiS()
-		{
-			new Thread(delegate()
-				{
-					m_bisComparerModel.SaveBiSList(BisFilePath, CharInfos);
-					PopulateCharInfosAndBossInfos(BisFilePath);
-				}).Start();
-		}
-
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -221,12 +173,9 @@ namespace BiSComparer
 			}
 		}
 
-
-		private BiSComparerModel m_bisComparerModel;
 		private ObservableCollection<CharInfo> m_charInfos;
-		private CharInfo m_selectedCharacter;
 		private ObservableCollection<BossInfo> m_bossInfos;
-		private BossInfo m_selectedBoss;
+
 		private string m_progressText;
 		private double m_progressValue;
 		private Visibility m_progressVisibility = Visibility.Hidden;

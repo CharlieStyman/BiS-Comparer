@@ -8,12 +8,13 @@ using System.Windows;
 using System.Xml;
 using WowDotNetAPI;
 using WowDotNetAPI.Models;
+using BiSComparer.ViewModels;
 
 namespace BiSComparer
 {
 	public class BiSComparerModel
 	{
-		public BiSComparerModel(BiSComparerViewModel bisComparerViewModel)
+		public BiSComparerModel(MainWindowViewModel bisComparerViewModel)
 		{
 			m_bisComparerVM = bisComparerViewModel;
 		}
@@ -40,9 +41,7 @@ namespace BiSComparer
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, raidDifficulty);
 				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, raidDifficulty, ref s_xmlDoc);
 
-				CharInfo charInfo = new CharInfo();
-				charInfo.CharName = charName;
-				charInfo.BisItems = bisItems;
+				CharInfo charInfo = new CharInfo(charName, bisItems);
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
@@ -445,6 +444,6 @@ namespace BiSComparer
 
 		private static XmlDocument s_xmlDoc;
 		private static WowExplorer m_wow = new WowExplorer(Region.EU, Locale.en_GB, "6phc6jdp43t663mfj7v82dhkyckwbums");
-		private BiSComparerViewModel m_bisComparerVM;
+		private MainWindowViewModel m_bisComparerVM;
 	}
 }

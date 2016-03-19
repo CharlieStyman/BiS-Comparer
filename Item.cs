@@ -31,7 +31,16 @@ namespace BiSComparer
 			Sources = Constants.s_bosses;
 		}
 
+		public Item(string slot, string name, string source)
+		{
+			Slot = slot;
+			Name = name;
+			Source = source;
+			Sources = Constants.s_bosses;
+		}
+
 		public string Name { get; set; }
+
 		public string Source { get; set; }
 
 		public string Slot { get; set; }

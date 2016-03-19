@@ -60,9 +60,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\BossSummaryViewModel.cs" />
+    <Compile Include="Views\BiSEditorView.xaml.cs">
+      <DependentUpon>BiSEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BiSEditorViewModel.cs" />
     <Compile Include="BossInfo.cs" />
+    <Compile Include="ViewModels\CharacterSummaryViewModel.cs" />
+    <Compile Include="SortAdorner.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Views\BossSummaryView.xaml.cs">
+      <DependentUpon>BossSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CharacterSummaryView.xaml.cs">
+      <DependentUpon>CharacterSummaryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SimpleCommand.cs" />
+    <Compile Include="Views\LoadCharactersView.xaml.cs">
+      <DependentUpon>LoadCharactersView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BiSEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,13 +92,25 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BiSComparerModel.cs" />
-    <Compile Include="BiSComparerViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="CharInfo.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\BossSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CharacterSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadCharactersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
