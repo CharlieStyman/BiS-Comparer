@@ -25,13 +25,12 @@ namespace BiSComparer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Difficulty {
+        public global::System.Collections.Specialized.StringCollection FileDifficulty {
             get {
-                return ((string)(this["Difficulty"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["FileDifficulty"]));
             }
             set {
-                this["Difficulty"] = value;
+                this["FileDifficulty"] = value;
             }
         }
     }

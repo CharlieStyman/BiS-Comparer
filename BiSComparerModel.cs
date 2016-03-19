@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Xml;
@@ -22,17 +24,10 @@ namespace BiSComparer
 			s_xmlDoc = new XmlDocument();
 			s_xmlDoc.Load(bisFilePath);
 			XmlNode raidInfo = s_xmlDoc.DocumentElement.SelectSingleNode("/RaidInfo");
+			string fileName = Path.GetFileName(bisFilePath);
 			string raidDifficulty = raidInfo.Attributes["Difficulty"].Value;
 
-			bool resetObtained = false;
-			if (string.IsNullOrEmpty(Properties.Settings.Default.Difficulty) ||
-				!string.Equals(Properties.Settings.Default.Difficulty, raidDifficulty))
-			{
-				// Raid difficulty has change since the last time xml was loaded.
-				Properties.Settings.Default.Difficulty = raidDifficulty;
-				Properties.Settings.Default.Save();
-				resetObtained = true;
-			}
+			bool resetObtained = GetResetObtained(fileName, raidDifficulty);
 
 			XmlNodeList characters = s_xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
 
@@ -371,6 +366,61 @@ namespace BiSComparer
 			}
 
 			return itemNeeded;
+		}
+
+		private bool GetResetObtained(string fileName, string raidDifficulty)
+		{
+			bool resetObtained = false;
+			bool settingChanged = false;
+
+			StringCollection fileDifficulty = Properties.Settings.Default.FileDifficulty;
+
+			if (fileDifficulty != null)
+			{
+				// Setting already saved, check if current file is stored in the array.
+				if (fileDifficulty.Contains(fileName))
+				{
+					int fileIndex = fileDifficulty.IndexOf(fileName);
+					// Setting has a difficulty saved for the current file. Check if it has changed.
+					if (fileDifficulty[fileIndex + 1] != raidDifficulty)
+					{
+						// Raid difficulty for file has changed, update setting and reset obtained.
+						fileDifficulty[fileIndex + 1] = raidDifficulty;
+						settingChanged = true;
+					}
+				}
+				else
+				{
+					// File cannot be found in the setting. Add it, and save setting.
+					AddNewSettingEntryAndSave(fileName, raidDifficulty, fileDifficulty);
+				}
+			}
+			else
+			{
+				// Theres no setting saved, so add current file/difficulty to settings and reset obtained.
+				fileDifficulty = new StringCollection();
+				AddNewSettingEntryAndSave(fileName, raidDifficulty, fileDifficulty);
+			}
+
+			if (settingChanged)
+			{
+				// Raid difficulty has change since the last time xml was loaded.
+				Properties.Settings.Default.FileDifficulty = fileDifficulty;
+				Properties.Settings.Default.Save();
+				{
+					resetObtained = true;
+				}
+			}
+
+			return resetObtained;
+		}
+
+		private void AddNewSettingEntryAndSave(string fileName, string raidDifficulty, StringCollection fileDifficulty)
+		{
+			string[] newEntry = new string[] { fileName, raidDifficulty };
+			fileDifficulty.AddRange(newEntry);
+			Properties.Settings.Default.FileDifficulty = fileDifficulty;
+			Properties.Settings.Default.Save();
 		}
 
 		private void SetObtained(string itemName, string charName, bool obtained, ref XmlDocument xmlDoc)
