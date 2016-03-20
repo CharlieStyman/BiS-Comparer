@@ -125,7 +125,8 @@
 				  Grid.Row="2"
 				  Grid.Column="1"
 				  ItemsSource="{Binding SelectedCharacter.BisItems}"
-				  Margin="5">
+				  Margin="5"
+				  KeyboardNavigation.TabNavigation="Cycle">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<Grid>
@@ -150,6 +151,11 @@
 					</Grid>
 				</DataTemplate>
 			</ListView.ItemTemplate>
+			<ListView.ItemContainerStyle>
+				<Style>
+					<Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
+				</Style>
+			</ListView.ItemContainerStyle>
 		</ListView>
 
 		<StackPanel Grid.Row="3"

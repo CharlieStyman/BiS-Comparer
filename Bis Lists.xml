@@ -36,6 +36,23 @@
       <Item Slot="MainHand" Name="Fiendsbreath Warmace" Source="Xhul'horac" Obtained="False" />
       <Item Slot="Offhand" Name="Fiendsbreath Warmace" Source="Xhul'horac" Obtained="False" />
     </Character>
+    <Character Name="Diazo" Realm="Darksorrow">
+      <Item Slot="Head" Name="Demon Prince's Ascendant Crown" Source="Archimonde" Obtained="False" />
+      <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="False" />
+      <Item Slot="Shoulder" Name="Mantle of the Arcanic Conclave" Source="Xhul'horac" Obtained="False" />
+      <Item Slot="Back" Name="Cloak of Hideous Unity" Source="Fel Lord Zakuun" Obtained="True" />
+      <Item Slot="Chest" Name="Robe of the Arcanic Conclave" Source="Mannoroth" Obtained="False" />
+      <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="False" />
+      <Item Slot="Hands" Name="Gloves of the Arcanic Conclave" Source="Socrethar" Obtained="True" />
+      <Item Slot="Waist" Name="Demonbuckle Sash of Argus" Source="Archimonde" Obtained="False" />
+      <Item Slot="Legs" Name="Pantaloons of the Arcanic Conclave" Source="Gorefiend" Obtained="True" />
+      <Item Slot="Feet" Name="Dessicated Soulrender Slippers" Source="Trash" Obtained="False" />
+      <Item Slot="Finger1" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="True" />
+      <Item Slot="Finger2" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+      <Item Slot="Trinket1" Name="Tome of Shifting Words" Source="Archimonde" Obtained="False" />
+      <Item Slot="Trinket2" Name="Prophecy of Fear" Source="Mannoroth" Obtained="False" />
+      <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+    </Character>
     <Character Name="Djape" Realm="Darksorrow">
       <Item Slot="Head" Name="Demon Prince's Ascendant Crown " Source="Kormrok" Obtained="True" />
       <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="False" />
@@ -136,7 +153,7 @@
       <Item Slot="Legs" Name="Demongaze Legplates" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
       <Item Slot="Finger1" Name="Congealed Globule Loop" Source="Kilrogg Deadeye" Obtained="True" />
-      <Item Slot="Finger2" Name=" Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="False" />
+      <Item Slot="Finger2" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
       <Item Slot="Trinket1" Name="Discordant Chorus" Source="Fel Lord Zakuun" Obtained="True" />
       <Item Slot="Trinket2" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
       <Item Slot="MainHand" Name="Blazing Demonhilt Sword" Source="Hellfire High Council" Obtained="True" />
