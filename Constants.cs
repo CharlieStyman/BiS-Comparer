@@ -38,7 +38,7 @@ namespace BiSComparer
 
 		#endregion
 
-		#region Slot Names
+		#region WoW Specific Constants
 
 		// DEVNOTE: These constants relate to the properties on the 
 		// WowAPI CharacterEquipment class, and the slots in the BiS XML.
@@ -61,6 +61,11 @@ namespace BiSComparer
 		public static string s_mainHandSlot = "MainHand";
 		public static string s_offHandSlot = "OffHand";
 		public static string[] s_equipmentSlots = new string[] { s_headSlot, s_neckSlot, s_shoulderSlot, s_backSlot, s_chestSlot, s_wristSlot, s_handsSlot, s_waistSlot, s_legsSlot, s_feetSlot, s_finger1Slot, s_finger2Slot, s_trinket1Slot, s_trinket2Slot, s_mainHandSlot, s_offHandSlot };
+
+		public static string s_normal = "Normal";
+		public static string s_heroic = "Heroic";
+		public static string s_mythic = "Mythic";
+		public static string[] s_raidDifficulties = new string[] { s_normal, s_heroic, s_mythic };
 
 		#endregion
 

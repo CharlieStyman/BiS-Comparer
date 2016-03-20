@@ -6,26 +6,26 @@
 		xmlns:local="clr-namespace:BiSComparer"
 		xmlns:views="clr-namespace:BiSComparer.Views"
 		mc:Ignorable="d"
-		Title="Best In Slot Comparer" Height="700" Width="630">
+		Title="Best In Slot Comparer" Height="775" Width="700">
 
 	<TabControl Grid.Row="0"
-					Grid.ColumnSpan="2">
+				Grid.ColumnSpan="2">
 		<TabItem Header="Boss Summary"
-					 DataContext="{Binding BossSummaryViewModel}">
+				 DataContext="{Binding BossSummaryViewModel}">
 			<Grid>
 				<views:BossSummaryView/>
 			</Grid>
 		</TabItem>
 
 		<TabItem Header="Character Summary"
-					 DataContext="{Binding CharacterSummaryViewModel}">
+				 DataContext="{Binding CharacterSummaryViewModel}">
 			<Grid>
 				<views:CharacterSummaryView/>
 			</Grid>
 		</TabItem>
 
 		<TabItem Header="BiS Editor"
-					 DataContext="{Binding BiSEditorViewModel}">
+				 DataContext="{Binding BiSEditorViewModel}">
 			<Grid>
 				<views:BiSEditorView/>
 			</Grid>

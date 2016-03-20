@@ -19,6 +19,25 @@ namespace BiSComparer
 			m_bisComparerVM = bisComparerViewModel;
 		}
 
+		public string RaidDifficulty
+		{
+			get { return m_raidDifficulty; }
+			set
+			{
+				if (m_raidDifficulty != value)
+				{
+					m_raidDifficulty = value;
+
+					if (raidDifficultyChanged != null)
+					{
+						raidDifficultyChanged(this, EventArgs.Empty);
+					}
+				}
+			}
+		}
+
+		public event EventHandler raidDifficultyChanged;
+
 		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath)
 		{
 			ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
@@ -26,22 +45,23 @@ namespace BiSComparer
 			s_xmlDoc.Load(bisFilePath);
 			XmlNode raidInfo = s_xmlDoc.DocumentElement.SelectSingleNode("/RaidInfo");
 			string fileName = Path.GetFileName(bisFilePath);
-			string raidDifficulty = raidInfo.Attributes["Difficulty"].Value;
+			RaidDifficulty = raidInfo.Attributes["Difficulty"].Value;
 
-			bool resetObtained = GetResetObtained(fileName, raidDifficulty);
+			bool resetObtained = GetResetObtained(fileName, RaidDifficulty);
 
 			XmlNodeList characters = s_xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
 
 			foreach (XmlNode character in characters)
 			{
 				string charName = character.Attributes["Name"].Value;
+				string realm = character.Attributes["Realm"].Value;
 
-				ObservableCollection<Item> bisItems = GetBiSList(character, raidDifficulty, resetObtained, ref s_xmlDoc);
-				Character wowCharacter = LoadCharacter(charName);
-				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, raidDifficulty);
-				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, raidDifficulty, ref s_xmlDoc);
+				ObservableCollection<Item> bisItems = GetBiSList(character, RaidDifficulty, resetObtained, ref s_xmlDoc);
+				Character wowCharacter = LoadCharacter(charName, realm);
+				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, RaidDifficulty);
+				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, RaidDifficulty, ref s_xmlDoc);
 
-				CharInfo charInfo = new CharInfo(charName, bisItems);
+				CharInfo charInfo = new CharInfo(charName, realm, bisItems);
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
@@ -54,34 +74,6 @@ namespace BiSComparer
 
 			s_xmlDoc.Save(bisFilePath);
 			return charInfos;
-		}
-
-		public void SaveBiSList(string bisFilePath, ObservableCollection<CharInfo> charInfos)
-		{
-			s_xmlDoc.Load(bisFilePath);
-			XmlNodeList characters = s_xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
-
-			foreach (XmlNode character in characters)
-			{
-				string charName = character.Attributes["Name"].Value;
-				CharInfo charInfo = charInfos.Where(c => c.CharName == charName).FirstOrDefault();
-
-				foreach (Item BiSItem in charInfo.BisItems)
-				{
-					foreach (XmlElement itemElement in character.ChildNodes)
-					{
-						if (itemElement.Attributes["Slot"].Value == BiSItem.Slot)
-						{
-							itemElement.Attributes["Name"].Value = BiSItem.Name;
-							itemElement.Attributes["Source"].Value = BiSItem.Source;
-							itemElement.Attributes["Obtained"].Value = "False";
-							break;
-						}
-					}
-				}
-			}
-
-			s_xmlDoc.Save(bisFilePath);
 		}
 
 		private ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, bool resetObtained, ref XmlDocument xmlDoc)
@@ -177,46 +169,22 @@ namespace BiSComparer
 			bossInfos.Add(bossInfo);
 		}
 
-		private Character LoadCharacter(string charName)
+		private Character LoadCharacter(string charName, string realm)
 		{
 			Character character = new Character();
 
 			try
 			{
-				character = m_wow.GetCharacter("Darksorrow", charName, CharacterOptions.GetItems);
+				character = m_wow.GetCharacter(realm, charName, CharacterOptions.GetItems);
 
 				if (character.Level < Constants.s_maxLevel)
 				{
-					throw new Exception(string.Format("Character with name {0} on Darksorrow has a level lower than {1}, checking Genjuros.", charName, Constants.s_maxLevel));
+					throw new Exception(string.Format("Character with name {0} on realm {1} has a level lower than {2}, checking Genjuros.", charName, realm, Constants.s_maxLevel));
 				}
 			}
 			catch
 			{
-				try
-				{
-					character = m_wow.GetCharacter("Genjuros", charName, CharacterOptions.GetItems);
-
-					if (character.Level < Constants.s_maxLevel)
-					{
-						throw new Exception(string.Format("Character with name {0} on Genjuros has a level lower than {1}, checking Neptulon.", charName, Constants.s_maxLevel));
-					}
-				}
-				catch
-				{
-					try
-					{
-						character = m_wow.GetCharacter("Neptulon", charName, CharacterOptions.GetItems);
-
-						if (character.Level < Constants.s_maxLevel)
-						{
-							throw new Exception(string.Format("Character with name {0} on Genjuros has a level lower than {1}.", charName, Constants.s_maxLevel));
-						}
-					}
-					catch
-					{
-						throw new Exception(string.Format("Character \"{0}\" could not be found on Darksorrow, Genjuros or Neptulon", charName));
-					}
-				}
+				throw new Exception(string.Format("Character \"{0}\" could not be found on realm \"{1}\".", charName, realm));
 			}
 
 			return character;
@@ -445,5 +413,6 @@ namespace BiSComparer
 		private static XmlDocument s_xmlDoc;
 		private static WowExplorer m_wow = new WowExplorer(Region.EU, Locale.en_GB, "6phc6jdp43t663mfj7v82dhkyckwbums");
 		private MainWindowViewModel m_bisComparerVM;
+		private string m_raidDifficulty;
 	}
 }

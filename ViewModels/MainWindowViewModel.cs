@@ -29,9 +29,16 @@ namespace BiSComparer.ViewModels
 				{
 					m_charInfos = value;
 					OnPropertyChanged(new PropertyChangedEventArgs("CharInfos"));
+
+					if (CharInfosChanged != null)
+					{
+						CharInfosChanged(this, EventArgs.Empty);
+					}
 				}
 			}
 		}
+
+		public event EventHandler CharInfosChanged;
 
 		public ObservableCollection<BossInfo> BossInfos
 		{
@@ -131,17 +138,6 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
-
-		public void SaveAndReloadBiS()
-		{
-			new Thread(delegate ()
-			{
-				BiSComparerModel.SaveBiSList(BisFilePath, CharInfos);
-				PopulateCharInfosAndBossInfos(BisFilePath);
-			}).Start();
-		}
-
-
 		public void UpdateProgressBar(string charName, double numberOfCharacters)
 		{
 			if (ProgressVisibility != Visibility.Visible)
@@ -173,8 +169,8 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
-		private ObservableCollection<CharInfo> m_charInfos;
-		private ObservableCollection<BossInfo> m_bossInfos;
+		private ObservableCollection<CharInfo> m_charInfos = new ObservableCollection<CharInfo>();
+		private ObservableCollection<BossInfo> m_bossInfos = new ObservableCollection<BossInfo>();
 
 		private string m_progressText;
 		private double m_progressValue;
