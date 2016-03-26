@@ -145,14 +145,15 @@ namespace BiSComparer.ViewModels
 
 		private void SaveBiSAs()
 		{
+			string filePath = null;
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
 			saveFileDialog.Filter = "Xml files (*.xml)|*.xml|All files (*.*)|*.*";
 			if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				string filePath = saveFileDialog.FileName;
+				filePath = saveFileDialog.FileName;
 			}
 
-			SaveBiSListXml(MainWindowViewModel.BisFilePath, RaidDifficulty, CharInfos, saving:true);
+			SaveBiSListXml(filePath, RaidDifficulty, CharInfos, saving:true);
 		}
 
 		public SimpleCommand CopyCharacterToClipboardCommand{ get; set; }

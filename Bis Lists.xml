@@ -4,7 +4,7 @@
       <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="True" />
       <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="False" />
       <Item Slot="Shoulder" Name="Doomcrier's Shoulderplates" Source="Archimonde" Obtained="False" />
-      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="False" />
+      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="True" />
       <Item Slot="Chest" Name="Cuirass of the Ceaseless Vigil " Source="Mannoroth" Obtained="False" />
       <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="True" />
       <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="True" />
@@ -12,7 +12,7 @@
       <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
       <Item Slot="Finger1" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
-      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="False" />
+      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="True" />
       <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
       <Item Slot="Trinket2" Name="Libram of Vindication" Source="Archimonde" Obtained="False" />
       <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
@@ -102,23 +102,23 @@
       <Item Slot="Finger1" Name="Sanctus, Sigil of the Unbroken" Source="Quest" Obtained="True" />
       <Item Slot="Finger2" Name="Zakuun's Signet of Command" Source="Fel Lord Zakuun" Obtained="False" />
       <Item Slot="Trinket1" Name="Seed of Creation" Source="Archimonde" Obtained="False" />
-      <Item Slot="Trinket2" Name="Anzu's Cursed Plume" Source="Shadow-Lord Iskar" Obtained="True" />
+      <Item Slot="Trinket2" Name="Anzu's Cursed Plume" Source="Shadow-Lord Iskar" Obtained="False" />
       <Item Slot="MainHand" Name="Xu'tenash, Glaive of Ruin" Source="Mannoroth" Obtained="False" />
     </Character>
     <Character Name="Ferlína" Realm="Darksorrow">
       <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="True" />
-      <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="True" />
+      <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="False" />
       <Item Slot="Shoulder" Name="Shoulderplates of the Ceaseless Vigil" Source="Xhul'horac" Obtained="False" />
-      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="True" />
-      <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="True" />
+      <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="False" />
+      <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="False" />
       <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="False" />
       <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="True" />
       <Item Slot="Waist" Name="Annihilan's Waistplate " Source="Mannoroth" Obtained="False" />
       <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="True" />
       <Item Slot="Finger1" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
-      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="True" />
-      <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="True" />
+      <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="False" />
+      <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
       <Item Slot="Trinket2" Name="Libram of Vindication" Source="Archimonde" Obtained="False" />
       <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
       <Item Slot="Offhand" Name="Soulwarped Tower Shield" Source="Socrethar" Obtained="False" />
@@ -243,7 +243,7 @@
       <Item Slot="Trinket1" Name="Sacred Draenic Incense" Source="Archimonde" Obtained="False" />
       <Item Slot="Trinket2" Name="Intuition's Gift" Source="Kilrogg Deadeye" Obtained="True" />
       <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
-      <Item Slot="Offhand" Name="Gibbering Madness" Source="Gorefiend" Obtained="True" />
+      <Item Slot="Offhand" Name="Gibbering Madness" Source="Gorefiend" Obtained="False" />
     </Character>
     <Character Name="Lovecsalam" Realm="Darksorrow">
       <Item Slot="Head" Name="Hood of the Savage Hunt" Source="Kormrok" Obtained="True" />
@@ -253,7 +253,7 @@
       <Item Slot="Chest" Name="Hauberk of the Savage Hunt" Source="Mannoroth" Obtained="False" />
       <Item Slot="Wrist" Name="Bracers of Fel Empowerment" Source="Mannoroth" Obtained="False" />
       <Item Slot="Hands" Name="Eredar Fel-Chain Gloves" Source="Archimonde" Obtained="False" />
-      <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="False" />
+      <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="True" />
       <Item Slot="Legs" Name="Leggings of the Savage Hunt" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Spiked Throatcrusher Boots" Source="Tyrant Velhari" Obtained="False" />
       <Item Slot="Finger1" Name="Maalus, the Blood Drinker" Source="Quest" Obtained="True" />
@@ -307,7 +307,7 @@
       <Item Slot="Wrist" Name="Bracers of Fel Empowerment" Source="Mannoroth" Obtained="False" />
       <Item Slot="Hands" Name="Eredar Fel-Chain Gloves" Source="Archimonde" Obtained="False" />
       <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="True" />
-      <Item Slot="Legs" Name="Leggings of the Savage Hunt" Source="Gorefiend" Obtained="False" />
+      <Item Slot="Legs" Name="Leggings of the Savage Hunt" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Spiked Throatcrusher Boots" Source="Tyrant Velhari" Obtained="False" />
       <Item Slot="Finger1" Name="Maalus, the Blood Drinker" Source="Quest" Obtained="True" />
       <Item Slot="Finger2" Name="Portal Key Signet" Source="Xhul'horac" Obtained="False" />
@@ -329,7 +329,7 @@
       <Item Slot="Finger1" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="False" />
       <Item Slot="Finger2" Name="Band of Enthralling Delusion" Source="Shadow-Lord Iskar" Obtained="True" />
       <Item Slot="Trinket1" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
-      <Item Slot="Trinket2" Name="Worldbreaker's Resolve" Source="Fel Lord Zakuun" Obtained="False" />
+      <Item Slot="Trinket2" Name="Worldbreaker's Resolve" Source="Archimonde" Obtained="False" />
       <Item Slot="MainHand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
       <Item Slot="Offhand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
     </Character>
@@ -340,7 +340,7 @@
       <Item Slot="Back" Name=" Shawl of Sanguinary Ritual " Source="Kilrogg Deadeye" Obtained="True" />
       <Item Slot="Chest" Name="Deathrattle Robe" Source="Mannoroth" Obtained="False" />
       <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="False" />
-      <Item Slot="Hands" Name="Deathrattle Gloves" Source="Socrethar" Obtained="False" />
+      <Item Slot="Hands" Name="Deathrattle Gloves" Source="Socrethar" Obtained="True" />
       <Item Slot="Waist" Name="Sash of Unending Anguish" Source="Fel Lord Zakuun" Obtained="True" />
       <Item Slot="Legs" Name="Deathrattle Leggings" Source="Gorefiend" Obtained="True" />
       <Item Slot="Feet" Name="Bloody Dagger-Heeled Pumps" Source="Fel Lord Zakuun" Obtained="True" />
