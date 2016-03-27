@@ -5,6 +5,9 @@ using System.Windows.Controls;
 using System;
 using System.Windows.Documents;
 using BiSComparer.ViewModels;
+using System.IO;
+using System.Threading;
+
 namespace BiSComparer
 {
 	/// <summary>
@@ -20,8 +23,25 @@ namespace BiSComparer
 			CharacterSummaryViewModel = new CharacterSummaryViewModel(MainWindowViewModel);
 			BossSummaryViewModel = new BossSummaryViewModel(MainWindowViewModel);
 
+			string lastFile = Properties.Settings.Default.LastFile;
+			bool loadLastFile = Properties.Settings.Default.LoadLastFile;
+
 			InitializeComponent();
 			DataContext = this;
+
+			if (!string.IsNullOrEmpty(lastFile))
+			{
+				if (File.Exists(lastFile))
+				{
+					if (loadLastFile)
+					{
+						new Thread(delegate ()
+						{
+							MainWindowViewModel.PopulateCharInfosAndBossInfos(lastFile);
+						}).Start();
+					}
+				}
+			}
 		}
 
 		public MainWindowViewModel MainWindowViewModel { get; private set; }

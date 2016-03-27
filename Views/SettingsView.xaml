@@ -9,8 +9,14 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
 
 		<TextBlock Grid.Row="0"
@@ -19,25 +25,41 @@
 				   Margin="5"
 				   Padding="5"/>
 
-		<Grid Grid.Row="1">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+		<TextBlock Grid.Row="1"
+				   Grid.Column="0"
+				   Text="Reload All Items"
+				   Margin="5"/>
+		<CheckBox Grid.Row="1"
+				  Grid.Column="1"
+				  VerticalContentAlignment="Top"
+				  Margin="5"
+				  IsChecked="{Binding ResetObtained}">
+			<TextBlock Text="If selected the program will 'forget' the previous items and recalculate your needed items. Check this and reload after changing a character's raid difficulty."
+					   TextWrapping="Wrap"
+					   FontStyle="Italic"/>
+		</CheckBox>
 
-				<TextBlock Grid.Column="0"
-						   Text="Reset Obtained"
-						   Margin="5"/>
-				<CheckBox Grid.Column="1"
-						  VerticalContentAlignment="Top"
-						  Margin="5"
-						  IsChecked="{Binding ResetObtained}">
-					<TextBlock Text="If selected each loaded item will have it's 'Obtained' field set to false. Select this option the first time loading a character after it's raid difficulty has been changed."
-							   TextWrapping="Wrap"
-							   FontStyle="Italic"/>
-				</CheckBox>
-			</Grid>
-		</Grid>
+		<TextBlock Grid.Row="2"
+				   Grid.Column="0"
+				   Text="Load Previous BiS"
+				   Margin="5"/>
+		<CheckBox Grid.Row="2"
+				  Grid.Column="1"
+				  VerticalContentAlignment="Top"
+				  Margin="5"
+				  IsChecked="{Binding LoadLastFile}">
+			<TextBlock Text="If selected when the BiS Comparer is opened, it will automatically load the previous BiS list."
+					   TextWrapping="Wrap"
+					   FontStyle="Italic"/>
+		</CheckBox>
+
+		<TextBlock Grid.Row="3"
+				   Grid.Column="0"
+				   Margin="5"
+				   Text="Previous BiS File"/>
+		<TextBlock Grid.Row="3"
+				   Grid.Column="1"
+				   Margin="5"
+				   Text="{Binding LastFile}"/>
 	</Grid>
 </UserControl>
