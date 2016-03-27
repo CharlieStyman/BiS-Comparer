@@ -8,6 +8,9 @@ namespace BiSComparer
 {
 	public class Item
 	{
+		/// <summary>
+		/// Constructor for BiS List item
+		/// </summary>
 		public Item(string slot, string name, string source, string difficulty, bool obtained, bool isWf)
 		{
 			Slot = slot;
@@ -23,6 +26,24 @@ namespace BiSComparer
 			Character = string.Empty;
 		}
 
+		/// <summary>
+		/// Constructor for current Items.
+		/// </summary>
+		public Item(string slot, string name, int iLevel, string difficulty, bool obtained, bool isWf)
+		{
+			Slot = slot;
+			Name = name;
+			Ilevel = iLevel;
+			Difficulty = difficulty;
+			Obtained = obtained;
+			IsWarforged = isWf;
+			Sources = Constants.s_bosses;
+			Character = string.Empty;
+		}
+
+		/// <summary>
+		/// Constructor for BossInfos
+		/// </summary>
 		public Item(string slot, string name, string source, int iLevel, bool obtained, string character, string difficulty)
 		{
 			Slot = slot;
@@ -35,6 +56,9 @@ namespace BiSComparer
 			Sources = Constants.s_bosses;
 		}
 
+		///<summary>
+		/// Constructor for adding Items to BiS list.
+		/// </summary>
 		public Item(string slot, string name, string source)
 		{
 			Slot = slot;

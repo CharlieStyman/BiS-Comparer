@@ -191,7 +191,7 @@ namespace BiSComparer
 								isWf = true;
 							}
 
-							Item currentItem = new Item(Constants.s_equipmentSlots[i], item.Name, string.Empty, Constants.s_heroic, false, isWf);
+							Item currentItem = new Item(Constants.s_equipmentSlots[i], item.Name, item.ItemLevel, raidDifficulty, false, isWf);
 							currentItems.Add(currentItem);
 						}
 					}
