@@ -14,6 +14,7 @@ namespace BiSComparer
 	{
 		public MainWindow()
 		{
+			SettingsViewModel = new SettingsViewModel();
 			MainWindowViewModel = new MainWindowViewModel();
 			BiSEditorViewModel = new BiSEditorViewModel(MainWindowViewModel);
 			CharacterSummaryViewModel = new CharacterSummaryViewModel(MainWindowViewModel);
@@ -30,6 +31,8 @@ namespace BiSComparer
 		public CharacterSummaryViewModel CharacterSummaryViewModel { get; private set; }
 
 		public BossSummaryViewModel BossSummaryViewModel { get; private set; }
+
+		public SettingsViewModel SettingsViewModel { get; private set; }
 
 
 	}

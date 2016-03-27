@@ -68,17 +68,11 @@ namespace BiSComparer.ViewModels
 			
 
 			RaidDifficulties = Constants.s_raidDifficulties;
-
-			MainWindowViewModel.BiSComparerModel.raidDifficultyChanged += BiSComparerModel_raidDifficultyChanged;
 			MainWindowViewModel.CharInfosChanged += MainWindowViewModel_CharInfosChanged;
 		}
 		#endregion
 
 		#region EventHandlers
-		private void BiSComparerModel_raidDifficultyChanged(object sender, EventArgs e)
-		{
-			RaidDifficulty = MainWindowViewModel.BiSComparerModel.RaidDifficulty;
-		}
 
 		private void MainWindowViewModel_CharInfosChanged(object sender, EventArgs e)
 		{
@@ -109,19 +103,6 @@ namespace BiSComparer.ViewModels
 				{
 					m_charInfos = value;
 					OnPropertyChanged(new PropertyChangedEventArgs("CharInfos"));
-				}
-			}
-		}
-
-		public string RaidDifficulty
-		{
-			get { return m_raidDifficulty; }
-			set
-			{
-				if (m_raidDifficulty != value)
-				{
-					m_raidDifficulty = value;
-					OnPropertyChanged(new PropertyChangedEventArgs("RaidDifficulty"));
 				}
 			}
 		}
@@ -205,7 +186,7 @@ namespace BiSComparer.ViewModels
 		{
 			new Thread(delegate ()
 			{
-				SaveBiSListXml(MainWindowViewModel.BisFilePath, RaidDifficulty, CharInfos, saving: true);
+				SaveBiSListXml(MainWindowViewModel.BisFilePath, CharInfos, saving: true);
 				MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
 			}).Start();
 		}
@@ -222,7 +203,7 @@ namespace BiSComparer.ViewModels
 				filePath = saveFileDialog.FileName;
 			}
 
-			SaveBiSListXml(filePath, RaidDifficulty, CharInfos, saving: true);
+			SaveBiSListXml(filePath, CharInfos, saving: true);
 		}
 
 		public SimpleCommand CopyCharacterToClipboardCommand { get; set; }
@@ -236,7 +217,7 @@ namespace BiSComparer.ViewModels
 		{
 			ObservableCollection<CharInfo> selectedChar = new ObservableCollection<CharInfo>();
 			selectedChar.Add(SelectedCharacter);
-			SaveBiSListXml(string.Empty, RaidDifficulty, selectedChar, saving: false);
+			SaveBiSListXml(string.Empty, selectedChar, saving: false);
 		}
 
 		public SimpleCommand ImportFromStringCommand { get; private set; }
@@ -309,7 +290,7 @@ namespace BiSComparer.ViewModels
 				items.Add(item);
 			}
 
-			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", items);
+			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic,items);
 			AddCharacterToCharInfos(newChar);
 		}
 
@@ -334,17 +315,11 @@ namespace BiSComparer.ViewModels
 
 		#region Implementation
 
-		public void SaveBiSListXml(string filePath, string difficulty, ObservableCollection<CharInfo> charInfos, bool saving)
+		public void SaveBiSListXml(string filePath, ObservableCollection<CharInfo> charInfos, bool saving)
 		{
 			XmlDocument xmlDoc = new XmlDocument();
-			XmlElement raidInfo = xmlDoc.CreateElement("RaidInfo");
-			XmlAttribute raidDifficulty = xmlDoc.CreateAttribute("Difficulty");
-			raidDifficulty.Value = difficulty;
-			raidInfo.Attributes.Append(raidDifficulty);
-			xmlDoc.AppendChild(raidInfo);
-
 			XmlElement characters = xmlDoc.CreateElement("Characters");
-			raidInfo.AppendChild(characters);
+			xmlDoc.AppendChild(characters);
 
 			foreach (CharInfo charInfo in charInfos)
 			{
@@ -357,6 +332,10 @@ namespace BiSComparer.ViewModels
 				XmlAttribute realm = xmlDoc.CreateAttribute("Realm");
 				realm.Value = charInfo.Realm;
 				character.Attributes.Append(realm);
+
+				XmlAttribute difficulty = xmlDoc.CreateAttribute("Difficulty");
+				difficulty.Value = charInfo.Difficulty;
+				character.Attributes.Append(difficulty);
 
 				characters.AppendChild(character);
 
@@ -412,18 +391,13 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
-
 		private void ImportCharacter(XmlNode character, ref XmlDocument xmlDoc)
 		{
 			string charName = character.Attributes["Name"].Value;
 			string realm = character.Attributes["Realm"].Value;
+			string difficulty = character.Attributes["Difficulty"].Value;
 
-			if (RaidDifficulty == null)
-			{
-				RaidDifficulty = Constants.s_heroic;
-			}
-
-			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, RaidDifficulty, false, ref xmlDoc);
+			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, difficulty, ref xmlDoc);
 
 			Item offHand = bisList.Where(i => i.Slot == Constants.s_offHandSlot).FirstOrDefault();
 			if (offHand == null)
@@ -432,7 +406,7 @@ namespace BiSComparer.ViewModels
 				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty));
 			}
 
-			CharInfo newChar = new CharInfo(charName, realm, bisList);
+			CharInfo newChar = new CharInfo(charName, realm, difficulty, bisList);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}
@@ -489,7 +463,6 @@ namespace BiSComparer.ViewModels
 
 		private CharInfo m_selectedCharacter;
 		private ObservableCollection<CharInfo> m_charInfos = new ObservableCollection<CharInfo>();
-		private string m_raidDifficulty;
 		private Visibility m_importWindowVisibility = Visibility.Collapsed;
 		private Visibility m_inverseImportWindowVisibility = Visibility.Visible;
 		private string m_importString;

@@ -42,7 +42,6 @@
 		</Grid.RowDefinitions>
 
 		<ProgressBar Grid.Row="0"
-					 DataContext="{Binding MainWindowViewModel}"
 					 Style="{StaticResource LoadingCharProgressBar}"
 					 Visibility="{Binding MainWindowViewModel.ProgressVisibility}"/>
 
@@ -79,8 +78,8 @@
 					   Padding="5"
 					   Margin="0,5,5,5"/>
 			<ComboBox Grid.Column="5"
-					  ItemsSource="{Binding RaidDifficulties}"
-					  SelectedItem="{Binding RaidDifficulty}"
+					  ItemsSource="{Binding SelectedCharacter.Difficulties}"
+					  SelectedItem="{Binding SelectedCharacter.Difficulty}"
 					  Padding="5"
 					  Margin="0,5,5,5"/>
 		</Grid>

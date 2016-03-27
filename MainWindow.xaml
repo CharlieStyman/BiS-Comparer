@@ -31,5 +31,12 @@
 			</Grid>
 		</TabItem>
 
+		<TabItem Header="Settings"
+				 DataContext="{Binding SettingsViewModel}">
+			<Grid>
+				<views:SettingsView/>
+			</Grid>
+		</TabItem>
+
 	</TabControl>
 </Window>

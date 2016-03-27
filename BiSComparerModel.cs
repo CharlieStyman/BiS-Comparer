@@ -19,49 +19,27 @@ namespace BiSComparer
 			m_bisComparerVM = bisComparerViewModel;
 		}
 
-		public string RaidDifficulty
-		{
-			get { return m_raidDifficulty; }
-			set
-			{
-				if (m_raidDifficulty != value)
-				{
-					m_raidDifficulty = value;
-
-					if (raidDifficultyChanged != null)
-					{
-						raidDifficultyChanged(this, EventArgs.Empty);
-					}
-				}
-			}
-		}
-
-		public event EventHandler raidDifficultyChanged;
-
 		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath)
 		{
 			ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
 			s_xmlDoc = new XmlDocument();
 			s_xmlDoc.Load(bisFilePath);
-			XmlNode raidInfo = s_xmlDoc.DocumentElement.SelectSingleNode("/RaidInfo");
 			string fileName = Path.GetFileName(bisFilePath);
-			RaidDifficulty = raidInfo.Attributes["Difficulty"].Value;
 
-			bool resetObtained = GetResetObtained(fileName, RaidDifficulty);
-
-			XmlNodeList characters = s_xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
+			XmlNodeList characters = s_xmlDoc.DocumentElement.SelectNodes("/Characters/Character");
 
 			foreach (XmlNode character in characters)
 			{
 				string charName = character.Attributes["Name"].Value;
 				string realm = character.Attributes["Realm"].Value;
+				string difficulty = character.Attributes["Difficulty"].Value;
 
-				ObservableCollection<Item> bisItems = GetBiSList(character, RaidDifficulty, resetObtained, ref s_xmlDoc);
+				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
 				Character wowCharacter = LoadCharacter(charName, realm);
-				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, RaidDifficulty);
-				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, RaidDifficulty, ref s_xmlDoc);
+				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
+				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 
-				CharInfo charInfo = new CharInfo(charName, realm, bisItems);
+				CharInfo charInfo = new CharInfo(charName, realm, difficulty, bisItems);
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
@@ -76,13 +54,14 @@ namespace BiSComparer
 			return charInfos;
 		}
 
-		public ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, bool resetObtained, ref XmlDocument xmlDoc)
+		public ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, ref XmlDocument xmlDoc)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 			string charName = character.Attributes["Name"].Value;
 			bool obtained = false;
 			foreach (XmlElement itemElement in character.ChildNodes)
 			{
+				bool resetObtained = Properties.Settings.Default.ResetObtained;
 				string name = itemElement.Attributes["Name"].Value;
 				string source = itemElement.Attributes["Source"].Value;
 				string slot = itemElement.Attributes["Slot"].Value;
@@ -335,61 +314,6 @@ namespace BiSComparer
 			return itemNeeded;
 		}
 
-		private bool GetResetObtained(string fileName, string raidDifficulty)
-		{
-			bool resetObtained = false;
-			bool settingChanged = false;
-
-			StringCollection fileDifficulty = Properties.Settings.Default.FileDifficulty;
-
-			if (fileDifficulty != null)
-			{
-				// Setting already saved, check if current file is stored in the array.
-				if (fileDifficulty.Contains(fileName))
-				{
-					int fileIndex = fileDifficulty.IndexOf(fileName);
-					// Setting has a difficulty saved for the current file. Check if it has changed.
-					if (fileDifficulty[fileIndex + 1] != raidDifficulty)
-					{
-						// Raid difficulty for file has changed, update setting and reset obtained.
-						fileDifficulty[fileIndex + 1] = raidDifficulty;
-						settingChanged = true;
-					}
-				}
-				else
-				{
-					// File cannot be found in the setting. Add it, and save setting.
-					AddNewSettingEntryAndSave(fileName, raidDifficulty, fileDifficulty);
-				}
-			}
-			else
-			{
-				// Theres no setting saved, so add current file/difficulty to settings and reset obtained.
-				fileDifficulty = new StringCollection();
-				AddNewSettingEntryAndSave(fileName, raidDifficulty, fileDifficulty);
-			}
-
-			if (settingChanged)
-			{
-				// Raid difficulty has change since the last time xml was loaded.
-				Properties.Settings.Default.FileDifficulty = fileDifficulty;
-				Properties.Settings.Default.Save();
-				{
-					resetObtained = true;
-				}
-			}
-
-			return resetObtained;
-		}
-
-		private void AddNewSettingEntryAndSave(string fileName, string raidDifficulty, StringCollection fileDifficulty)
-		{
-			string[] newEntry = new string[] { fileName, raidDifficulty };
-			fileDifficulty.AddRange(newEntry);
-			Properties.Settings.Default.FileDifficulty = fileDifficulty;
-			Properties.Settings.Default.Save();
-		}
-
 		private void SetObtained(string itemName, string charName, bool obtained, ref XmlDocument xmlDoc)
 		{
 			XmlNodeList characters = xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
@@ -413,6 +337,5 @@ namespace BiSComparer
 		private static XmlDocument s_xmlDoc;
 		private static WowExplorer m_wow = new WowExplorer(Region.EU, Locale.en_GB, "6phc6jdp43t663mfj7v82dhkyckwbums");
 		private MainWindowViewModel m_bisComparerVM;
-		private string m_raidDifficulty;
 	}
 }
