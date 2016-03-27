@@ -61,6 +61,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\BossSummaryViewModel.cs" />
+    <Compile Include="Views\BisEditorCharacterListView.xaml.cs">
+      <DependentUpon>BisEditorCharacterListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BiSEditorItemsView.xaml.cs">
+      <DependentUpon>BiSEditorItemsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BiSEditorView.xaml.cs">
       <DependentUpon>BiSEditorView.xaml</DependentUpon>
     </Compile>
@@ -76,9 +82,20 @@
       <DependentUpon>CharacterSummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SimpleCommand.cs" />
+    <Compile Include="Views\ImportView.xaml.cs">
+      <DependentUpon>ImportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadCharactersView.xaml.cs">
       <DependentUpon>LoadCharactersView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\BisEditorCharacterListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BiSEditorItemsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BiSEditorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CharacterSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

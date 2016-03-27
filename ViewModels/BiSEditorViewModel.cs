@@ -9,11 +9,14 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using Visibility = System.Windows.Visibility;
 
 namespace BiSComparer.ViewModels
 {
 	public class BiSEditorViewModel : INotifyPropertyChanged
 	{
+
+		#region Constructor
 		public BiSEditorViewModel(MainWindowViewModel mainWindowViewModel)
 		{
 			MainWindowViewModel = mainWindowViewModel;
@@ -46,12 +49,32 @@ namespace BiSComparer.ViewModels
 				CanExecuteDelegate = X => CanRemoveCharacter()
 			};
 
+			ShowImportWindowCommand = new SimpleCommand
+			{
+				ExecuteDelegate = X => ShowImportWindow(),
+				CanExecuteDelegate = X => CanShowImportWindow()
+			};
+
+			ImportFromStringCommand = new SimpleCommand
+			{
+				ExecuteDelegate = X => ImportFromString(),
+				CanExecuteDelegate = X => CanImportFromString()
+			};
+
+			CloseImportWindowCommand = new SimpleCommand
+			{
+				ExecuteDelegate = X => CloseImportWindow()
+			};
+			
+
 			RaidDifficulties = Constants.s_raidDifficulties;
 
 			MainWindowViewModel.BiSComparerModel.raidDifficultyChanged += BiSComparerModel_raidDifficultyChanged;
 			MainWindowViewModel.CharInfosChanged += MainWindowViewModel_CharInfosChanged;
 		}
+		#endregion
 
+		#region EventHandlers
 		private void BiSComparerModel_raidDifficultyChanged(object sender, EventArgs e)
 		{
 			RaidDifficulty = MainWindowViewModel.BiSComparerModel.RaidDifficulty;
@@ -74,7 +97,9 @@ namespace BiSComparer.ViewModels
 
 			CharInfos = new ObservableCollection<CharInfo>(orderedCharInfos);
 		}
+		#endregion
 
+		#region Properties
 		public ObservableCollection<CharInfo> CharInfos
 		{
 			get { return m_charInfos; }
@@ -106,7 +131,6 @@ namespace BiSComparer.ViewModels
 		public MainWindowViewModel MainWindowViewModel { get; private set; }
 
 		public event EventHandler SelectedCharacterChanged;
-
 		public CharInfo SelectedCharacter
 		{
 			get { return m_selectedCharacter; }
@@ -125,6 +149,51 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
+		public Visibility ImportWindowVisibility
+		{
+			get { return m_importWindowVisibility; }
+			set
+			{
+				if (m_importWindowVisibility != value)
+				{
+					m_importWindowVisibility = value;
+
+					OnPropertyChanged(new PropertyChangedEventArgs("ImportWindowVisibility"));
+				}
+			}
+		}
+		public Visibility InverseImportWindowVisibility
+		{
+			get { return m_inverseImportWindowVisibility; }
+			set
+			{
+				if (m_inverseImportWindowVisibility != value)
+				{
+					m_inverseImportWindowVisibility = value;
+
+					OnPropertyChanged(new PropertyChangedEventArgs("InverseImportWindowVisibility"));
+				}
+			}
+		}
+
+		public string ImportString
+		{
+			get { return m_importString; }
+			set
+			{
+				if (m_importString != value)
+				{
+					m_importString = value;
+
+					OnPropertyChanged(new PropertyChangedEventArgs("ImportedCharacter"));
+				}
+			}
+		}
+
+		#endregion
+
+		#region Commands
+
 		public SimpleCommand SaveAndReloadCommand { get; set; }
 
 		private bool CanSaveBiS()
@@ -134,9 +203,9 @@ namespace BiSComparer.ViewModels
 
 		private void SaveAndReloadBiS()
 		{
-		new Thread(delegate ()
+			new Thread(delegate ()
 			{
-				SaveBiSListXml(MainWindowViewModel.BisFilePath, RaidDifficulty, CharInfos, saving:true);
+				SaveBiSListXml(MainWindowViewModel.BisFilePath, RaidDifficulty, CharInfos, saving: true);
 				MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
 			}).Start();
 		}
@@ -153,10 +222,10 @@ namespace BiSComparer.ViewModels
 				filePath = saveFileDialog.FileName;
 			}
 
-			SaveBiSListXml(filePath, RaidDifficulty, CharInfos, saving:true);
+			SaveBiSListXml(filePath, RaidDifficulty, CharInfos, saving: true);
 		}
 
-		public SimpleCommand CopyCharacterToClipboardCommand{ get; set; }
+		public SimpleCommand CopyCharacterToClipboardCommand { get; set; }
 
 		private bool CanCopyCharacterToClipboard()
 		{
@@ -169,6 +238,101 @@ namespace BiSComparer.ViewModels
 			selectedChar.Add(SelectedCharacter);
 			SaveBiSListXml(string.Empty, RaidDifficulty, selectedChar, saving: false);
 		}
+
+		public SimpleCommand ImportFromStringCommand { get; private set; }
+
+		private void ImportFromString()
+		{
+			if (ImportString != null)
+			{
+				XmlDocument xmlDoc = new XmlDocument();
+				try
+				{
+					xmlDoc.LoadXml(ImportString.Trim());
+					XmlNode rootElement = xmlDoc.DocumentElement;
+					if (rootElement.Name == "Characters")
+					{
+						foreach (XmlNode character in rootElement.ChildNodes)
+						{
+							ImportCharacter(character, ref xmlDoc);
+						}
+					}
+					else if (rootElement.Name == "Character")
+					{
+						ImportCharacter(rootElement, ref xmlDoc);
+					}
+				}
+				catch
+				{
+					throw new Exception("The imported character XML was not valid. Make sure that the whole Character XML (including the beginning and closing <Character> and </Character> elements are included.");
+				}
+			}
+			ImportWindowVisibility = Visibility.Collapsed;
+			InverseImportWindowVisibility = Visibility.Visible;
+		}
+
+		private bool CanImportFromString()
+		{
+			return (ImportString != null);
+		}
+
+		public SimpleCommand ShowImportWindowCommand { get; private set; }
+
+		private void ShowImportWindow()
+		{
+			ImportWindowVisibility = Visibility.Visible;
+			InverseImportWindowVisibility = Visibility.Collapsed;
+		}
+
+		private bool CanShowImportWindow()
+		{
+			return (ImportWindowVisibility != Visibility.Visible);
+		}
+
+		public SimpleCommand CloseImportWindowCommand { get; private set; }
+
+		private void CloseImportWindow()
+		{
+			ImportWindowVisibility = Visibility.Collapsed;
+			InverseImportWindowVisibility = Visibility.Visible;
+		}
+
+		public SimpleCommand AddCommand { get; set; }
+
+		private void AddCharacter()
+		{
+			ObservableCollection<Item> items = new ObservableCollection<Item>();
+
+			foreach (string slot in Constants.s_equipmentSlots)
+			{
+				Item item = new Item(slot, string.Empty, string.Empty);
+				items.Add(item);
+			}
+
+			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", items);
+			AddCharacterToCharInfos(newChar);
+		}
+
+		public SimpleCommand RemoveCommand { get; set; }
+
+		private bool CanRemoveCharacter()
+		{
+			bool canRemoveCharacter = false;
+			if (CharInfos != null)
+			{
+				canRemoveCharacter = (CharInfos.Count >= 1);
+			}
+
+			return canRemoveCharacter;
+		}
+
+		private void RemoveCharacter()
+		{
+			CharInfos.Remove(SelectedCharacter);
+		}
+		#endregion
+
+		#region Implementation
 
 		public void SaveBiSListXml(string filePath, string difficulty, ObservableCollection<CharInfo> charInfos, bool saving)
 		{
@@ -236,12 +400,54 @@ namespace BiSComparer.ViewModels
 
 			if (saving)
 			{
-				xmlDoc.Save(Path.Combine(filePath));
+				if (filePath != null)
+				{
+					xmlDoc.Save(Path.Combine(filePath));
+				}
 			}
 			else
 			{
 				string charactersNodeString = FormatXmlString(characters.InnerXml);
 				Clipboard.SetText(charactersNodeString, TextDataFormat.Text);
+			}
+		}
+
+
+		private void ImportCharacter(XmlNode character, ref XmlDocument xmlDoc)
+		{
+			string charName = character.Attributes["Name"].Value;
+			string realm = character.Attributes["Realm"].Value;
+
+			if (RaidDifficulty == null)
+			{
+				RaidDifficulty = Constants.s_heroic;
+			}
+
+			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, RaidDifficulty, false, ref xmlDoc);
+
+			Item offHand = bisList.Where(i => i.Slot == Constants.s_offHandSlot).FirstOrDefault();
+			if (offHand == null)
+			{
+				// Imported BiS doesn't include and offhand, add one.
+				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty));
+			}
+
+			CharInfo newChar = new CharInfo(charName, realm, bisList);
+			AddCharacterToCharInfos(newChar);
+			SelectedCharacter = newChar;
+		}
+
+		private void AddCharacterToCharInfos(CharInfo newChar)
+		{
+			if (CharInfos != null)
+			{
+				CharInfos.Add(newChar);
+			}
+			else
+			{
+				ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
+				charInfos.Add(newChar);
+				CharInfos = charInfos;
 			}
 		}
 
@@ -263,49 +469,7 @@ namespace BiSComparer.ViewModels
 			return stringBuilder.ToString();
 		}
 
-		public SimpleCommand AddCommand { get; set; }
-		
-		private void AddCharacter()
-		{
-			ObservableCollection<Item> items = new ObservableCollection<Item>();
-
-			foreach (string slot in Constants.s_equipmentSlots)
-			{
-				Item item = new Item(slot, string.Empty, string.Empty);
-				items.Add(item);
-			}
-
-			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", items);
-
-			if (CharInfos != null)
-			{
-				CharInfos.Add(newChar);
-			}
-			else
-			{
-				ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
-				charInfos.Add(newChar);
-				CharInfos = charInfos;
-			}
-		}
-
-		public SimpleCommand RemoveCommand { get; set; }
-
-		private bool CanRemoveCharacter()
-		{
-			bool canRemoveCharacter = false;
-			if (CharInfos != null)
-			{
-				canRemoveCharacter = (CharInfos.Count >= 1);
-			}
-
-			return canRemoveCharacter;
-		}
-
-		private void RemoveCharacter()
-		{
-			CharInfos.Remove(SelectedCharacter);
-		}
+		#endregion
 
 		#region INotifyPropertyChanged
 
@@ -326,6 +490,9 @@ namespace BiSComparer.ViewModels
 		private CharInfo m_selectedCharacter;
 		private ObservableCollection<CharInfo> m_charInfos = new ObservableCollection<CharInfo>();
 		private string m_raidDifficulty;
+		private Visibility m_importWindowVisibility = Visibility.Collapsed;
+		private Visibility m_inverseImportWindowVisibility = Visibility.Visible;
+		private string m_importString;
 
 		#endregion
 	}

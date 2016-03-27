@@ -76,7 +76,7 @@ namespace BiSComparer
 			return charInfos;
 		}
 
-		private ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, bool resetObtained, ref XmlDocument xmlDoc)
+		public ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, bool resetObtained, ref XmlDocument xmlDoc)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 			string charName = character.Attributes["Name"].Value;
