@@ -12,15 +12,15 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate>
-						<Border Visibility="{Binding ProgressVisibility}">
+						<Border Visibility="{Binding MainWindowViewModel.ProgressVisibility}">
 							<Grid>
 								<ProgressBar Name="ProgressBar"
 											 Height="20"
 											 Minimum="0"
 											 Maximum="100"
 											 Margin="5"
-											 Value="{Binding ProgressValue}"/>
-								<TextBlock Text="{Binding ProgressText}"
+											 Value="{Binding MainWindowViewModel.ProgressValue}"/>
+								<TextBlock Text="{Binding MainWindowViewModel.ProgressText}"
 										   HorizontalAlignment="Center"
 										   VerticalAlignment="Center"
 										   Foreground="Black"
@@ -58,7 +58,7 @@
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Column="0"
-					   Text="Character Name"
+					   Text="Name"
 					   Margin="0,5,5,5"
 					   Padding="5"/>
 			<TextBox Grid.Column="1"
@@ -66,7 +66,7 @@
 					 Margin="0,5,5,5"
 					 Padding="5"/>
 			<TextBlock Grid.Column="2"
-					   Text="Character Realm"
+					   Text="Realm"
 					   Margin="0,5,5,5"
 					   Padding="5"/>
 			<TextBox Grid.Column="3"

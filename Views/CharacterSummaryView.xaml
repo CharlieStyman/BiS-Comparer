@@ -21,6 +21,44 @@
 								  Grid.Column="0"
 								  Grid.ColumnSpan="2"/>
 
+		<Grid Grid.Row="0"
+			  Grid.Column="1"
+			  Visibility="{Binding MainWindowViewModel.InverseProgressVisibility}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Grid.Column="0"
+					   Text="Name"
+					   Margin="0,5,5,5"
+					   Padding="5"/>
+			<TextBlock Grid.Column="1"
+					 Text="{Binding SelectedCharacter.CharName}"
+					 Margin="0,5,5,5"
+					 Padding="5"/>
+			<TextBlock Grid.Column="2"
+					   Text="Realm"
+					   Margin="0,5,5,5"
+					   Padding="5"/>
+			<TextBlock Grid.Column="3"
+					 Text="{Binding SelectedCharacter.Realm}"
+					 Margin="0,5,5,5"
+					 Padding="5"/>
+			<TextBlock Grid.Column="4"
+					   Text="Difficulty"
+					   Padding="5"
+					   Margin="0,5,5,5"/>
+			<TextBlock Grid.Column="5"
+					  Text="{Binding SelectedCharacter.Difficulty}"
+					  Padding="5"
+					  Margin="0,5,5,5"/>
+		</Grid>
+
 		<ListBox Grid.Row="1"
 				 Grid.Column="0"
 				 ItemsSource="{Binding MainWindowViewModel.CharInfos}"
@@ -55,9 +93,6 @@
 					</GridViewColumn>
 					<GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Source}">
 						<GridViewColumnHeader Tag="Source" Click="listViewColumnHeader_Click" Content="Source"/>
-					</GridViewColumn>
-					<GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Ilevel}">
-						<GridViewColumnHeader Tag="Ilevel" Click="listViewColumnHeader_Click" Content="Ilevel"/>
 					</GridViewColumn>
 				</GridView>
 			</ListView.View>

@@ -8,19 +8,22 @@ namespace BiSComparer
 {
 	public class Item
 	{
-		public Item(string slot, string name, string source, int iLevel, bool obtained, bool isWf)
+		public Item(string slot, string name, string source, string difficulty, bool obtained, bool isWf)
 		{
 			Slot = slot;
 			Name = name;
 			Source = source;
-			Ilevel = iLevel;
+			Difficulty = difficulty;
 			Obtained = obtained;
-			Character = string.Empty;
 			IsWarforged = isWf;
+
+			bool isTier = Constants.IsItemTierPiece(source, slot);
+			Ilevel = Constants.GetMinimumIlevel(difficulty, source, isTier);
 			Sources = Constants.s_bosses;
+			Character = string.Empty;
 		}
 
-		public Item(string slot, string name, string source, int iLevel, bool obtained, string character)
+		public Item(string slot, string name, string source, int iLevel, bool obtained, string character, string difficulty)
 		{
 			Slot = slot;
 			Name = name;
@@ -28,6 +31,7 @@ namespace BiSComparer
 			Ilevel = iLevel;
 			Obtained = obtained;
 			Character = character;
+			Difficulty = difficulty;
 			Sources = Constants.s_bosses;
 		}
 
@@ -46,6 +50,8 @@ namespace BiSComparer
 		public string Slot { get; set; }
 
 		public int Ilevel { get; set; }
+
+		public string Difficulty { get; set; }
 
 		public bool Obtained { get; set; }
 

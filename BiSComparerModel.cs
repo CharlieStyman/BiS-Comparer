@@ -74,7 +74,7 @@ namespace BiSComparer
 					SetObtained(name, charName, false, ref xmlDoc);
 				}
 
-				Item item = new Item(slot, name, source, Constants.GetMinimumIlevel(difficulty, source, isTier), obtained, isWf:false);
+				Item item = new Item(slot, name, source, difficulty , obtained, isWf:false);
 
 				items.Add(item);
 			}
@@ -92,7 +92,7 @@ namespace BiSComparer
 				string charName = charInfo.CharName;
 				foreach (Item item in charInfo.ItemsNeeded)
 				{
-					Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName);
+					Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty);
 					tempItems.Add(item2);
 				}
 			}
@@ -190,7 +190,9 @@ namespace BiSComparer
 							{
 								isWf = true;
 							}
-							currentItems.Add(new Item(Constants.s_equipmentSlots[i], item.Name, string.Empty, item.ItemLevel, false, isWf));
+
+							Item currentItem = new Item(Constants.s_equipmentSlots[i], item.Name, string.Empty, Constants.s_heroic, false, isWf);
+							currentItems.Add(currentItem);
 						}
 					}
 				}
@@ -316,7 +318,7 @@ namespace BiSComparer
 
 		private void SetObtained(string itemName, string charName, bool obtained, ref XmlDocument xmlDoc)
 		{
-			XmlNodeList characters = xmlDoc.DocumentElement.SelectNodes("/RaidInfo/Characters/Character");
+			XmlNodeList characters = xmlDoc.DocumentElement.SelectNodes("/Characters/Character");
 
 			foreach (XmlNode character in characters)
 			{
