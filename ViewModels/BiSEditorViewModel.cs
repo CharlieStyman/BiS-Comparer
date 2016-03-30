@@ -369,7 +369,7 @@ namespace BiSComparer.ViewModels
 						item.Attributes.Append(itemSource);
 
 						XmlAttribute itemObtained = xmlDoc.CreateAttribute("Obtained");
-						itemObtained.Value = "False";
+						itemObtained.Value = bisItem.Obtained.ToString();
 						item.Attributes.Append(itemObtained);
 
 						character.AppendChild(item);
