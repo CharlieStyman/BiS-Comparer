@@ -187,7 +187,7 @@ namespace BiSComparer.ViewModels
 			new Thread(delegate ()
 			{
 				SaveBiSListXml(MainWindowViewModel.BisFilePath, CharInfos, saving: true);
-				MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
+				MainWindowViewModel.Error = MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
 			}).Start();
 		}
 

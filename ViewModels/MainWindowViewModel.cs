@@ -105,6 +105,19 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
+		public string Error
+		{
+			get { return m_error; }
+			set
+			{
+				if (m_error != value)
+				{
+					m_error = value;
+					OnPropertyChanged(new PropertyChangedEventArgs("Error"));
+				}
+			}
+		}
+
 		public string BisFilePath { get; set; }
 
 		public SimpleCommand LoadBiSListsCommand { get; set; }
@@ -122,24 +135,27 @@ namespace BiSComparer.ViewModels
 
 			new Thread(delegate()
 				{
-					PopulateCharInfosAndBossInfos(BisFilePath);
+					Error = PopulateCharInfosAndBossInfos(BisFilePath);
 				}).Start();
 
 
 		}
 
-		public void PopulateCharInfosAndBossInfos(string BisFilePath)
+		public string PopulateCharInfosAndBossInfos(string BisFilePath)
 		{
+			string error = string.Empty;
 			if (!string.IsNullOrEmpty(BisFilePath))
 			{
 				// Rearrange char infos to be ordered by number of items still needed.
-				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath).OrderByDescending(o => o.ItemsNeededCount);
+				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath, out error).OrderByDescending(o => o.ItemsNeededCount);
 				CharInfos = new ObservableCollection<CharInfo>(charInfos);
 
 				// Rearrange boss infos to be ordered by number of items still needed.
 				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos).OrderByDescending(o => o.ItemsNeededCount);
 				BossInfos = new ObservableCollection<BossInfo>(bossInfos);
 			}
+
+			return error;
 		}
 
 		public void UpdateProgressBar(string charName, double numberOfCharacters)
@@ -178,6 +194,7 @@ namespace BiSComparer.ViewModels
 
 		private string m_progressText;
 		private double m_progressValue;
+		private string m_error;
 		private Visibility m_progressVisibility = Visibility.Hidden;
 		private Visibility m_inverseProgressVisibility = Visibility.Visible;
 	}

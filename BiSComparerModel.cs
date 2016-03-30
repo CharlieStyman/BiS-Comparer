@@ -19,8 +19,9 @@ namespace BiSComparer
 			m_bisComparerVM = bisComparerViewModel;
 		}
 
-		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath)
+		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath, out string error)
 		{
+			error = string.Empty;
 			ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
 			s_xmlDoc = new XmlDocument();
 			s_xmlDoc.Load(bisFilePath);
@@ -35,7 +36,7 @@ namespace BiSComparer
 				string difficulty = character.Attributes["Difficulty"].Value;
 
 				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
-				Character wowCharacter = LoadCharacter(charName, realm);
+				Character wowCharacter = LoadCharacter(charName, realm, out error);
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 
@@ -148,8 +149,9 @@ namespace BiSComparer
 			bossInfos.Add(bossInfo);
 		}
 
-		private Character LoadCharacter(string charName, string realm)
+		private Character LoadCharacter(string charName, string realm, out string error)
 		{
+			error = string.Empty;
 			Character character = new Character();
 
 			try
@@ -163,7 +165,7 @@ namespace BiSComparer
 			}
 			catch
 			{
-				throw new Exception(string.Format("Character \"{0}\" could not be found on realm \"{1}\".", charName, realm));
+				error = string.Format("Character \"{0}\" could not be found on realm \"{1}\".", charName, realm);
 			}
 
 			return character;

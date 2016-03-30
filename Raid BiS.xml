@@ -1,0 +1,387 @@
+<Characters>
+  <Character Name="Belffi" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Shoulder" Name="Doomcrier's Shoulderplates" Source="Archimonde" Obtained="False" />
+    <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="False" />
+    <Item Slot="Chest" Name="Cuirass of the Ceaseless Vigil " Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="True" />
+    <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Annihilan's Waistplate " Source="Mannoroth" Obtained="False" />
+    <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
+    <Item Slot="Finger1" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="False" />
+    <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
+    <Item Slot="Trinket2" Name="Libram of Vindication" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Soulwarped Tower Shield" Source="Socrethar" Obtained="False" />
+  </Character>
+  <Character Name="Cathelion" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demongaze Helm" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Corrupted Talonguard Pendant" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="Shoulder" Name="Demongaze Pauldrons" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Soulbinder's Greatcloak" Source="Socrethar" Obtained="False" />
+    <Item Slot="Chest" Name="Demongaze Chestplate" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Hands" Name="Gauntlets of Derision" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Waist" Name=" Girdle of Demonic Wrath " Source="Trash" Obtained="True" />
+    <Item Slot="Legs" Name="Demongaze Legplates" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
+    <Item Slot="Finger1" Name="Congealed Globule Loop" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger2" Name=" Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
+    <Item Slot="Trinket1" Name="Discordant Chorus" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Trinket2" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
+    <Item Slot="MainHand" Name="Fiendsbreath Warmace" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Offhand" Name="Fiendsbreath Warmace" Source="Xhul'horac" Obtained="False" />
+  </Character>
+  <Character Name="Diazo" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demon Prince's Ascendant Crown" Source="Archimonde" Obtained="False" />
+    <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Shoulder" Name="Mantle of the Arcanic Conclave" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Hideous Unity" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Chest" Name="Robe of the Arcanic Conclave" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Hands" Name="Gloves of the Arcanic Conclave" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Demonbuckle Sash of Argus" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Pantaloons of the Arcanic Conclave" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Dessicated Soulrender Slippers" Source="Trash" Obtained="False" />
+    <Item Slot="Finger1" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="True" />
+    <Item Slot="Finger2" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Trinket1" Name="Tome of Shifting Words" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Prophecy of Fear" Source="Mannoroth" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Djape" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demon Prince's Ascendant Crown " Source="Kormrok" Obtained="False" />
+    <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Shoulder" Name="Pious Mantle" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Insatiable Greed" Source="Gorefiend" Obtained="False" />
+    <Item Slot="Chest" Name="Pious Raiment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Hands" Name="Pious Handwraps" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Demonbuckle Sash of Argus" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Pious Leggings" Source="Gorefiend" Obtained="False" />
+    <Item Slot="Feet" Name="Dessicated Soulrender Slippers" Source="Trash" Obtained="False" />
+    <Item Slot="Finger1" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Trinket1" Name="Desecrated Shadowmoon Insignia " Source="Hellfire High Council" Obtained="False" />
+    <Item Slot="Trinket2" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Emyrial" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Hood of Unknowable Secrets " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Neck" Name="Choker of the Great Betrayer" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Felblade Spaulders " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Windswept Wanderer's Drape " Source="Hellfire High Council" Obtained="True" />
+    <Item Slot="Chest" Name="Felblade Chestguard" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bloodcult Bracers" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Hands" Name="Felblade Gloves" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Waistwrap of Banishment" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Felblade Leggings" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Jungle Assassin's Footpads" Source="Trash" Obtained="True" />
+    <Item Slot="Finger1" Name="Maalus, the Blood Drinker" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Portal Key Signet" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Trinket1" Name="Soul Capacitor" Source="Socrethar" Obtained="True" />
+    <Item Slot="Trinket2" Name="Bleeding Hollow Toxin Vessel" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Fang of the Pit" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Offhand" Name="Hammer of Wicked Infusion" Source="Xhul'horac" Obtained="False" />
+  </Character>
+  <Character Name="Fain" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Oathclaw Helm" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="World Ender's Gorget" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Oathclaw Mantle" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Void Lord's Wizened Cloak" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Chest" Name="Oathclaw Vestment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bloodcult Bracers" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Hands" Name="Felfinger Runegloves" Source="Archimonde" Obtained="False" />
+    <Item Slot="Waist" Name="Waistwrap of Banishment" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Oathclaw Leggings" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Toxicologist's Treated Boots" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger1" Name="Sanctus, Sigil of the Unbroken" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Zakuun's Signet of Command" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Trinket1" Name="Seed of Creation" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Anzu's Cursed Plume" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="MainHand" Name="Xu'tenash, Glaive of Ruin" Source="Mannoroth" Obtained="False" />
+  </Character>
+  <Character Name="Ferlína" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Helm of the Ceaseless Vigil" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Choker of Whispered Promises" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Shoulder" Name="Shoulderplates of the Ceaseless Vigil" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Drape of Beckoned Souls" Source="Socrethar" Obtained="False" />
+    <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="False" />
+    <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Hands" Name="Gauntlets of the Ceaseless Vigil" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Annihilan's Waistplate " Source="Mannoroth" Obtained="False" />
+    <Item Slot="Legs" Name="Greaves of the Ceaseless Vigil" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="True" />
+    <Item Slot="Finger1" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger2" Name="Etheralus, the Eternal Reward" Source="Quest" Obtained="False" />
+    <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
+    <Item Slot="Trinket2" Name="Libram of Vindication" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Soulwarped Tower Shield" Source="Socrethar" Obtained="False" />
+  </Character>
+  <Character Name="Gorbagg" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Sinister Felborne Helmet" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Neck" Name="Glowing Firestone" Source="Kormrok" Obtained="True" />
+    <Item Slot="Shoulder" Name="Pauldrons of the Living Mountain" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Hideous Unity" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Chest" Name="Robe of the Living Mountain " Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bracers of Fel Empowerment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Hands" Name="Gauntlets of the Living Mountain" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Cursed Demonchain Belt" Source="Trash" Obtained="True" />
+    <Item Slot="Legs" Name="Leggings of the Living Mountain" Source="Gorefiend" Obtained="False" />
+    <Item Slot="Feet" Name="Surefooted Chain Treads" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Finger1" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Trinket1" Name="Core of the Primal Elements" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Unblinking Gaze of Sethe" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Fallen Defender of Argus" Source="Tyrant Velhari" Obtained="False" />
+  </Character>
+  <Character Name="Grimreefer" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demongaze Helm" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Corrupted Talonguard Pendant" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Shoulder" Name="Demongaze Pauldrons" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Rugged Bloodcaked Drape" Source="Hellfire High Council" Obtained="True" />
+    <Item Slot="Chest" Name="Demongaze Chestplate" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Breach-Scarred Wristplates " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Hands" Name="Flamebelcher's Insulated Mitts" Source="Hellfire Assault" Obtained="True" />
+    <Item Slot="Waist" Name=" Girdle of Demonic Wrath " Source="Trash" Obtained="True" />
+    <Item Slot="Legs" Name="Demongaze Legplates" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Treads of the Defiler" Source="Archimonde" Obtained="False" />
+    <Item Slot="Finger1" Name="Congealed Globule Loop" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger2" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
+    <Item Slot="Trinket1" Name="Discordant Chorus" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Trinket2" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
+    <Item Slot="MainHand" Name="Blazing Demonhilt Sword" Source="Hellfire High Council" Obtained="True" />
+    <Item Slot="OffHand" Name="Blazing Demonhilt Sword" Source="Hellfire High Council" Obtained="False" />
+  </Character>
+  <Character Name="Hailfire" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demon Prince's Ascendant Crown" Source="Archimonde" Obtained="False" />
+    <Item Slot="Neck" Name="Choker of Forbidden Indulgence" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Shoulder" Name="Mantle of the Arcanic Conclave" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Hideous Unity" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Chest" Name="Robe of the Arcanic Conclave" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="True" />
+    <Item Slot="Hands" Name="Gloves of the Arcanic Conclave" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Demonbuckle Sash of Argus" Source="Archimonde" Obtained="True" />
+    <Item Slot="Legs" Name="Pantaloons of the Arcanic Conclave" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Dessicated Soulrender Slippers" Source="Trash" Obtained="True" />
+    <Item Slot="Finger1" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger2" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Trinket1" Name="Tome of Shifting Words" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Prophecy of Fear" Source="Mannoroth" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Kairva" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Crown of the Living Mountain" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Locket of Unholy Reconstitution" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Shoulder" Name="Pauldrons of the Living Mountain" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Insatiable Greed" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Chest" Name="Ringmail of Madness Accordant" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Wrist" Name="Chain Wristguards of the Stricken" Source="Socrethar" Obtained="True" />
+    <Item Slot="Hands" Name="Gauntlets of the Living Mountain" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Legs" Name="Leggings of the Living Mountain" Source="Gorefiend" Obtained="False" />
+    <Item Slot="Feet" Name="Unhallowed Voidlink Boots" Source="Trash" Obtained="True" />
+    <Item Slot="Finger1" Name="Etheralus, The Eternal Reward" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Pompous Ceremonial Ring" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Trinket1" Name="Demonic Phylactery" Source="Socrethar" Obtained="False" />
+    <Item Slot="Trinket2" Name="Intuition's Gift" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Kizumi" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Mask of the Hurricane's Eye" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="World Ender's Gorget" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Mantle of the Hurricane's Eye" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Void Lord's Wizened Cloak" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Chest" Name="Robe of the Hurricane's Eye" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Manacles of the Multitudes" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Hands" Name="Felfinger Runegloves" Source="Archimonde" Obtained="False" />
+    <Item Slot="Waist" Name="Belt of Misconceived Loyalty" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="Legs" Name="Legwraps of the Hurricane's Eye" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Toxicologist's Treated Boots" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger1" Name="Sanctus, Sigil of the Unbroken" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Mannoroth's Calcified Eye" Source="Mannoroth" Obtained="True" />
+    <Item Slot="Trinket1" Name="Warlord's Unseeing Eye" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Trinket2" Name="Anzu's Cursed Plume" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="MainHand" Name="Bite of the Bleeding Hollow" Source="Kilrogg Deadeye" Obtained="True" />
+  </Character>
+  <Character Name="Kujawu" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Oathclaw Helm" Source="Kormrok" Obtained="False" />
+    <Item Slot="Neck" Name="Vial of Immiscible Liquid " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Shoulder" Name="Oathclaw Mantle" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Shawl of Sanguinary Ritual" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Chest" Name="Oathclaw Vestment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Manacles of the Multitudes" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Hands" Name="Felfinger Runegloves" Source="Archimonde" Obtained="False" />
+    <Item Slot="Waist" Name="Waistwrap of Banishment" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Oathclaw Leggings" Source="Gorefiend" Obtained="False" />
+    <Item Slot="Feet" Name="Oppressor's Merciless Treads " Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger1" Name="Nithramus, the All-Seer" Source="Quest" Obtained="False" />
+    <Item Slot="Finger2" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Trinket1" Name="Seed of Creation" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Desecrated Shadowmoon Insignia" Source="Hellfire High Council" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Lightikaros" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Mask of the Hurricane's Eye" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Locket of Unholy Reconstitution " Source="Mannoroth" Obtained="False" />
+    <Item Slot="Shoulder" Name=" Mantle of the Hurricane's Eye" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Polymorphic Cloak of Absorption" Source="Kormrok" Obtained="False" />
+    <Item Slot="Chest" Name="Tunic of the Soulbinder" Source="Mannoroth" Obtained="True" />
+    <Item Slot="Wrist" Name="Bloodcult Bracers" Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Hands" Name="Fistwraps of the Hurricane's Eye" Source="Socrethar" Obtained="False" />
+    <Item Slot="Waist" Name="Waistwrap of Banishment" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Legwraps of the Hurricane's Eye" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Spiked Irontoe Slippers " Source="Iron Reaver" Obtained="True" />
+    <Item Slot="Finger1" Name="Ring of Foul Temptation" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="Finger2" Name="Etheralus, The Eternal Reward" Source="Quest" Obtained="False" />
+    <Item Slot="Trinket1" Name="Sacred Draenic Incense" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Intuition's Gift" Source="Kilrogg Deadeye" Obtained="False" />
+    <Item Slot="MainHand" Name="Gavel of the Eredar" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Gibbering Madness" Source="Gorefiend" Obtained="False" />
+  </Character>
+  <Character Name="Lovecsalam" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Hood of the Savage Hunt" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Choker of the Great Betrayer" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Pauldrons of the Savage Hunt" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Desperate Temerity" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Chest" Name="Hauberk of the Savage Hunt" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bracers of Fel Empowerment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Hands" Name="Eredar Fel-Chain Gloves" Source="Archimonde" Obtained="False" />
+    <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Legs" Name="Leggings of the Savage Hunt" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Spiked Throatcrusher Boots" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger1" Name="Maalus, the Blood Drinker" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Portal Key Signet" Source="Xhul'horac" Obtained="True" />
+    <Item Slot="Trinket1" Name="Fel-Spring Coil" Source="Iron Reaver" Obtained="True" />
+    <Item Slot="Trinket2" Name="Malicious Censer" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="MainHand" Name="Cursed Demon Longbow" Source="Mannoroth" Obtained="False" />
+  </Character>
+  <Character Name="Lúcífer" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Faceguard of Iron Wrath" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name=" Choker of Sneering Superiority " Source="Tyrant Velhari" Obtained="True" />
+    <Item Slot="Shoulder" Name="Pauldrons of Iron Wrath" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Incendiary Wrath" Source="Archimonde" Obtained="False" />
+    <Item Slot="Chest" Name="Stamped Felsteel Chestplate" Source="Iron Reaver" Obtained="True" />
+    <Item Slot="Wrist" Name="Wristplate of the Wretched" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Hands" Name="Gauntlets of Iron Wrath" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Annihilan's Waistplate" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Legs" Name="Legplates of Iron Wrath" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Stompers of Brazen Terror " Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger1" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Band of Enthralling Delusion" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Trinket1" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="True" />
+    <Item Slot="Trinket2" Name="Discordant Chorus" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="MainHand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Meistarinn" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Faceguard of Iron Wrath" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name=" Choker of Sneering Superiority " Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Shoulder" Name="Doomcrier's Shoulderplates" Source="Archimonde" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Incendiary Wrath" Source="Archimonde" Obtained="True" />
+    <Item Slot="Chest" Name="Breastplate of Iron Wrath" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Wristplate of the Wretched" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Hands" Name="Gauntlets of Iron Wrath" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Annihilan's Waistplate" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Legs" Name="Legplates of Iron Wrath" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Cruel Hope Crushers" Source="Trash" Obtained="True" />
+    <Item Slot="Finger1" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Loop of Beckoned Shadows" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Trinket1" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Trinket2" Name="Worldbreaker's Resolve" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Namyts" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Hood of the Savage Hunt" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Choker of the Great Betrayer" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Pauldrons of the Savage Hunt" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Desperate Temerity" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Chest" Name="Hauberk of the Savage Hunt" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bracers of Fel Empowerment" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Hands" Name="Eredar Fel-Chain Gloves" Source="Archimonde" Obtained="False" />
+    <Item Slot="Waist" Name="Girdle of the Legion General" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Legs" Name="Leggings of the Savage Hunt" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Spiked Throatcrusher Boots" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Finger1" Name="Maalus, the Blood Drinker" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Portal Key Signet" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Trinket1" Name="Kihra's Adrenaline Injector" Source="Mythic Dungeon" Obtained="True" />
+    <Item Slot="Trinket2" Name="Malicious Censer" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="MainHand" Name="Cursed Demon Longbow" Source="Mannoroth" Obtained="False" />
+  </Character>
+  <Character Name="Nargie" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Faceguard of Iron Wrath" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name=" Choker of Sneering Superiority " Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Shoulder" Name="Doomcrier's Shoulderplates" Source="Archimonde" Obtained="False" />
+    <Item Slot="Back" Name="Cloak of Incendiary Wrath" Source="Archimonde" Obtained="False" />
+    <Item Slot="Chest" Name="Breastplate of Iron Wrath" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Wristplate of the Wretched" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="Hands" Name="Gauntlets of Iron Wrath" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Annihilan's Waistplate" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Legs" Name="Legplates of Iron Wrath" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Stompers of Brazen Terror " Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Finger1" Name="Thorasus, the Stone Heart of Draenor" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Band of Enthralling Delusion" Source="Shadow-Lord Iskar" Obtained="True" />
+    <Item Slot="Trinket1" Name="Empty Drinking Horn" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Trinket2" Name="Worldbreaker's Resolve" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+    <Item Slot="Offhand" Name="Calamity's Edge" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Summerflash" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Felblade Hood" Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Choker of the great Betrayer" Source="Archimonde" Obtained="False" />
+    <Item Slot="Shoulder" Name="Felblade Spaulders " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name="Cloak Of Desperate Temerity" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="Chest" Name="Felblade Chestguard" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Bloodcult Bracer" Source="Kilrogg Deadeye" Obtained="False" />
+    <Item Slot="Hands" Name="Felblade Gloves" Source="Socrethar" Obtained="False" />
+    <Item Slot="Waist" Name="Waistwrap of Banishment" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Empowered Demonskill Kilt" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Feet" Name="Toxicologists Treads" Source="Kilrogg Deadeye" Obtained="False" />
+    <Item Slot="Finger1" Name="Maalus, The Blood Drinker" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Portal Key Signet" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Trinket1" Name="Bleeding Hollow Toxin Vessel" Source="Archimonde" Obtained="False" />
+    <Item Slot="Trinket2" Name="Soul Capacitor" Source="Socrethar" Obtained="False" />
+    <Item Slot="MainHand" Name="Fang Of The Pit" Source="Mannoroth" Obtained="False" />
+    <Item Slot="OffHand" Name="Hammer of Wicket Infusion" Source="Xhul'horac" Obtained="False" />
+  </Character>
+  <Character Name="Ultîn" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demon Prince's Ascendant Crown " Source="Kormrok" Obtained="True" />
+    <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="True" />
+    <Item Slot="Shoulder" Name="Deathrattle Shoulderpads " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name=" Shawl of Sanguinary Ritual " Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Chest" Name="Deathrattle Robe" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="True" />
+    <Item Slot="Hands" Name="Deathrattle Gloves" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Sash of Unending Anguish" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Legs" Name="Deathrattle Leggings" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Bloody Dagger-Heeled Pumps" Source="Fel Lord Zakuun" Obtained="True" />
+    <Item Slot="Finger1" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="True" />
+    <Item Slot="Trinket1" Name="Desecrated Shadowmoon Insignia " Source="Hellfire High Council" Obtained="True" />
+    <Item Slot="Trinket2" Name="Fragment of the Dark Star" Source="Archimonde" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+  <Character Name="Xelanta" Realm="Darksorrow" Difficulty="Mythic">
+    <Item Slot="Head" Name="Demon Prince's Ascendant Crown " Source="Kormrok" Obtained="False" />
+    <Item Slot="Neck" Name="Vial of Immiscible Liquid" Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Shoulder" Name="Deathrattle Shoulderpads " Source="Xhul'horac" Obtained="False" />
+    <Item Slot="Back" Name=" Shawl of Sanguinary Ritual " Source="Kilrogg Deadeye" Obtained="True" />
+    <Item Slot="Chest" Name="Deathrattle Robe" Source="Mannoroth" Obtained="False" />
+    <Item Slot="Wrist" Name="Contemptuous Wristguards" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Hands" Name="Deathrattle Gloves" Source="Socrethar" Obtained="True" />
+    <Item Slot="Waist" Name="Demonbuckle Sash of Argus" Source="Archimonde" Obtained="False" />
+    <Item Slot="Legs" Name="Deathrattle Leggings" Source="Gorefiend" Obtained="True" />
+    <Item Slot="Feet" Name="Bloody Dagger-Heeled Pumps" Source="Fel Lord Zakuun" Obtained="False" />
+    <Item Slot="Finger1" Name="Nithramus, the All-Seer" Source="Quest" Obtained="True" />
+    <Item Slot="Finger2" Name="Loathful Encrusted Band" Source="Tyrant Velhari" Obtained="False" />
+    <Item Slot="Trinket1" Name="Desecrated Shadowmoon Insignia " Source="Hellfire High Council" Obtained="True" />
+    <Item Slot="Trinket2" Name="Unblinking Gaze of Sethe" Source="Shadow-Lord Iskar" Obtained="False" />
+    <Item Slot="MainHand" Name="Edict of Argus" Source="Archimonde" Obtained="False" />
+  </Character>
+</Characters>

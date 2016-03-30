@@ -8,35 +8,47 @@
 		mc:Ignorable="d"
 		Title="Best In Slot Comparer" Height="775" Width="700">
 
-	<TabControl Grid.Row="0"
-				Grid.ColumnSpan="2">
-		<TabItem Header="Boss Summary"
-				 DataContext="{Binding BossSummaryViewModel}">
-			<Grid>
-				<views:BossSummaryView/>
-			</Grid>
-		</TabItem>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 
-		<TabItem Header="Character Summary"
-				 DataContext="{Binding CharacterSummaryViewModel}">
-			<Grid>
-				<views:CharacterSummaryView/>
-			</Grid>
-		</TabItem>
+		<TabControl Grid.Row="0">
+			<TabItem Header="Boss Summary"
+					 DataContext="{Binding BossSummaryViewModel}">
+				<Grid>
+					<views:BossSummaryView/>
+				</Grid>
+			</TabItem>
 
-		<TabItem Header="BiS Editor"
-				 DataContext="{Binding BiSEditorViewModel}">
-			<Grid>
-				<views:BiSEditorView/>
-			</Grid>
-		</TabItem>
+			<TabItem Header="Character Summary"
+					 DataContext="{Binding CharacterSummaryViewModel}">
+				<Grid>
+					<views:CharacterSummaryView/>
+				</Grid>
+			</TabItem>
 
-		<TabItem Header="Settings"
-				 DataContext="{Binding SettingsViewModel}">
-			<Grid>
-				<views:SettingsView/>
-			</Grid>
-		</TabItem>
+			<TabItem Header="BiS Editor"
+					 DataContext="{Binding BiSEditorViewModel}">
+				<Grid>
+					<views:BiSEditorView/>
+				</Grid>
+			</TabItem>
 
-	</TabControl>
+			<TabItem Header="Settings"
+					 DataContext="{Binding SettingsViewModel}">
+				<Grid>
+					<views:SettingsView/>
+				</Grid>
+			</TabItem>
+
+		</TabControl>
+
+		<StatusBar Grid.Row="1"
+				   DataContext="{Binding MainWindowViewModel}">
+			<TextBlock Text="{Binding Error}"
+					   Foreground="Red"/>
+		</StatusBar>
+	</Grid>
 </Window>
