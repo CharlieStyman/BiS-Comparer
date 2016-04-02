@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using BiSComparer.ViewModels;
 using System.IO;
 using System.Threading;
+using System.Linq;
 
 namespace BiSComparer
 {
@@ -38,6 +39,10 @@ namespace BiSComparer
 						new Thread(delegate ()
 						{
 							MainWindowViewModel.PopulateCharInfosAndBossInfos(lastFile);
+
+							CharacterSummaryViewModel.SelectedCharacter = MainWindowViewModel.CharInfos.FirstOrDefault();
+							BossSummaryViewModel.SelectedBoss = MainWindowViewModel.BossInfos.FirstOrDefault();
+							BiSEditorViewModel.SelectedCharacter = BiSEditorViewModel.CharInfos.FirstOrDefault();
 						}).Start();
 					}
 				}

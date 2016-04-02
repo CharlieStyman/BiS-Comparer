@@ -121,6 +121,7 @@ namespace BiSComparer.ViewModels
 				{
 					m_selectedCharacter = value;
 					OnPropertyChanged(new PropertyChangedEventArgs("SelectedCharacter"));
+					OnPropertyChanged(new PropertyChangedEventArgs("CharacterSelected"));
 
 					if (SelectedCharacterChanged != null)
 					{
@@ -128,6 +129,11 @@ namespace BiSComparer.ViewModels
 					}
 				}
 			}
+		}
+
+		public bool CharacterSelected
+		{
+			get { return SelectedCharacter != null; }
 		}
 
 		public Visibility ImportWindowVisibility
@@ -292,6 +298,7 @@ namespace BiSComparer.ViewModels
 
 			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic,items);
 			AddCharacterToCharInfos(newChar);
+			SelectedCharacter = newChar;
 		}
 
 		public SimpleCommand RemoveCommand { get; set; }
@@ -310,6 +317,7 @@ namespace BiSComparer.ViewModels
 		private void RemoveCharacter()
 		{
 			CharInfos.Remove(SelectedCharacter);
+			SelectedCharacter = CharInfos.LastOrDefault();
 		}
 		#endregion
 
