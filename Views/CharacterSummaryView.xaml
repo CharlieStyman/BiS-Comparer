@@ -70,6 +70,7 @@
 						<TextBlock Text="{Binding CharName}" Margin="5"/>
 						<TextBlock Margin="5">
 							<Run Text="("/>
+							<Run Text="{Binding Difficulty}"/>
 							<Run Text="{Binding ItemsNeededCount}"/>
 							<Run Text=")"/>
 						</TextBlock>
