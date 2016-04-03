@@ -131,14 +131,12 @@ namespace BiSComparer.ViewModels
 				BisFilePath = openFileDialog.FileName;
 				Properties.Settings.Default.LastFile = BisFilePath;
 				Properties.Settings.Default.Save();
+
+				new Thread(delegate()
+					{
+						Error = PopulateCharInfosAndBossInfos(BisFilePath);
+					}).Start()
 			}
-
-			new Thread(delegate()
-				{
-					Error = PopulateCharInfosAndBossInfos(BisFilePath);
-				}).Start();
-
-
 		}
 
 		public string PopulateCharInfosAndBossInfos(string BisFilePath)
