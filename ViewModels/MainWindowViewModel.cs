@@ -132,10 +132,10 @@ namespace BiSComparer.ViewModels
 				Properties.Settings.Default.LastFile = BisFilePath;
 				Properties.Settings.Default.Save();
 
-				new Thread(delegate()
+				new Thread(delegate ()
 					{
 						Error = PopulateCharInfosAndBossInfos(BisFilePath);
-					}).Start()
+					}).Start();
 			}
 		}
 
