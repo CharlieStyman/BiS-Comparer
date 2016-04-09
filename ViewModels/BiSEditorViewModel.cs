@@ -296,7 +296,7 @@ namespace BiSComparer.ViewModels
 				items.Add(item);
 			}
 
-			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic,items);
+			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic, string.Empty, items);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}
@@ -344,6 +344,10 @@ namespace BiSComparer.ViewModels
 				XmlAttribute difficulty = xmlDoc.CreateAttribute("Difficulty");
 				difficulty.Value = charInfo.Difficulty;
 				character.Attributes.Append(difficulty);
+
+				XmlAttribute group = xmlDoc.CreateAttribute("Group");
+				group.Value = charInfo.Group;
+				character.Attributes.Append(group);
 
 				characters.AppendChild(character);
 
@@ -404,6 +408,12 @@ namespace BiSComparer.ViewModels
 			string charName = character.Attributes["Name"].Value;
 			string realm = character.Attributes["Realm"].Value;
 			string difficulty = character.Attributes["Difficulty"].Value;
+			string group = string.Empty;
+
+			if (character.Attributes["Group"] != null)
+			{
+				group = character.Attributes["Group"].Value;
+			}
 
 			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, difficulty, ref xmlDoc);
 
@@ -414,7 +424,7 @@ namespace BiSComparer.ViewModels
 				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty));
 			}
 
-			CharInfo newChar = new CharInfo(charName, realm, difficulty, bisList);
+			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, bisList);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}

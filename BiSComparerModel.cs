@@ -34,13 +34,19 @@ namespace BiSComparer
 				string charName = character.Attributes["Name"].Value;
 				string realm = character.Attributes["Realm"].Value;
 				string difficulty = character.Attributes["Difficulty"].Value;
+				string group = string.Empty;
+
+				if (character.Attributes["Group"] != null)
+				{
+					group = character.Attributes["Group"].Value;
+				}
 
 				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
 				Character wowCharacter = LoadCharacter(charName, realm, out error);
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 
-				CharInfo charInfo = new CharInfo(charName, realm, difficulty, bisItems);
+				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, bisItems);
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();

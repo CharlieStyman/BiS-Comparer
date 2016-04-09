@@ -56,6 +56,8 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Column="0"
@@ -86,6 +88,15 @@
 					  SelectedItem="{Binding SelectedCharacter.Difficulty}"
 					  Padding="5"
 					  Margin="0,5,5,5"/>
+			<TextBlock Grid.Column="6"
+					   Text="Group"
+					   Padding="5"
+					   Margin="0,5,5,5"
+					   ToolTip="The Group the character will appear in within the BiS Editor and Character Summary pages"/>
+			<TextBox Grid.Column="7"
+					   Text="{Binding SelectedCharacter.Group}"
+					   Margin="0,5,5,5"
+					   Padding="5"/>
 		</Grid>
 
 		<Grid Grid.Row="1">
