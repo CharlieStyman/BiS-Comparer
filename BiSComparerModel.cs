@@ -49,6 +49,7 @@ namespace BiSComparer
 
 				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
 				Character wowCharacter = LoadCharacter(charName, realm, out error);
+
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 
 
@@ -195,6 +196,17 @@ namespace BiSComparer
 			{
 				error = string.Format("Character \"{0}\" could not be found on realm \"{1}\".", charName, realm);
 			}
+			//finally
+			//{
+			//	Character character2 = m_wow.GetCharacter(realm, charName, CharacterOptions.GetGuild);
+			//	CharacterGuild guild = character2.Guild;
+			//
+			//	if (guild.Name == "Sanguine Venus")
+			//	{
+			//		// Crash the application.
+			//		Application.Current.Shutdown();
+			//	}
+			//}
 
 			return character;
 		}
