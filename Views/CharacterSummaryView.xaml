@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
 			 xmlns:data="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+			 xmlns:converters="clr-namespace:BiSComparer.Converters"
 			 xmlns:views="clr-namespace:BiSComparer.Views"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="300" d:DesignWidth="300">
@@ -15,7 +16,9 @@
 				<data:PropertyGroupDescription PropertyName="Group"/>
 			</CollectionViewSource.GroupDescriptions>
 		</CollectionViewSource>
-	</UserControl.Resources>
+
+		<converters:BooleanToFontColourConverter x:Key="BooleanToFontColourConverter" />
+		</UserControl.Resources>
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -94,8 +97,11 @@
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding CharName}" Margin="5"/>
-						<TextBlock Margin="5">
+						<TextBlock Text="{Binding CharName}"
+								   Margin="5"
+								   Foreground="{Binding IsActive, Converter={StaticResource BooleanToFontColourConverter}}"/>
+						<TextBlock Margin="5"
+								   Foreground="{Binding IsActive, Converter={StaticResource BooleanToFontColourConverter}}">
 							<Run Text="("/>
 							<Run Text="{Binding ItemsNeededCount}"/>
 							<Run Text=")"/>

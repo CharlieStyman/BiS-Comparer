@@ -9,12 +9,13 @@ namespace BiSComparer
 {
 	public class CharInfo
 	{
-		public CharInfo(string name, string realm, string difficulty, string group, ObservableCollection<Item> bisItems)
+		public CharInfo(string name, string realm, string difficulty, string group, string isActive, ObservableCollection<Item> bisItems)
 		{
 			CharName = name;
 			Realm = realm;
 			Difficulty = difficulty;
 			BisItems = bisItems;
+			IsActive = Convert.ToBoolean(isActive);
 
 			if (!string.IsNullOrEmpty(group))
 			{
@@ -45,5 +46,7 @@ namespace BiSComparer
 		public List<Item> ItemsNeeded { get; set; }
 
 		public int ItemsNeededCount{ get; set;}
+
+		public bool IsActive { get; set; }
 	}
 }

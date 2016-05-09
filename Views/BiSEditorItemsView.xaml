@@ -58,6 +58,8 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Column="0"
@@ -94,9 +96,19 @@
 					   Margin="0,5,5,5"
 					   ToolTip="The Group the character will appear in within the BiS Editor and Character Summary pages"/>
 			<TextBox Grid.Column="7"
-					   Text="{Binding SelectedCharacter.Group}"
+					 Text="{Binding SelectedCharacter.Group}"
+					 Margin="0,5,5,5"
+					 Padding="5"/>
+			<TextBlock Grid.Column="8"
+					   Text="Is Active"
 					   Margin="0,5,5,5"
-					   Padding="5"/>
+					   Padding="5" 
+					   ToolTip="Whether or not the character is active, and should be counted in the summary pages"/>
+			<CheckBox Grid.Column="9"
+					  IsChecked="{Binding SelectedCharacter.IsActive}"
+					  Margin="0,5,5,5"
+					  Padding="5"
+					  VerticalAlignment="Center"/>
 		</Grid>
 
 		<Grid Grid.Row="1">

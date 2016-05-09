@@ -35,24 +35,42 @@ namespace BiSComparer
 				string realm = character.Attributes["Realm"].Value;
 				string difficulty = character.Attributes["Difficulty"].Value;
 				string group = string.Empty;
+				string isActive = "True";
 
 				if (character.Attributes["Group"] != null)
 				{
 					group = character.Attributes["Group"].Value;
 				}
 
+				if (character.Attributes["IsActive"] != null)
+				{
+					isActive = character.Attributes["IsActive"].Value;
+				}
+
 				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
 				Character wowCharacter = LoadCharacter(charName, realm, out error);
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
-				List<Item> itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 
-				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, bisItems);
+
+				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, isActive, bisItems);
+				List<Item> itemsNeeded = new List<Item>();
+
+				// If character is inactive, then no items are needed, so don't populate list.
+				if (charInfo.IsActive)
+				{
+					itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
+				}
+
+
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
 
 				charInfos.Add(charInfo);
-				m_bisComparerVM.UpdateProgressBar(charName, characters.Count);
+				if (charInfo.IsActive)
+				{
+					m_bisComparerVM.UpdateProgressBar(charName, characters.Count);
+				}
 			}
 
 			m_bisComparerVM.ResetProgressBar();
@@ -96,11 +114,15 @@ namespace BiSComparer
 
 			foreach (CharInfo charInfo in charInfos)
 			{
-				string charName = charInfo.CharName;
-				foreach (Item item in charInfo.ItemsNeeded)
+				// Only add the character's items to the tempItems if the character is active.
+				if (charInfo.IsActive)
 				{
-					Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty);
-					tempItems.Add(item2);
+					string charName = charInfo.CharName;
+					foreach (Item item in charInfo.ItemsNeeded)
+					{
+						Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty);
+						tempItems.Add(item2);
+					}
 				}
 			}
 
