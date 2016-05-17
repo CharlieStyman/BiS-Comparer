@@ -410,10 +410,20 @@ namespace BiSComparer.ViewModels
 		private void ImportCharacter(XmlNode character, ref XmlDocument xmlDoc)
 		{
 			string charName = character.Attributes["Name"].Value;
-			string realm = character.Attributes["Realm"].Value;
-			string difficulty = character.Attributes["Difficulty"].Value;
+			string realm = string.Empty;
+			string difficulty = string.Empty;
 			string group = string.Empty;
 			string isActive = "True";
+
+			if (character.Attributes["Realm"] != null)
+			{
+				realm = character.Attributes["Realm"].Value;
+			}
+
+			if (character.Attributes["Difficulty"] != null)
+			{
+				realm = character.Attributes["Difficulty"].Value;
+			}
 
 			if (character.Attributes["Group"] != null)
 			{

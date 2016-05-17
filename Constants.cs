@@ -33,8 +33,9 @@ namespace BiSComparer
 		public static string s_quest = "Quest";
 		public static string s_mythicDungeon = "Mythic Dungeon";
 		public static string s_trash = "Trash";
+		public static string s_crafted = "Crafted";
 
-		public static string[] s_bosses = new string[] { s_hellfireAssault, s_ironReaver, s_kormrok, s_hellfireHighCouncil, s_kilrogg, s_gorefiend, s_iskar, s_zakuun, s_xhulHorac, s_socrethar, s_tyrantVelhari, s_mannoroth, s_archimonde, s_quest, s_mythicDungeon, s_trash };
+		public static string[] s_bosses = new string[] { s_hellfireAssault, s_ironReaver, s_kormrok, s_hellfireHighCouncil, s_kilrogg, s_gorefiend, s_iskar, s_zakuun, s_xhulHorac, s_socrethar, s_tyrantVelhari, s_mannoroth, s_archimonde, s_quest, s_mythicDungeon, s_trash, s_crafted };
 
 		#endregion
 
@@ -162,6 +163,11 @@ namespace BiSComparer
 				if (source == s_mythicDungeon)
 				{
 					return iLevel = 725;
+				}
+
+				if (source == s_crafted)
+				{
+					return iLevel = 715;
 				}
 			}
 

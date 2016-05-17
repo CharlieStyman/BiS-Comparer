@@ -59,9 +59,8 @@ namespace BiSComparer
 				// If character is inactive, then no items are needed, so don't populate list.
 				if (charInfo.IsActive)
 				{
-					itemsNeeded = CompareListsBySlot(bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
+					itemsNeeded = CompareListsBySlot(ref bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 				}
-
 
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
@@ -157,7 +156,6 @@ namespace BiSComparer
 						}
 					}
 				}
-
 			}
 
 			return bossInfos;
@@ -241,7 +239,7 @@ namespace BiSComparer
 			}
 			return currentItems;
 		}
-		private List<Item> CompareListsBySlot(ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, ref XmlDocument xmlDoc)
+		private List<Item> CompareListsBySlot(ref ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, ref XmlDocument xmlDoc)
 		{
 			List<Item> itemsNeeded = new List<Item>();
 			foreach (string slot in Constants.s_equipmentSlots)
@@ -315,6 +313,9 @@ namespace BiSComparer
 					else
 					{
 						SetObtained(bisItem.Name, charName, true, ref xmlDoc);
+						
+						// Set the item's obtained property to true.
+						bisList.Where(item => item.Name == bisItem.Name).First().Obtained = true;
 					}
 				}
 			}
