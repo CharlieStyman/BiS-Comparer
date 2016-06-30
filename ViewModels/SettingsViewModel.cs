@@ -84,10 +84,13 @@ namespace BiSComparer.ViewModels
 					switch(m_raidTier)
 					{
 						case ("Hellfire Citadel - WoD"):
-							Constants = new HFCConstants();
+							Constants = new HellfireCitadelConstants();
 							break;
 						case ("The Emerald Nightmare - Legion"):
-							Constants = new Constants();
+							Constants = new EmeraldNightmareConstants();
+							break;
+						case ("Suramar Palace - Legion"):
+							Constants = new SuramarPalaceConstants();
 							break;
 						default:
 							Constants = new Constants();

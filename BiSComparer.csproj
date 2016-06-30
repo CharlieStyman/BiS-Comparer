@@ -115,8 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Constants.cs" />
+    <Compile Include="RaidConstants\Constants.cs" />
     <Compile Include="Converters\BooleanToFontColourConverter.cs" />
+    <Compile Include="RaidConstants\SuramarPalaceConstants.cs" />
+    <Compile Include="RaidConstants\EmeraldNightmareConstants.cs" />
     <Compile Include="ViewModels\BossSummaryViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\BisEditorCharacterListView.xaml.cs">
@@ -132,7 +134,7 @@
     <Compile Include="BossInfo.cs" />
     <Compile Include="ViewModels\CharacterSummaryViewModel.cs" />
     <Compile Include="SortAdorner.cs" />
-    <Compile Include="HFCConstants.cs" />
+    <Compile Include="RaidConstants\HellfireCitadelConstants.cs" />
     <Compile Include="Views\BossSummaryView.xaml.cs">
       <DependentUpon>BossSummaryView.xaml</DependentUpon>
     </Compile>
