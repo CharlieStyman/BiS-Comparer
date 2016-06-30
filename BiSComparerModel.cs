@@ -280,41 +280,52 @@ namespace BiSComparer
 				if (bisItem != null && currentItem != null)
 				{
 					bool itemNeeded = false;
-					if (!bisItem.Obtained)
+
+					if (currentItem.Ilevel < bisItem.Ilevel + 15
+						|| bisItem.Slot == Constants.s_trinket1Slot
+						|| bisItem.Slot == Constants.s_trinket2Slot
+						|| Constants.IsItemTierPiece(bisItem.Source, bisItem.Slot))
+
+						// The current item is less than 15 ilevels higher than the BiS piece,
+						// Or the bis item is either a trinket or a tier piece. Therefore, compare the items and
+						// calculate whether the BiS piece is still needed.
 					{
-						if (bisItem.Name.ToUpper().Trim() != currentItem.Name.ToUpper().Trim())
+						if (!bisItem.Obtained)
 						{
-							// Bis and current items for this slot don't match. So character doesn't have BiS.
-							itemNeeded = true;
-
-							// Item on Finger 1 on BiS List, could be equipped on Finger 2 in game. Check.
-							if (slot.ToUpper().Trim() == Constants.s_finger1Slot.ToUpper().Trim())
+							if (bisItem.Name.ToUpper().Trim() != currentItem.Name.ToUpper().Trim())
 							{
-								itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_finger2Slot);
-							}
+								// Bis and current items for this slot don't match. So character doesn't have BiS.
+								itemNeeded = true;
 
-							// Item on Finger 2 on BiS List, could be equipped on Finger 1 in game. Check.
-							if (slot.ToUpper().Trim() == Constants.s_finger2Slot.ToUpper().Trim())
-							{
-								itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_finger1Slot);
-							}
+								// Item on Finger 1 on BiS List, could be equipped on Finger 2 in game. Check.
+								if (slot.ToUpper().Trim() == Constants.s_finger1Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_finger2Slot);
+								}
 
-							// Item in Trinket 1 slot on BiS List, could be equipped in Trinket 2 slot in game. Check.
-							if (slot.ToUpper().Trim() == Constants.s_trinket1Slot.ToUpper().Trim())
-							{
-								itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket2Slot);
-							}
+								// Item on Finger 2 on BiS List, could be equipped on Finger 1 in game. Check.
+								if (slot.ToUpper().Trim() == Constants.s_finger2Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_finger1Slot);
+								}
 
-							// Item in Trinket 2 slot on BiS List, could be equipped in Trinket 1 slot in game. Check.
-							if (slot.ToUpper().Trim() == Constants.s_trinket2Slot.ToUpper().Trim())
-							{
-								itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket1Slot);
+								// Item in Trinket 1 slot on BiS List, could be equipped in Trinket 2 slot in game. Check.
+								if (slot.ToUpper().Trim() == Constants.s_trinket1Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket2Slot);
+								}
+
+								// Item in Trinket 2 slot on BiS List, could be equipped in Trinket 1 slot in game. Check.
+								if (slot.ToUpper().Trim() == Constants.s_trinket2Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket1Slot);
+								}
 							}
-						}
-						else
-						{
-							// Names are the same, make sure that current Ilevel is greater than expected BiS Ilevel.
-							itemNeeded = compareIlevels(currentItem, bisItem);
+							else
+							{
+								// Names are the same, make sure that current Ilevel is greater than expected BiS Ilevel.
+								itemNeeded = compareIlevels(currentItem, bisItem);
+							}
 						}
 					}
 
