@@ -19,8 +19,8 @@ namespace BiSComparer
 		public MainWindow()
 		{
 			SettingsViewModel = new SettingsViewModel();
-			MainWindowViewModel = new MainWindowViewModel();
-			BiSEditorViewModel = new BiSEditorViewModel(MainWindowViewModel);
+			MainWindowViewModel = new MainWindowViewModel(SettingsViewModel);
+			BiSEditorViewModel = new BiSEditorViewModel(MainWindowViewModel, SettingsViewModel);
 			CharacterSummaryViewModel = new CharacterSummaryViewModel(MainWindowViewModel);
 			BossSummaryViewModel = new BossSummaryViewModel(MainWindowViewModel);
 

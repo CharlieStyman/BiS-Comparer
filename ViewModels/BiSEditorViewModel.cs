@@ -17,7 +17,7 @@ namespace BiSComparer.ViewModels
 	{
 
 		#region Constructor
-		public BiSEditorViewModel(MainWindowViewModel mainWindowViewModel)
+		public BiSEditorViewModel(MainWindowViewModel mainWindowViewModel, SettingsViewModel settingsViewModel)
 		{
 			MainWindowViewModel = mainWindowViewModel;
 
@@ -65,12 +65,23 @@ namespace BiSComparer.ViewModels
 			{
 				ExecuteDelegate = X => CloseImportWindow()
 			};
-			
 
-			RaidDifficulties = Constants.s_raidDifficulties;
+			m_settingsViewModel = settingsViewModel;
+			Constants = m_settingsViewModel.Constants;
+
+			RaidDifficulties = Constants.RaidDifficulties;
 			MainWindowViewModel.CharInfosChanged += MainWindowViewModel_CharInfosChanged;
+			settingsViewModel.RaidTierChanged += SettingsViewModel_RaidTierChanged;
+		}
+
+		private void SettingsViewModel_RaidTierChanged(object sender, EventArgs e)
+		{
+			Constants = m_settingsViewModel.Constants;
+			SaveAndReloadBiS();
 		}
 		#endregion
+
+		private Constants Constants{get; set;}
 
 		#region EventHandlers
 
@@ -85,7 +96,7 @@ namespace BiSComparer.ViewModels
 				if (offhand == null)
 				{
 					// There is no offhand in the BiS list, Add an empty offhand slot.
-					charInfo.BisItems.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty));
+					charInfo.BisItems.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty, Constants));
 				}
 			}
 
@@ -290,13 +301,13 @@ namespace BiSComparer.ViewModels
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			foreach (string slot in Constants.s_equipmentSlots)
+			foreach (string slot in Constants.EquipmentSlots)
 			{
-				Item item = new Item(slot, string.Empty, string.Empty);
+				Item item = new Item(slot, string.Empty, string.Empty, Constants);
 				items.Add(item);
 			}
 
-			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic, string.Empty, "True", items);
+			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic, string.Empty, "True", items, Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}
@@ -441,10 +452,10 @@ namespace BiSComparer.ViewModels
 			if (offHand == null)
 			{
 				// Imported BiS doesn't include and offhand, add one.
-				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty));
+				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty, Constants));
 			}
 
-			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList);
+			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList, Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}
@@ -504,6 +515,7 @@ namespace BiSComparer.ViewModels
 		private Visibility m_importWindowVisibility = Visibility.Collapsed;
 		private Visibility m_inverseImportWindowVisibility = Visibility.Visible;
 		private string m_importString;
+		private SettingsViewModel m_settingsViewModel;
 
 		#endregion
 	}

@@ -14,10 +14,22 @@ namespace BiSComparer
 {
 	public class BiSComparerModel
 	{
-		public BiSComparerModel(MainWindowViewModel bisComparerViewModel)
+		public BiSComparerModel(MainWindowViewModel bisComparerViewModel, SettingsViewModel settingsViewModel)
 		{
 			m_bisComparerVM = bisComparerViewModel;
+			m_settingsVM = settingsViewModel;
+
+			Constants = settingsViewModel.Constants;
+
+			settingsViewModel.RaidTierChanged += SettingsViewModel_RaidTierChanged;
 		}
+
+		private void SettingsViewModel_RaidTierChanged(object sender, EventArgs e)
+		{
+			Constants = m_settingsVM.Constants;
+		}
+
+		public Constants Constants { get; set; }
 
 		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath, out string error)
 		{
@@ -53,7 +65,7 @@ namespace BiSComparer
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 
 
-				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, isActive, bisItems);
+				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, isActive, bisItems, Constants.RaidDifficulties);
 				List<Item> itemsNeeded = new List<Item>();
 
 				// If character is inactive, then no items are needed, so don't populate list.
@@ -99,7 +111,7 @@ namespace BiSComparer
 					SetObtained(name, charName, false, ref xmlDoc);
 				}
 
-				Item item = new Item(slot, name, source, difficulty , obtained, isWf:false);
+				Item item = new Item(slot, name, source, difficulty , obtained, false, Constants);
 
 				items.Add(item);
 			}
@@ -120,7 +132,7 @@ namespace BiSComparer
 					string charName = charInfo.CharName;
 					foreach (Item item in charInfo.ItemsNeeded)
 					{
-						Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty);
+						Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty, Constants);
 						tempItems.Add(item2);
 					}
 				}
@@ -185,9 +197,9 @@ namespace BiSComparer
 			{
 				character = m_wow.GetCharacter(realm, charName, CharacterOptions.GetItems);
 
-				if (character.Level < Constants.s_maxLevel)
+				if (character.Level < Constants.MaxLevel)
 				{
-					throw new Exception(string.Format("Character with name {0} on realm {1} has a level lower than {2}, checking Genjuros.", charName, realm, Constants.s_maxLevel));
+					throw new Exception(string.Format("Character with name {0} on realm {1} has a level lower than {2}, checking Genjuros.", charName, realm, Constants.MaxLevel));
 				}
 			}
 			catch
@@ -217,10 +229,10 @@ namespace BiSComparer
 
 			if (equippedItems != null)
 			{
-				for (int i=0; i < Constants.s_equipmentSlots.Length; i++)
+				for (int i=0; i < Constants.EquipmentSlots.Length; i++)
 				{
 					// Get the item for each slot. equippedItems.Head, equippedItems.Neck etc.
-					CharacterItem item = equippedItems.GetType().GetProperty(Constants.s_equipmentSlots[i]).GetValue(equippedItems) as CharacterItem;
+					CharacterItem item = equippedItems.GetType().GetProperty(Constants.EquipmentSlots[i]).GetValue(equippedItems) as CharacterItem;
 					if (item != null)
 					{
 						if (item.Name != null)
@@ -231,7 +243,7 @@ namespace BiSComparer
 								isWf = true;
 							}
 
-							Item currentItem = new Item(Constants.s_equipmentSlots[i], item.Name, item.ItemLevel, raidDifficulty, false, isWf);
+							Item currentItem = new Item(Constants.EquipmentSlots[i], item.Name, item.ItemLevel, raidDifficulty, false, isWf, Constants);
 							currentItems.Add(currentItem);
 						}
 					}
@@ -242,7 +254,7 @@ namespace BiSComparer
 		private List<Item> CompareListsBySlot(ref ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, ref XmlDocument xmlDoc)
 		{
 			List<Item> itemsNeeded = new List<Item>();
-			foreach (string slot in Constants.s_equipmentSlots)
+			foreach (string slot in Constants.EquipmentSlots)
 			{
 				Item bisItem = bisList.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
 				Item currentItem = currentItems.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
@@ -346,7 +358,7 @@ namespace BiSComparer
 			if (currentItem.IsWarforged)
 			{
 				// Item is WF, remove the bonus Ilevels before comparison.
-				currentIlevel -= Constants.s_wFBonus;
+				currentIlevel -= Constants.WFBonus;
 			}
 			// Item names are the same. Compare current Ilevel against expected Ilevel.
 			if (currentIlevel < bisItem.Ilevel)
@@ -382,5 +394,6 @@ namespace BiSComparer
 		private static XmlDocument s_xmlDoc;
 		private static WowExplorer m_wow = new WowExplorer(Region.EU, Locale.en_GB, "6phc6jdp43t663mfj7v82dhkyckwbums");
 		private MainWindowViewModel m_bisComparerVM;
+		private SettingsViewModel m_settingsVM;
 	}
 }

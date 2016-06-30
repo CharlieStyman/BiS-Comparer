@@ -9,7 +9,7 @@ namespace BiSComparer
 {
 	public class CharInfo
 	{
-		public CharInfo(string name, string realm, string difficulty, string group, string isActive, ObservableCollection<Item> bisItems)
+		public CharInfo(string name, string realm, string difficulty, string group, string isActive, ObservableCollection<Item> bisItems, string[] difficulties)
 		{
 			CharName = name;
 			Realm = realm;
@@ -26,7 +26,7 @@ namespace BiSComparer
 				Group = Difficulty;
 			}
 
-			Difficulties = Constants.s_raidDifficulties;
+			Difficulties = difficulties;
 		}
 
 		public string CharName { get; set; }

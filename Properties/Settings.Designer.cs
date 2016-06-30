@@ -58,5 +58,17 @@ namespace BiSComparer.Properties {
                 this["LoadLastFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RaidTier {
+            get {
+                return ((string)(this["RaidTier"]));
+            }
+            set {
+                this["RaidTier"] = value;
+            }
+        }
     }
 }

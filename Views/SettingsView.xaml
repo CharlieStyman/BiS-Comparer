@@ -12,12 +12,12 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-
 
 		<TextBlock Grid.Row="0"
 				   Text="Settings"
@@ -26,10 +26,31 @@
 				   Padding="5"/>
 
 		<TextBlock Grid.Row="1"
+				   Text="Current Raid Tier"
+				   HorizontalAlignment="Center"
+				   Margin="5"
+				   Padding="5"/>
+		<StackPanel Grid.Row="1"
+					Grid.Column="1"
+					Orientation="Horizontal">
+			<ComboBox Margin="5"
+					  Padding="5"
+					  Width="200"
+					  HorizontalAlignment="Left"
+					  SelectedItem="{Binding RaidTier}"
+					  ItemsSource="{Binding RaidTiers}"/>
+			<TextBlock Text="Note - Changing the raid tier will cause BiS lists to reload."
+					   Padding="5"
+					   Margin="5"
+					   TextWrapping="Wrap"
+					   FontStyle="Italic"/>
+		</StackPanel>
+
+		<TextBlock Grid.Row="2"
 				   Grid.Column="0"
 				   Text="Reload All Items"
 				   Margin="5"/>
-		<CheckBox Grid.Row="1"
+		<CheckBox Grid.Row="2"
 				  Grid.Column="1"
 				  VerticalContentAlignment="Top"
 				  Margin="5"
@@ -39,11 +60,11 @@
 					   FontStyle="Italic"/>
 		</CheckBox>
 
-		<TextBlock Grid.Row="2"
+		<TextBlock Grid.Row="3"
 				   Grid.Column="0"
 				   Text="Load Previous BiS"
 				   Margin="5"/>
-		<CheckBox Grid.Row="2"
+		<CheckBox Grid.Row="3"
 				  Grid.Column="1"
 				  VerticalContentAlignment="Top"
 				  Margin="5"
@@ -53,11 +74,11 @@
 					   FontStyle="Italic"/>
 		</CheckBox>
 
-		<TextBlock Grid.Row="3"
+		<TextBlock Grid.Row="4"
 				   Grid.Column="0"
 				   Margin="5"
 				   Text="Previous BiS File"/>
-		<TextBlock Grid.Row="3"
+		<TextBlock Grid.Row="4"
 				   Grid.Column="1"
 				   Margin="5"
 				   Text="{Binding LastFile}"/>

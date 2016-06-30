@@ -12,9 +12,9 @@ namespace BiSComparer.ViewModels
 {
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
-		public MainWindowViewModel()
+		public MainWindowViewModel(SettingsViewModel settingsViewModel)
 		{
-			BiSComparerModel = new BiSComparerModel(this);
+			BiSComparerModel = new BiSComparerModel(this, settingsViewModel);
 			LoadBiSListsCommand = new SimpleCommand { ExecuteDelegate = X => LoadBiSLists() };
 		}
 

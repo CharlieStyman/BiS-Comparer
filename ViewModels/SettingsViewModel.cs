@@ -7,13 +7,23 @@ using System.Threading.Tasks;
 
 namespace BiSComparer.ViewModels
 {
-	public class SettingsViewModel:INotifyPropertyChanged
+	public class SettingsViewModel : INotifyPropertyChanged
 	{
 		public SettingsViewModel()
 		{
 			ResetObtained = Properties.Settings.Default.ResetObtained;
 			LoadLastFile = Properties.Settings.Default.LoadLastFile;
 			LastFile = Properties.Settings.Default.LastFile;
+
+			if (Properties.Settings.Default.RaidTier != "")
+			{
+				RaidTier = Properties.Settings.Default.RaidTier;
+			}
+			else
+			{
+				RaidTier = s_hellfireCitadel;
+			}
+
 		}
 
 		public bool ResetObtained
@@ -59,6 +69,58 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
+		public string RaidTier
+		{
+			get { return m_raidTier; }
+			set
+			{
+				if (m_raidTier != value)
+				{
+					m_raidTier = value;
+					OnPropertyChanged(new PropertyChangedEventArgs("RaidTier"));
+					Properties.Settings.Default.RaidTier = value;
+					Properties.Settings.Default.Save();
+
+					switch(m_raidTier)
+					{
+						case ("Hellfire Citadel - WoD"):
+							Constants = new HFCConstants();
+							break;
+						case ("The Emerald Nightmare - Legion"):
+							Constants = new Constants();
+							break;
+						default:
+							Constants = new Constants();
+							break;
+					}
+
+					if (RaidTierChanged != null)
+					{
+						RaidTierChanged(this, EventArgs.Empty);
+					}
+				}
+			}
+		}
+
+		public event EventHandler RaidTierChanged;
+
+		public string[] RaidTiers
+		{
+			get { return new string[] { s_suramarPalace, s_emeraldNightmare, s_hellfireCitadel }; }
+		}
+
+		public Constants Constants
+		{
+			get { return m_constants; }
+			set
+			{
+				if (m_constants != value)
+				{
+					m_constants = value;
+				}
+			}
+		}
+
 		#region PropertyChanged
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -74,7 +136,13 @@ namespace BiSComparer.ViewModels
 		#endregion
 
 		private bool m_resetObtained;
-		private string m_lastFile;
 		private bool m_loadLastFile;
+		private string m_lastFile;
+		private string m_raidTier;
+		private Constants m_constants;
+
+		private static string s_suramarPalace = "Suramar Palace - Legion";
+		private static string s_emeraldNightmare = "The Emerald Nightmare - Legion";
+		private static string s_hellfireCitadel = "Hellfire Citadel - WoD";
 	}
 }
