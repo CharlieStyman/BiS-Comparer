@@ -148,8 +148,7 @@ namespace BiSComparer.ViewModels
 				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath, out error).OrderByDescending(o => o.ItemsNeededCount);
 				CharInfos = new ObservableCollection<CharInfo>(charInfos);
 
-				// Rearrange boss infos to be ordered by number of items still needed.
-				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos).OrderByDescending(o => o.ItemsNeededCount);
+				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos);
 				BossInfos = new ObservableCollection<BossInfo>(bossInfos);
 			}
 

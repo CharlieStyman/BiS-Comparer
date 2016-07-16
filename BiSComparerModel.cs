@@ -74,6 +74,11 @@ namespace BiSComparer
 					itemsNeeded = CompareListsBySlot(ref bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
 				}
 
+				foreach(Item item in itemsNeeded)
+				{
+					item.Character = charInfo.CharName;
+				}
+
 				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
@@ -122,70 +127,32 @@ namespace BiSComparer
 		public ObservableCollection<BossInfo> GetBossInfos(ObservableCollection<CharInfo> charInfos)
 		{
 			ObservableCollection<BossInfo> bossInfos = new ObservableCollection<BossInfo>();
-			List<Item> tempItems = new List<Item>();
+
+			// Create a boss info for each boss in the tier.
+			foreach (string boss in Constants.Sources)
+			{
+				BossInfo bossInfo = new BossInfo(boss);
+				bossInfos.Add(bossInfo);
+			}
 
 			foreach (CharInfo charInfo in charInfos)
 			{
 				// Only add the character's items to the tempItems if the character is active.
 				if (charInfo.IsActive)
 				{
-					string charName = charInfo.CharName;
-					foreach (Item item in charInfo.ItemsNeeded)
+					foreach (BossInfo boss in bossInfos)
 					{
-						Item item2 = new Item(item.Slot, item.Name, item.Source, item.Ilevel, item.Obtained, charName, item.Difficulty, Constants);
-						tempItems.Add(item2);
-					}
-				}
-			}
-
-			foreach (Item item in tempItems)
-			{
-				// First item, so create new BossInfo
-				if (bossInfos.Count == 0)
-				{
-					AddItemToBossInfos(item, ref bossInfos);
-				}
-				else
-				{
-					// Not first item, so check if BossInfo already exists for item's source
-					foreach (BossInfo bossInfo in bossInfos)
-					{
-						if (bossInfo.BossName == item.Source)
+						IEnumerable<Item> itemsNeeded = (charInfo.ItemsNeeded.Where(item => item.Source == boss.BossName));
+						if (itemsNeeded != null && itemsNeeded.Any())
 						{
-							// BossInfo already exists for the source of this item. Add it.
-							bossInfo.ItemsNeeded.Add(item);
-							bossInfo.ItemsNeededCount++;
-							break;
-						}
-						else
-						{
-							// We've already checked all existing and it there isn't an entry for this item source, add it.
-							if (bossInfo == bossInfos.Last())
-							 {
-								AddItemToBossInfos(item, ref bossInfos);
-								break;
-							}
+							boss.ItemsNeeded.AddRange(itemsNeeded);
+							boss.ItemsNeededCount = boss.ItemsNeeded.Count();
 						}
 					}
 				}
 			}
 
 			return bossInfos;
-		}
-
-		private void AddItemToBossInfos(Item item, ref ObservableCollection<BossInfo> bossInfos)
-		{
-			BossInfo bossInfo = new BossInfo();
-
-			// Theres no boss info for this item, create a new one and add it to bossInfos.
-			bossInfo.BossName = item.Source;
-
-			List<Item> items = new List<Item>();
-			items.Add(item);
-			bossInfo.ItemsNeeded = items;
-			bossInfo.ItemsNeededCount++;
-
-			bossInfos.Add(bossInfo);
 		}
 
 		private Character LoadCharacter(string charName, string realm, out string error)
@@ -281,10 +248,10 @@ namespace BiSComparer
 				{
 					bool itemNeeded = false;
 
-					if (currentItem.Ilevel < bisItem.Ilevel + 15
-						|| bisItem.Slot == Constants.s_trinket1Slot
-						|| bisItem.Slot == Constants.s_trinket2Slot
-						|| Constants.IsItemTierPiece(bisItem.Source, bisItem.Slot))
+					if ((currentItem.Ilevel < bisItem.Ilevel + 15)
+						|| (bisItem.Slot == Constants.s_trinket1Slot)
+						|| (bisItem.Slot == Constants.s_trinket2Slot)
+						|| (Constants.IsItemTierPiece(bisItem.Source, bisItem.Slot)))
 
 						// The current item is less than 15 ilevels higher than the BiS piece,
 						// Or the bis item is either a trinket or a tier piece. Therefore, compare the items and

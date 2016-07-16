@@ -8,6 +8,13 @@ namespace BiSComparer
 {
 	public class BossInfo
 	{
+		public BossInfo(string name)
+		{
+			BossName = name;
+			ItemsNeeded = new List<Item>();
+			ItemsNeededCount = 0;
+		}
+
 		public string BossName { get; set; }
 
 		public List<Item> ItemsNeeded { get; set; }
