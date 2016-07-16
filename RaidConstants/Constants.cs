@@ -20,11 +20,15 @@ namespace BiSComparer
 
 		#endregion
 
-		#region Raid Specific Constants
+		public static string s_quest = "Quest";
+		public static string s_mythicDungeon = "Mythic Dungeon";
+		public static string s_trash = "Trash";
+		public static string s_crafted = "Crafted";
 
-		public virtual string[] Sources { get; set; }
-
-		#endregion
+		public virtual string[] Sources
+		{
+			get { return new string[] { s_quest, s_mythicDungeon, s_trash, s_crafted }; }
+		}
 
 		#region WoW Specific Constants
 

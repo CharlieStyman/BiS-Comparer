@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BiSComparer
 {
@@ -38,14 +39,14 @@ namespace BiSComparer
 		public static string s_tyrantVelhari = "Tyrant Velhari";
 		public static string s_mannoroth = "Mannoroth";
 		public static string s_archimonde = "Archimonde";
-		public static string s_quest = "Quest";
-		public static string s_mythicDungeon = "Mythic Dungeon";
-		public static string s_trash = "Trash";
-		public static string s_crafted = "Crafted";
 
 		public override string[] Sources
 		{
-			get { return new string[] { s_hellfireAssault, s_ironReaver, s_kormrok, s_hellfireHighCouncil, s_kilrogg, s_gorefiend, s_iskar, s_zakuun, s_xhulHorac, s_socrethar, s_tyrantVelhari, s_mannoroth, s_archimonde, s_quest, s_mythicDungeon, s_trash, s_crafted }; }
+			get
+			{
+				string[] sources = new string[] { s_archimonde, s_mannoroth, s_xhulHorac, s_zakuun, s_tyrantVelhari, s_socrethar, s_iskar, s_gorefiend, s_kilrogg, s_hellfireHighCouncil, s_kormrok, s_ironReaver, s_hellfireAssault };
+				return sources.Concat(base.Sources).ToArray();
+			}
 		}
 		#endregion
 
