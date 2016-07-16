@@ -12,6 +12,7 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
@@ -20,67 +21,74 @@
 		</Grid.ColumnDefinitions>
 
 		<TextBlock Grid.Row="0"
-				   Text="Settings"
-				   HorizontalAlignment="Center"
-				   Margin="5"
-				   Padding="5"/>
+			   Text="Settings"
+			   HorizontalAlignment="Center"
+			   Margin="5"
+			   Padding="5"/>
 
 		<TextBlock Grid.Row="1"
-				   Text="Current Raid Tier"
-				   HorizontalAlignment="Center"
-				   Margin="5"
-				   Padding="5"/>
+			   Text="Current Raid Tier"
+			   HorizontalAlignment="Center"
+			   Margin="5"
+			   Padding="5"/>
 		<StackPanel Grid.Row="1"
-					Grid.Column="1"
-					Orientation="Horizontal">
+				Grid.Column="1"
+				Orientation="Horizontal">
 			<ComboBox Margin="5"
-					  Padding="5"
-					  Width="200"
-					  HorizontalAlignment="Left"
-					  SelectedItem="{Binding RaidTier}"
-					  ItemsSource="{Binding RaidTiers}"/>
+				  Padding="5"
+				  Width="200"
+				  HorizontalAlignment="Left"
+				  SelectedItem="{Binding RaidTier}"
+				  ItemsSource="{Binding RaidTiers}"/>
 			<TextBlock Text="Note - Changing the raid tier will cause BiS lists to reload."
-					   Padding="5"
-					   Margin="5"
-					   TextWrapping="Wrap"
-					   FontStyle="Italic"/>
+				   Padding="5"
+				   Margin="5"
+				   TextWrapping="Wrap"
+				   FontStyle="Italic"/>
 		</StackPanel>
 
 		<TextBlock Grid.Row="2"
-				   Grid.Column="0"
-				   Text="Reload All Items"
-				   Margin="5"/>
+			   Grid.Column="0"
+			   Text="Reload All Items"
+			   Margin="5"/>
 		<CheckBox Grid.Row="2"
-				  Grid.Column="1"
-				  VerticalContentAlignment="Top"
-				  Margin="5"
-				  IsChecked="{Binding ResetObtained}">
+			  Grid.Column="1"
+			  VerticalContentAlignment="Top"
+			  Margin="5"
+			  IsChecked="{Binding ResetObtained}">
 			<TextBlock Text="If selected the program will 'forget' the previous items and recalculate your needed items. Check this and reload after changing a character's raid difficulty."
-					   TextWrapping="Wrap"
-					   FontStyle="Italic"/>
+				   TextWrapping="Wrap"
+				   FontStyle="Italic"/>
 		</CheckBox>
 
 		<TextBlock Grid.Row="3"
-				   Grid.Column="0"
-				   Text="Load Previous BiS"
-				   Margin="5"/>
+			   Grid.Column="0"
+			   Text="Load Previous BiS"
+			   Margin="5"/>
 		<CheckBox Grid.Row="3"
-				  Grid.Column="1"
-				  VerticalContentAlignment="Top"
-				  Margin="5"
-				  IsChecked="{Binding LoadLastFile}">
+			  Grid.Column="1"
+			  VerticalContentAlignment="Top"
+			  Margin="5"
+			  IsChecked="{Binding LoadLastFile}">
 			<TextBlock Text="If selected when the BiS Comparer is opened, it will automatically load the previous BiS list."
-					   TextWrapping="Wrap"
-					   FontStyle="Italic"/>
+				   TextWrapping="Wrap"
+				   FontStyle="Italic"/>
 		</CheckBox>
 
 		<TextBlock Grid.Row="4"
-				   Grid.Column="0"
-				   Margin="5"
-				   Text="Previous BiS File"/>
+			   Grid.Column="0"
+			   Margin="5"
+			   Text="Previous BiS File"/>
 		<TextBlock Grid.Row="4"
-				   Grid.Column="1"
-				   Margin="5"
-				   Text="{Binding LastFile}"/>
+			   Grid.Column="1"
+			   Margin="5"
+			   Text="{Binding LastFile}"/>
+
+		<TextBlock Grid.Row="5"
+				   Grid.ColumnSpan="2"
+				   VerticalAlignment="Bottom"
+				   HorizontalAlignment="Center"
+				   FontStyle="Italic"
+				   Text="{Binding Credit}"/>
 	</Grid>
 </UserControl>

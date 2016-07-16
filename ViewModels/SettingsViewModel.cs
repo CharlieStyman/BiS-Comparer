@@ -124,6 +124,8 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
+		public string Credit { get { return s_credit; } }
+
 		#region PropertyChanged
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -147,5 +149,7 @@ namespace BiSComparer.ViewModels
 		private static string s_suramarPalace = "Suramar Palace - Legion";
 		private static string s_emeraldNightmare = "The Emerald Nightmare - Legion";
 		private static string s_hellfireCitadel = "Hellfire Citadel - WoD";
+
+		private static string s_credit = "Developed and maintained by Diazo <The Scarlet Crusade> - Darksorrow - EU";
 	}
 }
