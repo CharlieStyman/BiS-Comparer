@@ -21,7 +21,7 @@ namespace BiSComparer.ViewModels
 			}
 			else
 			{
-				RaidTier = s_hellfireCitadel;
+				RaidTier = s_emeraldNightmare;
 			}
 
 		}

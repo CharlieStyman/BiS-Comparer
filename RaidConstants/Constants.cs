@@ -50,21 +50,21 @@ namespace BiSComparer
 		public static string s_finger2Slot = "Finger2";
 		public static string s_trinket1Slot = "Trinket1";
 		public static string s_trinket2Slot = "Trinket2";
-		public static string s_mainHandSlot = "MainHand";
-		public static string s_offHandSlot = "OffHand";
+
 
 		public virtual string[] EquipmentSlots
 		{
-			get { return new string[] { s_headSlot, s_neckSlot, s_shoulderSlot, s_backSlot, s_chestSlot, s_wristSlot, s_handsSlot, s_waistSlot, s_legsSlot, s_feetSlot, s_finger1Slot, s_finger2Slot, s_trinket1Slot, s_trinket2Slot, s_mainHandSlot, s_offHandSlot }; }
+			get { return new string[] { s_headSlot, s_neckSlot, s_shoulderSlot, s_backSlot, s_chestSlot, s_wristSlot, s_handsSlot, s_waistSlot, s_legsSlot, s_feetSlot, s_finger1Slot, s_finger2Slot, s_trinket1Slot, s_trinket2Slot}; }
 		}
 
+		public static string s_preRaid = "PreRaid";
 		public static string s_normal = "Normal";
 		public static string s_heroic = "Heroic";
 		public static string s_mythic = "Mythic";
 
 		public virtual string[] RaidDifficulties
 		{
-			get { return new string[] { s_normal, s_heroic, s_mythic }; }
+			get { return new string[] { s_preRaid, s_normal, s_heroic, s_mythic }; }
 		}
 
 		#endregion

@@ -81,25 +81,13 @@ namespace BiSComparer.ViewModels
 		}
 		#endregion
 
-		private Constants Constants{get; set;}
+		private Constants Constants { get; set; }
 
 		#region EventHandlers
 
 		private void MainWindowViewModel_CharInfosChanged(object sender, EventArgs e)
 		{
 			IEnumerable<CharInfo> orderedCharInfos = MainWindowViewModel.CharInfos.OrderBy(c => c.CharName);
-
-			foreach (CharInfo charInfo in orderedCharInfos)
-			{
-				Item offhand = charInfo.BisItems.Where(i => i.Slot.ToUpper().Trim() == Constants.s_offHandSlot.ToUpper().Trim()).FirstOrDefault();
-
-				if (offhand == null)
-				{
-					// There is no offhand in the BiS list, Add an empty offhand slot.
-					charInfo.BisItems.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty, Constants));
-				}
-			}
-
 			CharInfos = new ObservableCollection<CharInfo>(orderedCharInfos);
 		}
 		#endregion
@@ -267,6 +255,7 @@ namespace BiSComparer.ViewModels
 			}
 			ImportWindowVisibility = Visibility.Collapsed;
 			InverseImportWindowVisibility = Visibility.Visible;
+			ImportString = null;
 		}
 
 		private bool CanImportFromString()
@@ -368,39 +357,27 @@ namespace BiSComparer.ViewModels
 
 				foreach (Item bisItem in charInfo.BisItems)
 				{
-					bool addItemToXml = true;
 
-					if (bisItem.Slot == Constants.s_offHandSlot)
-					{
-						if (bisItem.Name.Trim() == string.Empty)
-						{
-							// No offhand item has been defined, so don't add it to xml
-							addItemToXml = false;
-						}
-					}
+					XmlElement item = xmlDoc.CreateElement("Item");
 
-					if (addItemToXml)
-					{
-						XmlElement item = xmlDoc.CreateElement("Item");
+					XmlAttribute slot = xmlDoc.CreateAttribute("Slot");
+					slot.Value = bisItem.Slot;
+					item.Attributes.Append(slot);
 
-						XmlAttribute slot = xmlDoc.CreateAttribute("Slot");
-						slot.Value = bisItem.Slot;
-						item.Attributes.Append(slot);
+					XmlAttribute itemName = xmlDoc.CreateAttribute("Name");
+					itemName.Value = bisItem.Name;
+					item.Attributes.Append(itemName);
 
-						XmlAttribute itemName = xmlDoc.CreateAttribute("Name");
-						itemName.Value = bisItem.Name;
-						item.Attributes.Append(itemName);
+					XmlAttribute itemSource = xmlDoc.CreateAttribute("Source");
+					itemSource.Value = bisItem.Source;
+					item.Attributes.Append(itemSource);
 
-						XmlAttribute itemSource = xmlDoc.CreateAttribute("Source");
-						itemSource.Value = bisItem.Source;
-						item.Attributes.Append(itemSource);
+					XmlAttribute itemObtained = xmlDoc.CreateAttribute("Obtained");
+					itemObtained.Value = bisItem.Obtained.ToString();
+					item.Attributes.Append(itemObtained);
 
-						XmlAttribute itemObtained = xmlDoc.CreateAttribute("Obtained");
-						itemObtained.Value = bisItem.Obtained.ToString();
-						item.Attributes.Append(itemObtained);
+					character.AppendChild(item);
 
-						character.AppendChild(item);
-					}
 				}
 			}
 
@@ -433,7 +410,7 @@ namespace BiSComparer.ViewModels
 
 			if (character.Attributes["Difficulty"] != null)
 			{
-				realm = character.Attributes["Difficulty"].Value;
+				difficulty = character.Attributes["Difficulty"].Value;
 			}
 
 			if (character.Attributes["Group"] != null)
@@ -447,13 +424,6 @@ namespace BiSComparer.ViewModels
 			}
 
 			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, difficulty, ref xmlDoc);
-
-			Item offHand = bisList.Where(i => i.Slot == Constants.s_offHandSlot).FirstOrDefault();
-			if (offHand == null)
-			{
-				// Imported BiS doesn't include and offhand, add one.
-				bisList.Add(new Item(Constants.s_offHandSlot, string.Empty, string.Empty, Constants));
-			}
 
 			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList, Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
@@ -474,7 +444,7 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
-		private string FormatXmlString (string xml)
+		private string FormatXmlString(string xml)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
 

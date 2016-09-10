@@ -8,6 +8,7 @@ using System.Windows;
 using System.Xml;
 using WowDotNetAPI;
 using WowDotNetAPI.Models;
+using WoWItem = WowDotNetAPI.Models.Item;
 using BiSComparer.ViewModels;
 
 namespace BiSComparer
@@ -163,11 +164,6 @@ namespace BiSComparer
 			try
 			{
 				character = m_wow.GetCharacter(realm, charName, CharacterOptions.GetItems);
-
-				if (character.Level < Constants.MaxLevel)
-				{
-					throw new Exception(string.Format("Character with name {0} on realm {1} has a level lower than {2}, checking Genjuros.", charName, realm, Constants.MaxLevel));
-				}
 			}
 			catch
 			{
@@ -198,8 +194,18 @@ namespace BiSComparer
 			{
 				for (int i=0; i < Constants.EquipmentSlots.Length; i++)
 				{
-					// Get the item for each slot. equippedItems.Head, equippedItems.Neck etc.
-					CharacterItem item = equippedItems.GetType().GetProperty(Constants.EquipmentSlots[i]).GetValue(equippedItems) as CharacterItem;
+					CharacterItem item;
+					try
+					{
+						// Get the item for each slot. equippedItems. Head, equippedItems.Neck etc.
+						item = equippedItems.GetType().GetProperty(Constants.EquipmentSlots[i]).GetValue(equippedItems) as CharacterItem;
+					}
+					catch
+					{
+						// We couldn't find an item for this slot.
+						item = null;
+					}
+
 					if (item != null)
 					{
 						if (item.Name != null)
@@ -215,6 +221,58 @@ namespace BiSComparer
 						}
 					}
 				}
+
+				// Relics
+				CharacterItem artifact = null;
+				CharacterItem mainhand = character.Items.MainHand;
+				CharacterItem offhand = character.Items.OffHand;
+				if (mainhand != null)
+				{
+					if (mainhand.TooltipParams.Gem0 != 0)
+					{
+						artifact = mainhand;
+					}
+					else
+					{
+						if (offhand != null)
+						{
+							artifact = offhand;
+						}
+					}
+				}
+
+				if (artifact != null)
+				{
+					int gem0 = artifact.TooltipParams.Gem0;
+					if (gem0 != 0)
+					{
+						WoWItem relic1 = m_wow.GetItem(gem0);
+
+						Item relic = new Item(EmeraldNightmareConstants.s_relic1Slot, relic1.Name, relic1.ItemLevel, raidDifficulty, false, false, Constants);
+						currentItems.Add(relic);
+					}
+
+					int gem1 = artifact.TooltipParams.Gem1;
+					if (gem1 != 0)
+					{
+						WoWItem relic2 = m_wow.GetItem(gem1);
+
+						Item relic = new Item(EmeraldNightmareConstants.s_relic2Slot, relic2.Name, relic2.ItemLevel, raidDifficulty, false, false, Constants);
+						currentItems.Add(relic);
+					}
+
+					int gem2 = artifact.TooltipParams.Gem2;
+					if (gem2 != 0)
+					{
+						// 1805 = Heroic, 1806 = Mythic
+
+						WoWItem relic3 = m_wow.GetItem(gem2);
+						var bonus = relic3.BonusStats.ToArray();
+
+						Item relic = new Item(EmeraldNightmareConstants.s_relic3Slot, relic3.Name, relic3.ItemLevel, raidDifficulty, false, false, Constants);
+						currentItems.Add(relic);
+					}
+				}
 			}
 			return currentItems;
 		}
@@ -226,22 +284,6 @@ namespace BiSComparer
 				Item bisItem = bisList.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
 				Item currentItem = currentItems.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
 
-				if (slot.ToUpper().Trim() == Constants.s_offHandSlot)
-				{
-					if (bisItem == null && currentItem != null)
-					{
-						// Theres no offhand on the BiS list but theres one currently equipped.
-						// Remove offhand from currentItems list.
-						currentItems.Remove(currentItem);
-					}
-					else if (bisItem != null && currentItem == null)
-					{
-						// Theres an offhand on the BiSlist, but currently there isn't one equipped.
-						// Remove offhand from BiSItems list and mark as needed.
-						bisList.Remove(bisItem);
-						itemsNeeded.Add(bisItem);
-					}
-				}
 
 				// Check both items were found before comparison.
 				if (bisItem != null && currentItem != null)
@@ -286,6 +328,18 @@ namespace BiSComparer
 								if (slot.ToUpper().Trim() == Constants.s_trinket2Slot.ToUpper().Trim())
 								{
 									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket1Slot);
+								}
+
+								// Item in Relic 1 slot on BiS List could be equipped in Relic 3 slot in game. Check.
+								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic1Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
+								}
+
+								// Item in Relic 3 slot on BiS List could be equipped in Relic 3 slot in game. Check.
+								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic3Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
 								}
 							}
 							else

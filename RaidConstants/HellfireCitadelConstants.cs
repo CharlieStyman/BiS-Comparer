@@ -48,6 +48,20 @@ namespace BiSComparer
 				return sources.Concat(base.Sources).ToArray();
 			}
 		}
+
+		public static string s_mainHandSlot = "MainHand";
+		public static string s_offHandSlot = "OffHand";
+
+		public override string[] EquipmentSlots
+		{
+			get
+			{
+				string[] equipmentSlots = new string[] { s_mainHandSlot, s_offHandSlot };
+				// The expansion specific slots should go at the bottom of the list.
+				return base.EquipmentSlots.Concat(equipmentSlots).ToArray();
+			}
+		}
+
 		#endregion
 
 		public override int GetMinimumIlevel(string raidDifficulty, string source, bool isTier)
