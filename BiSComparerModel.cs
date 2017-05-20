@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Xml;
-using WowDotNetAPI;
-using WowDotNetAPI.Models;
-using WoWItem = WowDotNetAPI.Models.Item;
+using BattleDotNetAPI;
+using BattleDotNetAPI.Models.WoW;
 using BiSComparer.ViewModels;
 
 namespace BiSComparer
@@ -32,7 +29,7 @@ namespace BiSComparer
 
 		public Constants Constants { get; set; }
 
-		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath, out string error)
+		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath, string difficulty, out string error)
 		{
 			error = string.Empty;
 			ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
@@ -46,9 +43,13 @@ namespace BiSComparer
 			{
 				string charName = character.Attributes["Name"].Value;
 				string realm = character.Attributes["Realm"].Value;
-				string difficulty = character.Attributes["Difficulty"].Value;
 				string group = string.Empty;
 				string isActive = "True";
+
+				if (string.IsNullOrEmpty(difficulty))
+				{
+					difficulty = character.Attributes["Difficulty"].Value;
+				}
 
 				if (character.Attributes["Group"] != null)
 				{
@@ -61,7 +62,7 @@ namespace BiSComparer
 				}
 
 				ObservableCollection<Item> bisItems = GetBiSList(character, difficulty, ref s_xmlDoc);
-				Character wowCharacter = LoadCharacter(charName, realm, out error);
+				WoWCharacter wowCharacter = LoadCharacter(charName, realm, out error);
 
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 
@@ -106,11 +107,9 @@ namespace BiSComparer
 			{
 				bool resetObtained = Properties.Settings.Default.ResetObtained;
 				string name = itemElement.Attributes["Name"].Value;
-				string source = itemElement.Attributes["Source"].Value;
+				string source = (itemElement.Attributes["Source"].Value ?? " ");
 				string slot = itemElement.Attributes["Slot"].Value;
 				obtained = Convert.ToBoolean(resetObtained ? "false" : itemElement.Attributes["Obtained"].Value);
-
-				bool isTier = Constants.IsItemTierPiece(source, slot);
 
 				if (resetObtained)
 				{
@@ -156,14 +155,14 @@ namespace BiSComparer
 			return bossInfos;
 		}
 
-		private Character LoadCharacter(string charName, string realm, out string error)
+		private WoWCharacter LoadCharacter(string charName, string realm, out string error)
 		{
 			error = string.Empty;
-			Character character = new Character();
+			WoWCharacter character = new WoWCharacter();
 
 			try
 			{
-				character = m_wow.GetCharacter(realm, charName, CharacterOptions.GetItems);
+				character = m_wow.GetCharacter(realm, charName, CharacterProfileOptions.Items);
 			}
 			catch
 			{
@@ -184,9 +183,9 @@ namespace BiSComparer
 			return character;
 		}
 
-		private ObservableCollection<Item> GetCurrentItems(Character character, string raidDifficulty)
+		private ObservableCollection<Item> GetCurrentItems(WoWCharacter character, string raidDifficulty)
 		{
-			CharacterEquipment equippedItems = character.Items;
+			WoWCharacterItems equippedItems = character.items;
 
 			ObservableCollection<Item> currentItems = new ObservableCollection<Item>();
 
@@ -194,11 +193,11 @@ namespace BiSComparer
 			{
 				for (int i=0; i < Constants.EquipmentSlots.Length; i++)
 				{
-					CharacterItem item;
+					WoWCharacterItem item;
 					try
 					{
 						// Get the item for each slot. equippedItems. Head, equippedItems.Neck etc.
-						item = equippedItems.GetType().GetProperty(Constants.EquipmentSlots[i]).GetValue(equippedItems) as CharacterItem;
+						item = (WoWCharacterItem)equippedItems.GetType().GetProperty(Constants.EquipmentSlots[i]).GetValue(equippedItems);
 					}
 					catch
 					{
@@ -208,27 +207,26 @@ namespace BiSComparer
 
 					if (item != null)
 					{
-						if (item.Name != null)
+						if (item.name != null)
 						{
 							bool isWf = false;
-							if (Constants.IsWarforged(item.BonusLists.ToList()))
+							if (Constants.IsWarforged(item.bonusLists.ToList()))
 							{
 								isWf = true;
 							}
 
-							Item currentItem = new Item(Constants.EquipmentSlots[i], item.Name, item.ItemLevel, raidDifficulty, false, isWf, Constants);
-							currentItems.Add(currentItem);
+							currentItems.Add(new Item(Constants.EquipmentSlots[i], item.name, (int)item.itemLevel, raidDifficulty, false, isWf, Constants));
 						}
 					}
 				}
 
 				// Relics
-				CharacterItem artifact = null;
-				CharacterItem mainhand = character.Items.MainHand;
-				CharacterItem offhand = character.Items.OffHand;
+				WoWCharacterItem artifact = null;
+				WoWCharacterItem mainhand = character.items.mainHand;
+				WoWCharacterItem offhand = character.items.offHand;
 				if (mainhand != null)
 				{
-					if (mainhand.TooltipParams.Gem0 != 0)
+					if (mainhand.relics != null)
 					{
 						artifact = mainhand;
 					}
@@ -243,35 +241,27 @@ namespace BiSComparer
 
 				if (artifact != null)
 				{
-					int gem0 = artifact.TooltipParams.Gem0;
-					if (gem0 != 0)
+					try
 					{
-						WoWItem relic1 = m_wow.GetItem(gem0);
+						for (int i = 0; i < artifact.relics.Count; i++)
+						{
+							WoWArtifactRelic artifactRelic = artifact.relics[i];
+							WoWItem relic = m_wow.GetItem((int)artifact.relics[i].itemId);
 
-						Item relic = new Item(EmeraldNightmareConstants.s_relic1Slot, relic1.Name, relic1.ItemLevel, raidDifficulty, false, false, Constants);
-						currentItems.Add(relic);
+							foreach (var bonusId in artifactRelic.bonusLists)
+							{
+								int ilevel = bonusId - 1472;
+
+								if ((ilevel >= 0) && (ilevel <= 200))
+								{
+									string relicSlot = "relic";
+									currentItems.Add(new Item($"{relicSlot}{i + 1}", relic.name, (int)relic.itemLevel + ilevel, raidDifficulty, false, false, Constants));
+									break;
+								}
+							}
+						}
 					}
-
-					int gem1 = artifact.TooltipParams.Gem1;
-					if (gem1 != 0)
-					{
-						WoWItem relic2 = m_wow.GetItem(gem1);
-
-						Item relic = new Item(EmeraldNightmareConstants.s_relic2Slot, relic2.Name, relic2.ItemLevel, raidDifficulty, false, false, Constants);
-						currentItems.Add(relic);
-					}
-
-					int gem2 = artifact.TooltipParams.Gem2;
-					if (gem2 != 0)
-					{
-						// 1805 = Heroic, 1806 = Mythic
-
-						WoWItem relic3 = m_wow.GetItem(gem2);
-						var bonus = relic3.BonusStats.ToArray();
-
-						Item relic = new Item(EmeraldNightmareConstants.s_relic3Slot, relic3.Name, relic3.ItemLevel, raidDifficulty, false, false, Constants);
-						currentItems.Add(relic);
-					}
+					catch{}
 				}
 			}
 			return currentItems;
@@ -284,13 +274,12 @@ namespace BiSComparer
 				Item bisItem = bisList.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
 				Item currentItem = currentItems.Where(i => i.Slot.ToUpper().Trim() == slot.ToUpper().Trim()).FirstOrDefault();
 
-
 				// Check both items were found before comparison.
 				if (bisItem != null && currentItem != null)
 				{
 					bool itemNeeded = false;
 
-					if ((currentItem.Ilevel < bisItem.Ilevel + 15)
+					if ((currentItem.Ilevel < bisItem.Ilevel + 50)
 						|| (bisItem.Slot == Constants.s_trinket1Slot)
 						|| (bisItem.Slot == Constants.s_trinket2Slot)
 						|| (Constants.IsItemTierPiece(bisItem.Source, bisItem.Slot)))
@@ -330,22 +319,43 @@ namespace BiSComparer
 									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket1Slot);
 								}
 
-								// Item in Relic 1 slot on BiS List could be equipped in Relic 3 slot in game. Check.
+								// Item in Relic 1 slot on BiS List could be equipped in either Relic 2 or 3 slot in game. Check.
 								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic1Slot.ToUpper().Trim())
 								{
-									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic2Slot);
+
+									if (itemNeeded)
+									{
+										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
+									}
 								}
 
-								// Item in Relic 3 slot on BiS List could be equipped in Relic 3 slot in game. Check.
-								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic3Slot.ToUpper().Trim())
+								// Item in Relic 2 slot on BiS List could be equipped in either Relic 1 or 3 slot in game. Check.
+								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic2Slot.ToUpper().Trim())
 								{
 									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
+
+									if (itemNeeded)
+									{
+										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
+									}
+								}
+
+								// Item in Relic 3 slot on BiS List could be equipped in either Relic 1 or 2 slot in game. Check.
+								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic2Slot.ToUpper().Trim())
+								{
+									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
+
+									if (itemNeeded)
+									{
+										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic2Slot);
+									}
 								}
 							}
 							else
 							{
 								// Names are the same, make sure that current Ilevel is greater than expected BiS Ilevel.
-								itemNeeded = compareIlevels(currentItem, bisItem);
+								itemNeeded = compareIlevels(currentItem, ref bisItem);
 							}
 						}
 					}
@@ -376,14 +386,14 @@ namespace BiSComparer
 			{
 				if (bisItem.Name.ToUpper().Trim() == compareItem.Name.ToUpper().Trim())
 				{
-					itemNeeded = compareIlevels(compareItem, bisItem);
+					itemNeeded = compareIlevels(compareItem, ref bisItem);
 				}
 			}
 
 			return itemNeeded;
 		}
 
-		private bool compareIlevels(Item currentItem, Item bisItem)
+		private bool compareIlevels(Item currentItem, ref Item bisItem)
 		{
 			bool itemNeeded = false;
 			int currentIlevel = currentItem.Ilevel;
@@ -399,6 +409,8 @@ namespace BiSComparer
 				// I.e character is using the same item but heroic.
 				itemNeeded = true;
 			}
+
+			bisItem.SetObtainedDifficulties(currentIlevel);
 
 			return itemNeeded;
 		}
@@ -424,7 +436,7 @@ namespace BiSComparer
 		}
 
 		private static XmlDocument s_xmlDoc;
-		private static WowExplorer m_wow = new WowExplorer(Region.EU, Locale.en_GB, "6phc6jdp43t663mfj7v82dhkyckwbums");
+		private static WoWAPI m_wow = new WoWAPI("6phc6jdp43t663mfj7v82dhkyckwbums", BattleDotNetRegion.EU, BattleDotNetLocale.en_GB);
 		private MainWindowViewModel m_bisComparerVM;
 		private SettingsViewModel m_settingsVM;
 	}

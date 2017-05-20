@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -91,6 +91,9 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BattleDotNetAPI">
+      <HintPath>..\..\..\Users\Charlie\Downloads\BattleDotNetAPI-master\BattleDotNetAPI.Tests\bin\Debug\BattleDotNetAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -106,18 +109,17 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WowDotNetAPI">
-      <HintPath>Assembly References\WowDotNetAPI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BooleanToObtainedColourConverter.cs" />
     <Compile Include="RaidConstants\Constants.cs" />
     <Compile Include="Converters\BooleanToFontColourConverter.cs" />
-    <Compile Include="RaidConstants\SuramarPalaceConstants.cs" />
+    <Compile Include="RaidConstants\TombOfSargerasConstants.cs" />
+    <Compile Include="RaidConstants\NightholdConstants.cs" />
     <Compile Include="RaidConstants\EmeraldNightmareConstants.cs" />
     <Compile Include="ViewModels\BossSummaryViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

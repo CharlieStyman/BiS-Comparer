@@ -24,10 +24,11 @@ namespace BiSComparer
 		public static string s_mythicDungeon = "Mythic Dungeon";
 		public static string s_trash = "Trash";
 		public static string s_crafted = "Crafted";
+		public static string s_legendary = "Legendary";
 
 		public virtual string[] Sources
 		{
-			get { return new string[] { s_quest, s_mythicDungeon, s_trash, s_crafted }; }
+			get { return new string[] { s_quest, s_mythicDungeon, s_trash, s_crafted, s_legendary }; }
 		}
 
 		#region WoW Specific Constants
@@ -36,20 +37,20 @@ namespace BiSComparer
 		// WowAPI CharacterEquipment class, and the slots in the BiS XML.
 		// DO NOT CHANGE WITHOUT GOOD REASON
 
-		public static string s_headSlot = "Head";
-		public static string s_neckSlot = "Neck";
-		public static string s_shoulderSlot = "Shoulder";
-		public static string s_backSlot = "Back";
-		public static string s_chestSlot = "Chest";
-		public static string s_wristSlot = "Wrist";
-		public static string s_handsSlot = "Hands";
-		public static string s_waistSlot = "Waist";
-		public static string s_legsSlot = "Legs";
-		public static string s_feetSlot = "Feet";
-		public static string s_finger1Slot = "Finger1";
-		public static string s_finger2Slot = "Finger2";
-		public static string s_trinket1Slot = "Trinket1";
-		public static string s_trinket2Slot = "Trinket2";
+		public static string s_headSlot = "head";
+		public static string s_neckSlot = "neck";
+		public static string s_shoulderSlot = "shoulder";
+		public static string s_backSlot = "back";
+		public static string s_chestSlot = "chest";
+		public static string s_wristSlot = "wrist";
+		public static string s_handsSlot = "hands";
+		public static string s_waistSlot = "waist";
+		public static string s_legsSlot = "legs";
+		public static string s_feetSlot = "feet";
+		public static string s_finger1Slot = "finger1";
+		public static string s_finger2Slot = "finger2";
+		public static string s_trinket1Slot = "trinket1";
+		public static string s_trinket2Slot = "trinket2";
 
 
 		public virtual string[] EquipmentSlots

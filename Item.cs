@@ -8,6 +8,7 @@ namespace BiSComparer
 {
 	public class Item
 	{
+
 		/// <summary>
 		/// Constructor for BiS List item
 		/// </summary>
@@ -20,8 +21,9 @@ namespace BiSComparer
 			Obtained = obtained;
 			IsWarforged = isWf;
 
-			bool isTier = constants.IsItemTierPiece(source, slot);
-			Ilevel = constants.GetMinimumIlevel(difficulty, source, isTier);
+			Constants = constants;
+			IsTier = constants.IsItemTierPiece(source, slot);
+			Ilevel = constants.GetMinimumIlevel(difficulty, source, IsTier);
 			Sources = constants.Sources;
 			Character = string.Empty;
 		}
@@ -37,6 +39,7 @@ namespace BiSComparer
 			Difficulty = difficulty;
 			Obtained = obtained;
 			IsWarforged = isWf;
+			Constants = constants;
 			Sources = constants.Sources;
 			Character = string.Empty;
 		}
@@ -53,6 +56,7 @@ namespace BiSComparer
 			Obtained = obtained;
 			Character = character;
 			Difficulty = difficulty;
+			Constants = constants;
 			Sources = constants.Sources;
 		}
 
@@ -64,6 +68,7 @@ namespace BiSComparer
 			Slot = slot;
 			Name = name;
 			Source = source;
+			Constants = constants;
 			Sources = constants.Sources;
 		}
 
@@ -79,10 +84,30 @@ namespace BiSComparer
 
 		public bool Obtained { get; set; }
 
+		public bool ObtainedLFR { get; set; }
+
+		public bool ObtainedNormal { get; set; }
+
+		public bool ObtainedHeroic { get; set; }
+
+		public bool ObtainedMythic { get; set;}
+
 		public string Character { get; set; }
 
 		public bool IsWarforged { get; set; }
 
+		public bool IsTier { get; set; }
+
 		public string[] Sources { get; set; }
+
+		public Constants Constants { get; set; }
+
+		public void SetObtainedDifficulties(int itemLevel)
+		{
+			ObtainedMythic = (itemLevel >= Constants.GetMinimumIlevel("Mythic", Source, IsTier));
+			ObtainedHeroic = (itemLevel >= Constants.GetMinimumIlevel("Heroic", Source, IsTier));
+			ObtainedNormal = (itemLevel >= Constants.GetMinimumIlevel("Normal", Source, IsTier));
+			ObtainedLFR = (itemLevel >= Constants.GetMinimumIlevel("Raid Finder", Source, IsTier));
+		}
 	}
 }

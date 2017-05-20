@@ -18,7 +18,8 @@
 		</CollectionViewSource>
 
 		<converters:BooleanToFontColourConverter x:Key="BooleanToFontColourConverter" />
-		</UserControl.Resources>
+		<converters:BooleanToObtainedColourConverter x:Key="BooleanToObtainedColourConverter" />
+	</UserControl.Resources>
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -126,6 +127,46 @@
 					</GridViewColumn>
 					<GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Source}">
 						<GridViewColumnHeader Tag="Source" Click="listViewColumnHeader_Click" Content="Source"/>
+					</GridViewColumn>
+					<GridViewColumn Width="40">
+						<GridViewColumnHeader Tag="Mythic" Click="listViewColumnHeader_Click" Content="Mythic"/>
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid>
+									<Rectangle Width="20" Height="20"  Fill="{Binding ObtainedMythic, Converter={StaticResource BooleanToObtainedColourConverter}}"/>
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="40">
+						<GridViewColumnHeader Tag="Heroic" Click="listViewColumnHeader_Click" Content="Heroic"/>
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid>
+									<Rectangle Width="20" Height="20"  Fill="{Binding ObtainedHeroic, Converter={StaticResource BooleanToObtainedColourConverter}}"/>
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="40">
+						<GridViewColumnHeader Tag="Normal" Click="listViewColumnHeader_Click" Content="Normal"/>
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid>
+									<Rectangle Width="20" Height="20"  Fill="{Binding ObtainedNormal, Converter={StaticResource BooleanToObtainedColourConverter}}"/>
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="40">
+						<GridViewColumnHeader Tag="LFR" Click="listViewColumnHeader_Click" Content="LFR"/>
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid>
+									<Rectangle Width="20" Height="20"  Fill="{Binding ObtainedLFR, Converter={StaticResource BooleanToObtainedColourConverter}}"/>
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
 					</GridViewColumn>
 				</GridView>
 			</ListView.View>

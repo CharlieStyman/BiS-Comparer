@@ -55,9 +55,6 @@
 					<GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Name}">
 						<GridViewColumnHeader Tag="Name" Click="bossListViewColumnHeader_Click" Content="Name"/>
 					</GridViewColumn>
-					<GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Difficulty}">
-						<GridViewColumnHeader Tag="Difficulty" Click="bossListViewColumnHeader_Click" Content="Difficulty"/>
-					</GridViewColumn>
 				</GridView>
 			</ListView.View>
 		</ListView>

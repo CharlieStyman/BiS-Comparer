@@ -170,8 +170,7 @@ namespace BiSComparer.ViewModels
 				if (m_importString != value)
 				{
 					m_importString = value;
-
-					OnPropertyChanged(new PropertyChangedEventArgs("ImportedCharacter"));
+					OnPropertyChanged(new PropertyChangedEventArgs("ImportString"));
 				}
 			}
 		}
@@ -192,7 +191,7 @@ namespace BiSComparer.ViewModels
 			new Thread(delegate ()
 			{
 				SaveBiSListXml(MainWindowViewModel.BisFilePath, CharInfos, saving: true);
-				MainWindowViewModel.Error = MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
+				MainWindowViewModel.Error = MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath, difficulty:null);
 			}).Start();
 		}
 
@@ -247,6 +246,8 @@ namespace BiSComparer.ViewModels
 					{
 						ImportCharacter(rootElement, ref xmlDoc);
 					}
+					// We've imported, now clear the import string.
+					ImportString = null;
 				}
 				catch
 				{
@@ -428,6 +429,7 @@ namespace BiSComparer.ViewModels
 			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList, Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
+			ImportString = null;
 		}
 
 		private void AddCharacterToCharInfos(CharInfo newChar)

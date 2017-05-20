@@ -21,7 +21,7 @@ namespace BiSComparer.ViewModels
 			}
 			else
 			{
-				RaidTier = s_emeraldNightmare;
+				RaidTier = s_suramarPalace;
 			}
 
 		}
@@ -89,8 +89,11 @@ namespace BiSComparer.ViewModels
 						case ("The Emerald Nightmare - Legion"):
 							Constants = new EmeraldNightmareConstants();
 							break;
-						case ("Suramar Palace - Legion"):
-							Constants = new SuramarPalaceConstants();
+						case ("The Nighthold - Legion"):
+							Constants = new NightholdConstants();
+							break;
+						case ("Tomb of Sargeras - Legion"):
+							Constants = new TombOfSargerasConstants();
 							break;
 						default:
 							Constants = new Constants();
@@ -109,7 +112,7 @@ namespace BiSComparer.ViewModels
 
 		public string[] RaidTiers
 		{
-			get { return new string[] { s_suramarPalace, s_emeraldNightmare, s_hellfireCitadel }; }
+			get { return new string[] { s_tombOfSargeras, s_suramarPalace, s_emeraldNightmare, s_hellfireCitadel }; }
 		}
 
 		public Constants Constants
@@ -146,7 +149,8 @@ namespace BiSComparer.ViewModels
 		private string m_raidTier;
 		private Constants m_constants;
 
-		private static string s_suramarPalace = "Suramar Palace - Legion";
+		private static string s_tombOfSargeras = "Tomb of Sargeras - Legion";
+		private static string s_suramarPalace = "The Nighthold - Legion";
 		private static string s_emeraldNightmare = "The Emerald Nightmare - Legion";
 		private static string s_hellfireCitadel = "Hellfire Citadel - WoD";
 

@@ -134,18 +134,18 @@ namespace BiSComparer.ViewModels
 
 				new Thread(delegate ()
 					{
-						Error = PopulateCharInfosAndBossInfos(BisFilePath);
+						Error = PopulateCharInfosAndBossInfos(BisFilePath, difficulty:null);
 					}).Start();
 			}
 		}
 
-		public string PopulateCharInfosAndBossInfos(string BisFilePath)
+		public string PopulateCharInfosAndBossInfos(string BisFilePath, string difficulty)
 		{
 			string error = string.Empty;
 			if (!string.IsNullOrEmpty(BisFilePath))
 			{
 				// Rearrange char infos to be ordered by number of items still needed.
-				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath, out error).OrderByDescending(o => o.ItemsNeededCount);
+				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath, difficulty, out error).OrderByDescending(o => o.ItemsNeededCount);
 				CharInfos = new ObservableCollection<CharInfo>(charInfos);
 
 				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos);
