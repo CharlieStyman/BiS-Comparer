@@ -29,9 +29,12 @@ namespace BiSComparer
 
 		public Constants Constants { get; set; }
 
-		public ObservableCollection<CharInfo> GetCharInfos(string bisFilePath, string difficulty, out string error)
+		public ObservableCollection<CharInfo> CharInfos {get; set;}
+
+		public void LoadCharInfosFromFile(string bisFilePath, out string difficulty, out string error)
 		{
 			error = string.Empty;
+			difficulty = string.Empty;
 			ObservableCollection<CharInfo> charInfos = new ObservableCollection<CharInfo>();
 			s_xmlDoc = new XmlDocument();
 			s_xmlDoc.Load(bisFilePath);
@@ -45,11 +48,7 @@ namespace BiSComparer
 				string realm = character.Attributes["Realm"].Value;
 				string group = string.Empty;
 				string isActive = "True";
-
-				if (string.IsNullOrEmpty(difficulty))
-				{
-					difficulty = character.Attributes["Difficulty"].Value;
-				}
+				difficulty = character.Attributes["Difficulty"].Value;
 
 				if (character.Attributes["Group"] != null)
 				{
@@ -67,35 +66,40 @@ namespace BiSComparer
 				ObservableCollection<Item> currentItems = GetCurrentItems(wowCharacter, difficulty);
 
 
-				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, isActive, bisItems, Constants.RaidDifficulties);
+				CharInfo charInfo = new CharInfo(charName, realm, difficulty, group, isActive, bisItems, currentItems, Constants.RaidDifficulties);
+				charInfos.Add(charInfo);
+
+				if (charInfo.IsActive)
+				{
+					m_bisComparerVM.UpdateProgressBar(charInfo.CharName, characters.Count);
+				}
+			}
+
+			CharInfos = charInfos;
+			m_bisComparerVM.ResetProgressBar();
+		}
+
+
+		public void UpdateItemsNeeded(string difficulty, bool ignoreObtained)
+		{
+			foreach (CharInfo charInfo in CharInfos)
+			{
 				List<Item> itemsNeeded = new List<Item>();
 
 				// If character is inactive, then no items are needed, so don't populate list.
 				if (charInfo.IsActive)
 				{
-					itemsNeeded = CompareListsBySlot(ref bisItems, currentItems, charName, difficulty, ref s_xmlDoc);
+					itemsNeeded = CompareListsBySlot(charInfo.BisItems, charInfo.CurrentItems, charInfo.CharName, difficulty, ignoreObtained, ref s_xmlDoc);
 				}
 
-				foreach(Item item in itemsNeeded)
+				foreach (Item item in itemsNeeded)
 				{
 					item.Character = charInfo.CharName;
 				}
 
-				charInfo.CurrentItems = currentItems;
 				charInfo.ItemsNeeded = itemsNeeded;
 				charInfo.ItemsNeededCount = itemsNeeded.Count();
-
-				charInfos.Add(charInfo);
-				if (charInfo.IsActive)
-				{
-					m_bisComparerVM.UpdateProgressBar(charName, characters.Count);
-				}
 			}
-
-			m_bisComparerVM.ResetProgressBar();
-
-			s_xmlDoc.Save(bisFilePath);
-			return charInfos;
 		}
 
 		public ObservableCollection<Item> GetBiSList(XmlNode character, string difficulty, ref XmlDocument xmlDoc)
@@ -122,6 +126,18 @@ namespace BiSComparer
 			}
 
 			return items;
+		}
+
+		public void UpdateBiSList(string difficulty)
+		{
+			foreach (CharInfo charInfo in CharInfos)
+			{
+				foreach (Item item in charInfo.BisItems)
+				{
+					item.Difficulty = difficulty;
+					item.Ilevel = Constants.GetMinimumIlevel(difficulty, item.Source, item.IsTier);
+				}
+			}
 		}
 
 		public ObservableCollection<BossInfo> GetBossInfos(ObservableCollection<CharInfo> charInfos)
@@ -224,18 +240,15 @@ namespace BiSComparer
 				WoWCharacterItem artifact = null;
 				WoWCharacterItem mainhand = character.items.mainHand;
 				WoWCharacterItem offhand = character.items.offHand;
-				if (mainhand != null)
+				if (mainhand.relics.Count > 0)
 				{
-					if (mainhand.relics != null)
+					artifact = mainhand;
+				}
+				else
+				{
+					if (offhand != null)
 					{
-						artifact = mainhand;
-					}
-					else
-					{
-						if (offhand != null)
-						{
-							artifact = offhand;
-						}
+						artifact = offhand;
 					}
 				}
 
@@ -248,17 +261,11 @@ namespace BiSComparer
 							WoWArtifactRelic artifactRelic = artifact.relics[i];
 							WoWItem relic = m_wow.GetItem((int)artifact.relics[i].itemId);
 
-							foreach (var bonusId in artifactRelic.bonusLists)
-							{
-								int ilevel = bonusId - 1472;
-
-								if ((ilevel >= 0) && (ilevel <= 200))
-								{
-									string relicSlot = "relic";
-									currentItems.Add(new Item($"{relicSlot}{i + 1}", relic.name, (int)relic.itemLevel + ilevel, raidDifficulty, false, false, Constants));
-									break;
-								}
-							}
+							int difficultyBonus = artifactRelic.bonusLists[0];
+							int ilevelBonus = artifactRelic.bonusLists[1];
+							
+							int relicIlevel = (int)relic.itemLevel + Constants.GetRelicAddedIlevel(relic, difficultyBonus, ilevelBonus);
+							currentItems.Add(new Item($"relic{i + 1}", relic.name, relicIlevel, raidDifficulty, false, false, Constants));
 						}
 					}
 					catch{}
@@ -266,7 +273,7 @@ namespace BiSComparer
 			}
 			return currentItems;
 		}
-		private List<Item> CompareListsBySlot(ref ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, ref XmlDocument xmlDoc)
+		private List<Item> CompareListsBySlot(ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, bool ignoreObtained, ref XmlDocument xmlDoc)
 		{
 			List<Item> itemsNeeded = new List<Item>();
 			foreach (string slot in Constants.EquipmentSlots)
@@ -288,7 +295,7 @@ namespace BiSComparer
 						// Or the bis item is either a trinket or a tier piece. Therefore, compare the items and
 						// calculate whether the BiS piece is still needed.
 					{
-						if (!bisItem.Obtained)
+						if (ignoreObtained || !bisItem.Obtained)
 						{
 							if (bisItem.Name.ToUpper().Trim() != currentItem.Name.ToUpper().Trim())
 							{
@@ -342,7 +349,7 @@ namespace BiSComparer
 								}
 
 								// Item in Relic 3 slot on BiS List could be equipped in either Relic 1 or 2 slot in game. Check.
-								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic2Slot.ToUpper().Trim())
+								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic3Slot.ToUpper().Trim())
 								{
 									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
 

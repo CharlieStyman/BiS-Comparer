@@ -9,12 +9,13 @@ namespace BiSComparer
 {
 	public class CharInfo
 	{
-		public CharInfo(string name, string realm, string difficulty, string group, string isActive, ObservableCollection<Item> bisItems, string[] difficulties)
+		public CharInfo(string name, string realm, string difficulty, string group, string isActive, ObservableCollection<Item> bisItems, ObservableCollection<Item> currentItems, string[] difficulties)
 		{
 			CharName = name;
 			Realm = realm;
 			Difficulty = difficulty;
 			BisItems = bisItems;
+			CurrentItems = currentItems;
 			IsActive = Convert.ToBoolean(isActive);
 
 			if (!string.IsNullOrEmpty(group))

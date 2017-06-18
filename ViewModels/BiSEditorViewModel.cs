@@ -191,7 +191,7 @@ namespace BiSComparer.ViewModels
 			new Thread(delegate ()
 			{
 				SaveBiSListXml(MainWindowViewModel.BisFilePath, CharInfos, saving: true);
-				MainWindowViewModel.Error = MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath, difficulty:null);
+				MainWindowViewModel.Error = MainWindowViewModel.PopulateCharInfosAndBossInfos(MainWindowViewModel.BisFilePath);
 			}).Start();
 		}
 
@@ -297,7 +297,7 @@ namespace BiSComparer.ViewModels
 				items.Add(item);
 			}
 
-			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic, string.Empty, "True", items, Constants.RaidDifficulties);
+			CharInfo newChar = new CharInfo("Character" + (CharInfos.Count + 1).ToString(), "Realm", Constants.s_heroic, string.Empty, "True", items, new ObservableCollection<Item>(), Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 		}
@@ -426,7 +426,7 @@ namespace BiSComparer.ViewModels
 
 			ObservableCollection<Item> bisList = MainWindowViewModel.BiSComparerModel.GetBiSList(character, difficulty, ref xmlDoc);
 
-			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList, Constants.RaidDifficulties);
+			CharInfo newChar = new CharInfo(charName, realm, difficulty, group, isActive, bisList, new ObservableCollection<Item>(), Constants.RaidDifficulties);
 			AddCharacterToCharInfos(newChar);
 			SelectedCharacter = newChar;
 			ImportString = null;

@@ -103,7 +103,7 @@ namespace BiSComparer
 					}
 				}
 
-				if (source == s_sisters || source == s_mistress || source == s_host || source == s_maiden || source == s_avatar)
+				if (source == s_sisters || source == s_mistress || source == s_host || source == s_maiden || source == s_avatar || source == s_trash || source == s_mythicDungeon)
 				{
 					switch (raidDifficulty)
 					{

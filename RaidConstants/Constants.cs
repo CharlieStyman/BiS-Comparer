@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleDotNetAPI.Models.WoW;
 
 namespace BiSComparer
 {
@@ -85,6 +86,91 @@ namespace BiSComparer
 		public virtual bool IsWarforged(List<int> BonusIDs)
 		{
 			return false;
+		}
+
+		public virtual int GetRelicAddedIlevel(WoWItem relic, int difficultyBonus, int ilevelBonus)
+		{
+			int ilevel = ilevelBonus - 1472;
+
+			// Emerald Nightmare relic bonus Ids:
+
+			// LFR    3379
+			// Normal 1807
+			// Heroic 1805
+			// Mythic 1806
+			List<int> emeraldNightmareRaidBonusIds = new List<int>() { 3379, 1807, 1805, 1806 };
+
+			// Nighthold relic bonus Ids:
+
+			// First 3 bosses
+
+			// LFR    3446
+			// Normal 3443
+			// Heroic 3444
+			// Mythic 3445
+			List<int> nightholdRaidBonusIds1 = new List<int>() { 3443, 3444, 3445, 3446 };
+
+			// Middle 6 bosses
+
+			// LFR    3520
+			// Normal 3514
+			// Heroic 3516
+			// Mythic 3518
+			List<int> nightholdRaidBonusIds2 = new List<int>() { 3520, 3514, 3516, 3518 };
+
+			// Guldan
+
+			// LFR    3521
+			// Normal 3515
+			// Heroic 3517
+			// Mythic 3519
+			List<int> nightholdRaidBonusIds3 = new List<int>() { 3521, 3515, 3517, 3519 };
+
+
+			// TODO - Update these bonus Ids once Wowhead is updated for 7.2.5
+			// Tomb of Sargeras bonus Ids:
+
+			// First 3 bosses
+
+			// LFR    3446
+			// Normal 3443
+			// Heroic 3444
+			// Mythic 3445
+			List<int> tombBonusIds1 = new List<int>() { 3443, 3444, 3445, 3446 };
+
+			// Middle 6 bosses
+
+			// LFR    3520
+			// Normal 3514
+			// Heroic 3516
+			// Mythic 3518
+			List<int> tombRaidBonusIds2 = new List<int>() { 3520, 3514, 3516, 3518 };
+
+			// Guldan
+
+			// LFR    3521
+			// Normal 3515
+			// Heroic 3517
+			// Mythic 3519
+			List<int> tombRaidBonusIds3 = new List<int>() { 3521, 3515, 3517, 3519 };
+
+			// These are raid relics, the second bonus id is the ilevel relative to normal,
+			// but we only have the LFR ilevel, so add 15 to the base ilevel plus an amount
+			// relative to the base ilevel at that point in the raid.
+			if (nightholdRaidBonusIds1.Contains(difficultyBonus))
+			{
+				ilevel += 15 + 5;
+			}
+			else if (nightholdRaidBonusIds2.Contains(difficultyBonus) || emeraldNightmareRaidBonusIds.Contains(difficultyBonus))
+			{
+				ilevel += 15 + 0;
+			}
+			else if (nightholdRaidBonusIds3.Contains(difficultyBonus))
+			{
+				ilevel += 15 - 5;
+			}
+
+			return ilevel;
 		}
 
 		#endregion

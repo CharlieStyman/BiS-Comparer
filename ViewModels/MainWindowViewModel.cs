@@ -16,6 +16,8 @@ namespace BiSComparer.ViewModels
 		{
 			BiSComparerModel = new BiSComparerModel(this, settingsViewModel);
 			LoadBiSListsCommand = new SimpleCommand { ExecuteDelegate = X => LoadBiSLists() };
+
+			Difficulties = settingsViewModel.Constants.RaidDifficulties;
 		}
 
 		public BiSComparerModel BiSComparerModel { get; private set; }
@@ -118,6 +120,30 @@ namespace BiSComparer.ViewModels
 			}
 		}
 
+		public string[] Difficulties { get; private set; }
+
+		public string Difficulty
+		{
+			get { return m_difficulty; }
+			set
+			{
+				if (m_difficulty != value)
+				{
+					m_difficulty = value;
+					OnDifficultyChanged();
+					OnPropertyChanged(new PropertyChangedEventArgs("Difficulty"));
+				}
+			}
+		}
+
+		private void OnDifficultyChanged()
+		{
+			// Difficulty has changed, re-compare items.
+			UpdateCharInfosAndBossInfos(Difficulty, ignoreObtained:true);
+			OnPropertyChanged(new PropertyChangedEventArgs("BossInfos"));
+			OnPropertyChanged(new PropertyChangedEventArgs("CharInfos"));
+		}
+
 		public string BisFilePath { get; set; }
 
 		public SimpleCommand LoadBiSListsCommand { get; set; }
@@ -134,25 +160,36 @@ namespace BiSComparer.ViewModels
 
 				new Thread(delegate ()
 					{
-						Error = PopulateCharInfosAndBossInfos(BisFilePath, difficulty:null);
+						Error = PopulateCharInfosAndBossInfos(BisFilePath);
 					}).Start();
 			}
 		}
 
-		public string PopulateCharInfosAndBossInfos(string BisFilePath, string difficulty)
+		public string PopulateCharInfosAndBossInfos(string BisFilePath)
 		{
 			string error = string.Empty;
+			string difficulty = string.Empty;
 			if (!string.IsNullOrEmpty(BisFilePath))
 			{
 				// Rearrange char infos to be ordered by number of items still needed.
-				IEnumerable<CharInfo> charInfos = BiSComparerModel.GetCharInfos(BisFilePath, difficulty, out error).OrderByDescending(o => o.ItemsNeededCount);
-				CharInfos = new ObservableCollection<CharInfo>(charInfos);
-
-				IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos);
-				BossInfos = new ObservableCollection<BossInfo>(bossInfos);
+				BiSComparerModel.LoadCharInfosFromFile(BisFilePath, out difficulty, out error);
+				UpdateCharInfosAndBossInfos(difficulty, ignoreObtained:false);
 			}
 
+			m_difficulty = difficulty;
+			OnPropertyChanged(new PropertyChangedEventArgs("Difficulty"));
+
 			return error;
+		}
+
+		private void UpdateCharInfosAndBossInfos(string difficulty, bool ignoreObtained)
+		{
+			BiSComparerModel.UpdateBiSList(difficulty);
+			BiSComparerModel.UpdateItemsNeeded(difficulty, ignoreObtained);
+			CharInfos = new ObservableCollection<CharInfo>(BiSComparerModel.CharInfos.OrderByDescending(o => o.ItemsNeededCount));
+
+			IEnumerable<BossInfo> bossInfos = BiSComparerModel.GetBossInfos(CharInfos);
+			BossInfos = new ObservableCollection<BossInfo>(bossInfos);
 		}
 
 		public void UpdateProgressBar(string charName, double numberOfCharacters)
@@ -192,6 +229,7 @@ namespace BiSComparer.ViewModels
 		private string m_progressText;
 		private double m_progressValue;
 		private string m_error;
+		private string m_difficulty;
 		private Visibility m_progressVisibility = Visibility.Hidden;
 		private Visibility m_inverseProgressVisibility = Visibility.Visible;
 	}

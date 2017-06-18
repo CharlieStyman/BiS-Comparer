@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:BiSComparer"
 		xmlns:views="clr-namespace:BiSComparer.Views"
 		mc:Ignorable="d"
-		Title="Best In Slot Comparer" Height="775" Width="700">
+		Title="Best In Slot Comparer" Height="775" Width="750">
 
 	<Grid>
 		<Grid.RowDefinitions>

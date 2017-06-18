@@ -167,8 +167,8 @@
 								 Margin="5"/>
 						<ComboBox Grid.Column="2"
 								  ItemsSource="{Binding Sources}"
-								  SelectedItem="{Binding Source}"
-								  IsEditable="True"
+								  Text="{Binding Source}"
+								  IsEditable="True" 
 								  Margin="5"/>
 						<CheckBox Grid.Column="3"
 								  Margin="5"

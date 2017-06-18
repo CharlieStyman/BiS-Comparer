@@ -38,7 +38,7 @@ namespace BiSComparer
 					{
 						new Thread(delegate ()
 						{
-							MainWindowViewModel.PopulateCharInfosAndBossInfos(lastFile, difficulty:null);
+							MainWindowViewModel.PopulateCharInfosAndBossInfos(lastFile);
 							MainWindowViewModel.BisFilePath = lastFile;
 
 							CharacterSummaryViewModel.SelectedCharacter = MainWindowViewModel.CharInfos.FirstOrDefault();
