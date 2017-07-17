@@ -126,33 +126,13 @@ namespace BiSComparer
 			// Mythic 3519
 			List<int> nightholdRaidBonusIds3 = new List<int>() { 3521, 3515, 3517, 3519 };
 
-
-			// TODO - Update these bonus Ids once Wowhead is updated for 7.2.5
 			// Tomb of Sargeras bonus Ids:
 
-			// First 3 bosses
-
-			// LFR    3446
-			// Normal 3443
-			// Heroic 3444
-			// Mythic 3445
-			List<int> tombBonusIds1 = new List<int>() { 3443, 3444, 3445, 3446 };
-
-			// Middle 6 bosses
-
-			// LFR    3520
-			// Normal 3514
-			// Heroic 3516
-			// Mythic 3518
-			List<int> tombRaidBonusIds2 = new List<int>() { 3520, 3514, 3516, 3518 };
-
-			// Guldan
-
-			// LFR    3521
-			// Normal 3515
-			// Heroic 3517
-			// Mythic 3519
-			List<int> tombRaidBonusIds3 = new List<int>() { 3521, 3515, 3517, 3519 };
+			// LFR    3564
+			// Normal 3561
+			// Heroic 3562
+			// Mythic 3563
+			List<int> tombRaidBonusIds = new List<int>() { 3564, 3561, 3562, 3563 };
 
 			// These are raid relics, the second bonus id is the ilevel relative to normal,
 			// but we only have the LFR ilevel, so add 15 to the base ilevel plus an amount
@@ -168,6 +148,12 @@ namespace BiSComparer
 			else if (nightholdRaidBonusIds3.Contains(difficultyBonus))
 			{
 				ilevel += 15 - 5;
+			}
+			else if (tombRaidBonusIds.Contains(difficultyBonus))
+			{
+				// Tomb relics have a base ilevel of 855, but the ilevel bonus is relative to ilevel 890.
+				// Add 35 ilevels to bump the base up to 890.
+				ilevel += 35;
 			}
 
 			return ilevel;

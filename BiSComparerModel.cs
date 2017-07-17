@@ -275,6 +275,7 @@ namespace BiSComparer
 		}
 		private List<Item> CompareListsBySlot(ObservableCollection<Item> bisList, ObservableCollection<Item> currentItems, string charName, string raidDifficulty, bool ignoreObtained, ref XmlDocument xmlDoc)
 		{
+			List<string> relicSlotsToSearch = new List<String>() { EmeraldNightmareConstants.s_relic1Slot, EmeraldNightmareConstants.s_relic2Slot, EmeraldNightmareConstants.s_relic3Slot };
 			List<Item> itemsNeeded = new List<Item>();
 			foreach (string slot in Constants.EquipmentSlots)
 			{
@@ -291,13 +292,13 @@ namespace BiSComparer
 						|| (bisItem.Slot == Constants.s_trinket2Slot)
 						|| (Constants.IsItemTierPiece(bisItem.Source, bisItem.Slot)))
 
-						// The current item is less than 15 ilevels higher than the BiS piece,
-						// Or the bis item is either a trinket or a tier piece. Therefore, compare the items and
-						// calculate whether the BiS piece is still needed.
+					// The current item is less than 15 ilevels higher than the BiS piece,
+					// Or the bis item is either a trinket or a tier piece. Therefore, compare the items and
+					// calculate whether the BiS piece is still needed.
 					{
 						if (ignoreObtained || !bisItem.Obtained)
 						{
-							if (bisItem.Name.ToUpper().Trim() != currentItem.Name.ToUpper().Trim())
+							if ((bisItem.Name.ToUpper().Trim() != currentItem.Name.ToUpper().Trim()) || bisItem.Slot.Contains("relic"))
 							{
 								// Bis and current items for this slot don't match. So character doesn't have BiS.
 								itemNeeded = true;
@@ -326,37 +327,9 @@ namespace BiSComparer
 									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, Constants.s_trinket1Slot);
 								}
 
-								// Item in Relic 1 slot on BiS List could be equipped in either Relic 2 or 3 slot in game. Check.
-								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic1Slot.ToUpper().Trim())
+								if (slot.Contains("relic"))
 								{
-									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic2Slot);
-
-									if (itemNeeded)
-									{
-										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
-									}
-								}
-
-								// Item in Relic 2 slot on BiS List could be equipped in either Relic 1 or 3 slot in game. Check.
-								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic2Slot.ToUpper().Trim())
-								{
-									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
-
-									if (itemNeeded)
-									{
-										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic3Slot);
-									}
-								}
-
-								// Item in Relic 3 slot on BiS List could be equipped in either Relic 1 or 2 slot in game. Check.
-								if (slot.ToUpper().Trim() == EmeraldNightmareConstants.s_relic3Slot.ToUpper().Trim())
-								{
-									itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic1Slot);
-
-									if (itemNeeded)
-									{
-										itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, EmeraldNightmareConstants.s_relic2Slot);
-									}
+									itemNeeded = CompareRelicSlots(bisItem, currentItems, ref relicSlotsToSearch);
 								}
 							}
 							else
@@ -374,13 +347,36 @@ namespace BiSComparer
 					else
 					{
 						SetObtained(bisItem.Name, charName, true, ref xmlDoc);
-						
+
 						// Set the item's obtained property to true.
 						bisList.Where(item => item.Name == bisItem.Name).First().Obtained = true;
 					}
 				}
 			}
 			return itemsNeeded.OrderBy(i => i.Source).ToList();
+		}
+
+		private bool CompareRelicSlots(Item bisItem, ObservableCollection<Item> currentItems, ref List<string> relicSlotsToSearch)
+		{
+			bool itemNeeded = true;
+
+			foreach (string relicSlot in relicSlotsToSearch)
+			{
+				if (itemNeeded)
+				{
+					if (relicSlotsToSearch.Contains(relicSlot))
+					{
+						itemNeeded = CompareBisAgainstItemInDifferentSlot(bisItem, currentItems, relicSlot);
+						if (!itemNeeded)
+						{
+							relicSlotsToSearch.Remove(relicSlot);
+							break;
+						}
+					}
+				}
+			}
+
+			return itemNeeded;
 		}
 
 		private bool CompareBisAgainstItemInDifferentSlot(Item bisItem, ObservableCollection<Item> currentItems, string compareSlot)

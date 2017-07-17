@@ -64,87 +64,45 @@ namespace BiSComparer
 		{
 			int iLevel = 0;
 
-			if (isTier)
+			switch (raidDifficulty)
+			{
+				case "Mythic":
+					iLevel = 930;
+					break;
+				case "Heroic":
+					iLevel = 915;
+					break;
+				case "Normal":
+					iLevel = 900;
+					break;
+				default:
+					iLevel = 885;
+					break;
+			}
+	
+
+			if (source == s_kiljaeden)
 			{
 				switch (raidDifficulty)
 				{
 					case "Mythic":
-						iLevel = 935;
+						iLevel = 940;
 						break;
 					case "Heroic":
-						iLevel = 920;
+						iLevel = 925;
 						break;
 					case "Normal":
-						iLevel = 905;
+						iLevel = 910;
 						break;
 					default:
-						iLevel = 890;
+						iLevel = 895;
 						break;
 				}
 			}
-			else
+
+			if (source == s_legendary)
 			{
-				if (source == s_goroth || source == s_inquisition || source == s_harjatan)
-				{
-					switch (raidDifficulty)
-					{
-						case "Mythic":
-							iLevel = 930;
-							break;
-						case "Heroic":
-							iLevel = 915;
-							break;
-						case "Normal":
-							iLevel = 900;
-							break;
-						default:
-							iLevel = 885;
-							break;
-					}
-				}
-
-				if (source == s_sisters || source == s_mistress || source == s_host || source == s_maiden || source == s_avatar || source == s_trash || source == s_mythicDungeon)
-				{
-					switch (raidDifficulty)
-					{
-						case "Mythic":
-							iLevel = 935;
-							break;
-						case "Heroic":
-							iLevel = 920;
-							break;
-						case "Normal":
-							iLevel = 905;
-							break;
-						default:
-							iLevel = 890;
-							break;
-					}
-				}
-
-				if (source == s_kiljaeden)
-				{
-					switch (raidDifficulty)
-					{
-						case "Mythic":
-							iLevel = 940;
-							break;
-						case "Heroic":
-							iLevel = 925;
-							break;
-						case "Normal":
-							iLevel = 910;
-							break;
-						default:
-							iLevel = 895;
-							break;
-					}
-				}
-
-				if (source == s_legendary)
-				{
-					iLevel = 970;
-				}
+				iLevel = 970;
 			}
 
 			return iLevel;
